@@ -24,13 +24,11 @@
                         <td>{{ $distrito->distrito }}</td>
                         <td>{{ $distrito->nombre }}</td>
                         <td>{{ $distrito->region->nombre }}</td>
-                        <td>
-                            <div class="row">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$distrito->distrito}}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                <a href="{{ route('distrito.edit', $distrito->distrito) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            </div>
+                        <td style="display: block;  margin: auto;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$distrito->distrito}}">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('distrito.edit', $distrito->distrito) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

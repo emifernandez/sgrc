@@ -24,13 +24,11 @@
                         <td>{{ $tipo->tipo }}</td>
                         <td>{{ $tipo->nombre }}</td>
                         <td>{{ $tipo->nivel->nombre }}</td>
-                        <td>
-                            <div class="row">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$tipo->tipo}}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                <a href="{{ route('tipo.edit', $tipo->tipo) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            </div>
+                        <td style="display: block;  margin: auto;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$tipo->tipo}}">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('tipo.edit', $tipo->tipo) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

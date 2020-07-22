@@ -1,10 +1,9 @@
 
-var latitud = document.getElementById("latitud");
-var longitud = document.getElementById("longitud");
-
+var latitud = parseFloat(document.getElementById("latitud").value);
+var longitud =  parseFloat(document.getElementById("longitud").value);
 var map;
 var marker;
-var ubicacion = {lat: -25.289613859761218, lng: -57.61422266394146};
+var ubicacion = {lat: latitud, lng: longitud};
 function initMap(position, status) {
   // getLocation();
   if(status) {
@@ -28,6 +27,8 @@ function placeMarkerAndPanTo(latLng, map) {
   });
   this.latitud.value = latLng.toJSON().lat;
   this.longitud.value = latLng.toJSON().lng;
+  document.getElementById("latitud").value = latLng.toJSON().lat;
+  document.getElementById("longitud").value = latLng.toJSON().lng;
   map.panTo(latLng);
 }
 
@@ -58,7 +59,7 @@ var tryAPIGeolocation = function() {
 var browserGeolocationSuccess = function(position) {
   //  alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
   updateLocation(position);
-    
+
 };
 
 var browserGeolocationFail = function(error) {

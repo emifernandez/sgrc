@@ -6,6 +6,7 @@ use App\Barrio;
 use App\Establecimiento;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Establecimiento\StoreEstablecimientoRequest;
+use App\Http\Requests\Establecimiento\UpdateEstablecimientoRequest;
 use App\Red;
 use App\Tipo;
 use Illuminate\Http\Request;
@@ -92,7 +93,19 @@ class EstablecimientoController extends Controller
      */
     public function edit(Establecimiento $establecimiento)
     {
-        //
+        $tipos = Tipo::orderBy('nombre', 'ASC')->get();
+        $redes = Red::orderBy('nombre', 'ASC')->get();
+        $barrios = Barrio::orderBy('nombre', 'ASC')->get();
+        $establecimientos = Establecimiento::orderBy('nombre', 'ASC')->get();
+        $establecimiento_estados = new Establecimiento();
+        $estados = $establecimiento_estados->getEstados();
+        return view('establecimiento.edit')
+            ->with('establecimiento', $establecimiento)
+            ->with('tipos', $tipos)
+            ->with('redes', $redes)
+            ->with('barrios', $barrios)
+            ->with('establecimientos', $establecimientos)
+            ->with('estados', $estados);
     }
 
     /**
@@ -102,9 +115,14 @@ class EstablecimientoController extends Controller
      * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Establecimiento $establecimiento)
+    public function update(UpdateEstablecimientoRequest $request, Establecimiento $establecimiento)
     {
-        //
+        $establecimiento->fill($request->all());
+        if ($establecimiento->establecimiento_encargado == 'null') {
+            $establecimiento->establecimiento_encargado = null;
+        }
+    	$establecimiento->save();
+    	return redirect('/establecimiento')->with('success', 'Establecimiento actualizado correctamente');
     }
 
     /**
@@ -113,8 +131,10 @@ class EstablecimientoController extends Controller
      * @param  \App\Establecimiento  $establecimiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Establecimiento $establecimiento)
+    public function destroy(Request $request)
     {
-        //
+        $establecimiento = Establecimiento::findOrFail($request->id);
+        $establecimiento->delete();
+        return redirect()->route('establecimiento.index')->with('success', 'Establecimiento eliminado correctamente');
     }
 }

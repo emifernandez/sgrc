@@ -22,13 +22,11 @@
                     <tr>
                         <td>{{ $region->region }}</td>
                         <td>{{ $region->nombre }}</td>
-                        <td>
-                            <div class="row">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$region->region}}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                <a href="{{ route('region.edit', $region->region) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            </div>
+                        <td style="display: block;  margin: auto;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$region->region}}">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('region.edit', $region->region) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

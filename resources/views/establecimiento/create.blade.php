@@ -47,7 +47,7 @@
                                             <div class="form-group">
                                                 <label>Estado</label>
                                                 <select class="form-control" name="estado" id="estado" disabled>
-                                                        <option value="{{ $estados['Activo']}}"> Activo</option>
+                                                        <option value="{{ $estados['Activo']}}" selected> Activo</option>
                                                         <option value="{{ $estados['Inactivo']}}"> Inactivo</option>
                                                 </select>
                                                 @foreach ($errors->get('estado') as $error)
@@ -70,7 +70,7 @@
                                     <div class="form-group">
                                         <label>Establecimiento Encargado</label>
                                         <select class="form-control" name="establecimiento_encargado" id="establecimiento_encargado">
-                                            <option value="null">Seleccione un Encargado</option>
+                                            <option value="null">Sin Encargado</option>
                                             @foreach($establecimientos as $key => $establecimiento)
                                                 <option value="{{ $establecimiento->establecimiento }}">{{ $establecimiento->nombre }}</option>
                                             @endforeach
@@ -162,10 +162,10 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input readonly type="hidden" id="latitud" name="latitud" class="form-control" placeholder="Latitud">
+                                                <input readonly type="text" id="latitud" name="latitud" class="form-control" placeholder="Latitud">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input readonly type="hidden" id="longitud" name="longitud" class="form-control" placeholder="Longitud">
+                                                <input readonly type="text" id="longitud" name="longitud" class="form-control" placeholder="Longitud">
                                             </div>
                                             </div>
                                         <div id="map" style="width:100%;height:400px; margin-top: 2%">

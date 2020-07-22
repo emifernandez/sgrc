@@ -31,7 +31,6 @@ class StoreEstablecimientoRequest extends FormRequest
             'ubicacion' => 'required|max:60',
             'barrio' => 'required',
             'telefono1' => 'required|max:20',
-            //'estado' => 'required',
             'orden' => 'required',
         ];
     }
@@ -55,7 +54,6 @@ class StoreEstablecimientoRequest extends FormRequest
             'barrio.required' => 'Debe introducir un barrio para el establecimiento',
             'telefono1.required' => 'Debe introducir un telefono para el establecimiento',
             'telefono1.max' => 'El telefono del establecimiento no puede exceder 20 caracteres',
-            //'estado.required' => 'Debe introducir un estado para el establecimiento',
             'orden.required' => 'Debe introducir un orden para el establecimiento',
         ];
     }

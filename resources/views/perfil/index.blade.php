@@ -22,13 +22,11 @@
                     <tr>
                         <td>{{ $perfil->perfil }}</td>
                         <td>{{ $perfil->nombre }}</td>
-                        <td>
-                            <div class="row">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$perfil->perfil}}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                <a href="{{ route('perfil.edit', $perfil->perfil) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            </div>
+                        <td style="display: block;  margin: auto;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$perfil->perfil}}">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('perfil.edit', $perfil->perfil) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach

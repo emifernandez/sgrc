@@ -37,13 +37,11 @@
                         <td>{{ $establecimiento->telefono1 - $establecimiento->telefono2 }}</td>
                         <td>{{ $establecimiento->estado }}</td>
 
-                        <td>
-                            <div class="row">
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$establecimiento->establecimiento}}">
-                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
-                                </button>
-                                <a href="{{ route('establecimiento.edit', $establecimiento->establecimiento) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            </div>
+                        <td style="display: block;  margin: auto;">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$establecimiento->establecimiento}}">
+                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                            </button>
+                            <a href="{{ route('establecimiento.edit', $establecimiento->establecimiento) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
