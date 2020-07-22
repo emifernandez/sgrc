@@ -6,6 +6,7 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         <a  href="{{route('establecimiento.create')}}" class="btn btn-primary">Nuevo Establecimiento</a>
+        <a  href="{{route('establecimiento.report')}}" class="btn btn-success">Imprimir</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">

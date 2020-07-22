@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('perfil', 'Perfil\PerfilController');
 
 Route::resource('region', 'Region\RegionController');
+Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 
 Route::resource('distrito', 'Distrito\DistritoController');
 
@@ -36,3 +37,4 @@ Route::resource('tipo', 'Tipo\TipoController');
 Route::resource('red', 'Red\RedController');
 
 Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
+Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');

@@ -137,4 +137,9 @@ class EstablecimientoController extends Controller
         $establecimiento->delete();
         return redirect()->route('establecimiento.index')->with('success', 'Establecimiento eliminado correctamente');
     }
+
+    public function report() {
+        $pdf = \PDF::loadView('establecimiento.reportes.establecimiento');
+        return $pdf->stream('Establecimientos.pdf');
+    }
 }

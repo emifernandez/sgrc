@@ -8,6 +8,7 @@ use App\Http\Requests\Region\UpdateRegionRequest;
 use App\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use PDF;
 
 class RegionController extends Controller
 {
@@ -95,5 +96,12 @@ class RegionController extends Controller
         $region = Region::findOrFail($request->id);
         $region->delete();
         return redirect()->route('region.index')->with('success', 'Region Sanitaria eliminada correctamente');
+    }
+
+    public function report() {
+        $regiones = Region::all();
+        $pdf = PDF::loadView('region.reports.regiones', compact('regiones', $regiones));
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        return $pdf->stream('Regiones Sanitarias.pdf');
     }
 }
