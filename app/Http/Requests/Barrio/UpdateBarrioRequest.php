@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Barrio;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateBarrioRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class UpdateBarrioRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>['required',
+                        'max:60',
+                        Rule::unique('barrios', 'nombre')
+                            ->ignore($this->barrio, 'barrio')
+                            ->where(function ($query) {
+                                return $query->where('distrito', $this->distrito);
+                            })
+                    ],
         ];
     }
 
@@ -38,6 +46,7 @@ class UpdateBarrioRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el barrio',
             'nombre.max' => 'El nombre del barrio no puede exceder 60 caracteres',
+            'nombre.unique' => 'El barrio ingresado ya existe',
         ];
     }
 }

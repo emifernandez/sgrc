@@ -24,7 +24,7 @@ class StorePerfilRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:perfiles,nombre',
         ];
     }
 
@@ -38,6 +38,7 @@ class StorePerfilRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el perfil',
             'nombre.max' => 'El nombre de perfil no puede exceder 60 caracteres',
+            'nombre.unique' => 'El perfil ingresado ya existe',
         ];
     }
 }

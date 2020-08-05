@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\NivelAtencion;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NivelAtencion\StoreNivelAtencionRequest;
+use App\Http\Requests\NivelAtencion\UpdateNivelAtencionRequest;
 use App\NivelAtencion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -37,7 +39,7 @@ class NivelAtencionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreNivelAtencionRequest $request)
     {
         $nivel = new NivelAtencion([
             'nombre' => $request->get('nombre')
@@ -75,7 +77,7 @@ class NivelAtencionController extends Controller
      * @param  \App\NivelAtencion  $nivelAtencion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NivelAtencion $nivel)
+    public function update(UpdateNivelAtencionRequest $request, NivelAtencion $nivel)
     {
         $nivel->fill($request->all());
     	$nivel->save();

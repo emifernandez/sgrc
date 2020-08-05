@@ -3,13 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
 
-class Perfil extends Model
+class EspecialidadMedica extends Model
 {
-    protected $table = 'perfiles';
+    protected $table = 'especialidades_medicas';
 
-    protected $primaryKey = 'perfil';
+    protected $primaryKey = 'especialidad';
 
     protected $fillable = [
         'nombre'

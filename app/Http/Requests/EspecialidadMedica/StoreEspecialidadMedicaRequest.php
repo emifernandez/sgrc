@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Perfil;
+namespace App\Http\Requests\EspecialidadMedica;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePerfilRequest extends FormRequest
+class StoreEspecialidadMedicaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdatePerfilRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60|unique:perfiles,nombre,' . $this->perfil->perfil . ',perfil',
+            'nombre'=>'required|max:60|unique:especialidades_medicas,nombre',
         ];
     }
 
@@ -36,9 +36,9 @@ class UpdatePerfilRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombre.required' => 'Debe introducir un nombre para el perfil',
-            'nombre.max' => 'El nombre de perfil no puede exceder 60 caracteres',
-            'nombre.unique' => 'El perfil ingresado ya existe',
+            'nombre.required' => 'Debe introducir un nombre para la especialidad',
+            'nombre.max' => 'El nombre de la especialidad no puede exceder 60 caracteres',
+            'nombre.unique' => 'La especialidad ingresada ya existe',
         ];
     }
 }

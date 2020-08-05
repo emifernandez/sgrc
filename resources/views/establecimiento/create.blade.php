@@ -24,6 +24,7 @@
                                                     type="text"
                                                     name="codigo"
                                                     id="codigo"
+                                                    value="{{ old('codigo') }}"
                                                     placeholder="Introduzca codigo del establecimiento">
                                                     @foreach ($errors->get('codigo') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -35,7 +36,9 @@
                                                 <label>Orden</label>
                                                 <select class="form-control" name="orden" id="orden">
                                                     @for ($i = 1; $i <= 10; $i++)
-                                                    <option value="{{ $i }}">{{ $i}}</option>
+                                                    <option value="{{ $i }}"
+                                                    @if($i==old('orden')) selected @endif
+                                                    >{{ $i}}</option>
                                                     @endfor
                                                 </select>
                                                 @foreach ($errors->get('orden') as $error)
@@ -149,12 +152,12 @@
                                         @endforeach
                                     </div>
                                     <div class="form-group">
-                                        <label for="ubicacion">Ubicacion</label>
+                                        <label for="ubicacion">Direccion</label>
                                         <input class="form-control"
                                             type="text"
                                             name="ubicacion"
                                             id="ubicacion"
-                                            placeholder="Introduzca ubicacion del establecimiento">
+                                            placeholder="Introduzca direccion del establecimiento">
                                             @foreach ($errors->get('ubicacion') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
                                             @endforeach
@@ -162,10 +165,10 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input readonly type="text" id="latitud" name="latitud" class="form-control" placeholder="Latitud">
+                                                <input readonly type="hidden" id="latitud" name="latitud" class="form-control" placeholder="Latitud">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input readonly type="text" id="longitud" name="longitud" class="form-control" placeholder="Longitud">
+                                                <input readonly type="hidden" id="longitud" name="longitud" class="form-control" placeholder="Longitud">
                                             </div>
                                             </div>
                                         <div id="map" style="width:100%;height:400px; margin-top: 2%">

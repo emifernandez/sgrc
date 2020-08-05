@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Barrios')
+@section('menu-header')
+    <li class="breadcrumb-item"><a href="{{ route('barrio.index') }}">Barrios</a></li>
+    <li class="breadcrumb-item active">Crear Barrio</a></li>
+@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -22,6 +26,7 @@
                                             type="text"
                                             name="nombre"
                                             id="nombre"
+                                            value="{{ old('nombre') }}"
                                             placeholder="Introduzca nombre del barrio">
                                             @foreach ($errors->get('nombre') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -31,13 +36,16 @@
                                         <label>Distrito</label>
                                         <select class="form-control" name="distrito" id="distrito">
                                             @foreach($distritos as $key => $distrito)
-                                                <option value="{{ $distrito->distrito }}">{{ $distrito->nombre }}</option>
+                                                <option value="{{ $distrito->distrito }}"
+                                                    {{ old('distrito') == $distrito->distrito ? 'selected' : '' }}
+                                                    >{{ $distrito->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <a href="{{ route('barrio.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

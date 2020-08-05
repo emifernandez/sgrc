@@ -38,3 +38,5 @@ Route::resource('red', 'Red\RedController');
 
 Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
 Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
+
+Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');

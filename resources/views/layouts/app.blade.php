@@ -34,7 +34,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('home') }}" class="brand-link">
-            <img src="{!! asset('img/logo.png') !!}" alt="AdminLTE Logo" class="brand-image"
+            <img src="{!! asset('img/logo32x32.png') !!}" alt="AdminLTE Logo" class="brand-image"
             style="opacity: .8">
         {{--  <img src="./img/logo.png" alt="AdminLTE Logo" class="brand-image"
             style="opacity: .8">  --}}
@@ -139,6 +139,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <p>Establecimientos</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('especialidad.index') }}" class="nav-link ">
+                    <i class="fas fa-clinic-medical nav-icon"></i>
+                    <p>Especialidades Médicas</p>
+                    </a>
+                </li>
                 </ul>
             </li>
             </ul>
@@ -159,8 +165,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-              <li class="breadcrumb-item active">@yield('title')</li>
+              <li class="breadcrumb-item"><a href="{{ route('home') }}">Inicio</a></li>
+              @yield('menu-header')
+              {{--  <li class="breadcrumb-item active">@yield('title')</li>
+              <li class="breadcrumb-item active">@yield('item')</li>  --}}
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

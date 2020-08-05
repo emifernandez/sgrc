@@ -24,7 +24,7 @@ class StoreBarrioRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:barrios,nombre,' . $this->barrio . ',barrio,distrito,' . $this->distrito,
         ];
     }
 
@@ -38,6 +38,7 @@ class StoreBarrioRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el barrio',
             'nombre.max' => 'El nombre del barrio no puede exceder 60 caracteres',
+            'nombre.unique' => 'El barrio ingresado ya existe',
         ];
     }
 }

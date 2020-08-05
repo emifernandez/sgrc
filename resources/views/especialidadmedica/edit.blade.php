@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Perfiles')
+@section('title', 'Especialidades Médicas')
 @section('menu-header')
-    <li class="breadcrumb-item"><a href="{{ route('perfil.index') }}">Perfiles</a></li>
-    <li class="breadcrumb-item active">Editar Perfil</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('barrio.index') }}">Especialidades Médicas</a></li>
+    <li class="breadcrumb-item active">Editar Especialidad Médica</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,21 +15,21 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Editar Perfil</h3>
+                                <h3 class="card-title">Editar Especialidad Médica</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('perfil.update', $perfil->perfil) }}">
+                            <form role="form" id="form" method="POST" action="{{ route('especialidad.update', $especialidad->especialidad) }}">
                                 @method('PATCH')
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="nombre">Perfil</label>
+                                        <label for="nombre">Especialidad</label>
                                         <input
                                             class="form-control"
                                             type="text"
                                             name="nombre"
                                             id="nombre"
-                                            value="{{ old('nombre', $perfil->nombre) }}"
-                                            placeholder="Introduzca nombre del perfil">
+                                            value="{{ old('nombre', $especialidad->nombre)  }}"
+                                            placeholder="Introduzca nombre de la especialidad médica">
                                         @foreach ($errors->get('nombre') as $error)
                                             <span class="text alert-danger">{{ $error }}</span>
                                         @endforeach
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <a href="{{ route('perfil.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
+                                    <a href="{{ route('especialidad.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

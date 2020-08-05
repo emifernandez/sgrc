@@ -1,14 +1,14 @@
 @extends('layouts.app')
-@section('title', 'Perfiles')
+@section('title', 'Especialidades Médicas')
 @section('menu-header')
-    <li class="breadcrumb-item active">Perfiles</a></li>
+    <li class="breadcrumb-item active">Especialidades Médicas</a></li>
 @endsection
 @section('content')
 <div class="col-sm-12">
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('perfil.create')}}" class="btn btn-primary">Nuevo Perfil</a>
+        <a  href="{{route('especialidad.create')}}" class="btn btn-primary">Nueva Especialidad Médica</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -16,20 +16,20 @@
                 <thead>
                     <tr>
                         <th>Codigo</th>
-                        <th>Perfil</th>
+                        <th>Especialidades</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($perfiles as $key => $perfil)
+                    @foreach($especialidades as $key => $especialidad)
                     <tr>
-                        <td>{{ $perfil->perfil }}</td>
-                        <td>{{ $perfil->nombre }}</td>
+                        <td>{{ $especialidad->especialidad }}</td>
+                        <td>{{ $especialidad->nombre }}</td>
                         <td style="display: block;  margin: auto;">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$perfil->perfil}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$especialidad->especialidad}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('perfil.edit', $perfil->perfil) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('especialidad.edit', $especialidad->especialidad) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -42,12 +42,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Perfil</h4>
+          <h4 class="modal-title">Eliminar Especialidad Médica</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('perfil.destroy', 'test')}}" method="post">
+        <form action="{{ route('especialidad.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">
@@ -66,8 +66,8 @@
 @section('scripts')
     <script>
         $('#modal-danger').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var data = button.data('data') // Extract info from data-* attributes
+            var button = $(event.relatedTarget)
+            var data = button.data('data')
             var modal = $(this)
             modal.find('.modal-body #id').val(data)
           })

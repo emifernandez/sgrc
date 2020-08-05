@@ -8,7 +8,7 @@
       <div class="card-body login-card-body">
 
         <div class="login-logo">
-          <img src="./img/logo64x64.png" class="brand-image" style="opacity: .8">
+          <img src="./img/logo1.png" class="brand-image" style="opacity: .8">
         </div>
 
         <p class="login-box-msg">{{ env('APP_FULL_NAME') }}</p>
