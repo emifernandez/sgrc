@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    protected $ERROR_CODES = [
+        'ER_FILA_CON_REFERENCIAS' => [ 1451, "No se puede realizar la operación porque el registro tiene datos asociados"],
+    ];
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,6 +54,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+
+        if ($exception instanceof QueryException) {
+            if($exception->errorInfo[1] == $this->ERROR_CODES['ER_FILA_CON_REFERENCIAS'][0]) {
+                // dd($this->ERROR_CODES['ER_FILA_CON_REFERENCIAS'][1]);
+                return back()->with('error', $this->ERROR_CODES['ER_FILA_CON_REFERENCIAS'][1]);
+            } else {
+                return parent::render($request, $exception);
+            }
+        }
         return parent::render($request, $exception);
     }
 }

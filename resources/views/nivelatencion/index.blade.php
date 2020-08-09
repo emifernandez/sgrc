@@ -1,11 +1,14 @@
 @extends('layouts.app')
-@section('title', 'Niveles de Atencion')
+@section('title', 'Niveles de Atención')
+@section('menu-header')
+    <li class="breadcrumb-item active">Niveles de Atención</a></li>
+@endsection
 @section('content')
 <div class="col-sm-12">
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('nivel.create')}}" class="btn btn-primary">Nuevo Nivel de Atencion</a>
+        <a  href="{{route('nivel.create')}}" class="btn btn-primary">Nuevo Nivel de Atención</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -39,7 +42,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Nivel de Atencion</h4>
+          <h4 class="modal-title">Eliminar Nivel de Atención</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

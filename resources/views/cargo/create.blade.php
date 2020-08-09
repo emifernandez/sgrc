@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Tipos de Establecimiento')
+@section('title', 'Cargos')
 @section('menu-header')
-    <li class="breadcrumb-item"><a href="{{ route('tipo.index') }}">Tipos de Establecimiento</a></li>
-    <li class="breadcrumb-item active">Crear Tipo</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('cargo.index') }}">Cargos</a></li>
+    <li class="breadcrumb-item active">Crear Cargo</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,37 +15,27 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Crear Tipo</h3>
+                                <h3 class="card-title">Crear Cargo</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('tipo.store') }}">
+                            <form role="form" id="form" method="POST" action="{{ route('cargo.store') }}">
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="nombre">Tipo</label>
+                                        <label for="nombre">Cargo</label>
                                         <input class="form-control"
                                             type="text"
                                             name="nombre"
                                             id="nombre"
                                             value="{{ old('nombre') }}"
-                                            placeholder="Introduzca nombre del tipo">
+                                            placeholder="Introduzca nombre del cargo">
                                             @foreach ($errors->get('nombre') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
-                                    <div class="form-group">
-                                        <label>Nivel</label>
-                                        <select class="form-control" name="nivel" id="nivel">
-                                            @foreach($niveles as $key => $nivel)
-                                                <option value="{{ $nivel->nivel }}"
-                                                    {{ old('nivel') == $nivel->nivel ? 'selected' : '' }}
-                                                >{{ $nivel->nombre }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <a href="{{ route('tipo.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
+                                    <a href="{{ route('cargo.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

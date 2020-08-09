@@ -1,5 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Tipos')
+@section('title', 'Tipos de Establecimiento')
+@section('menu-header')
+    <li class="breadcrumb-item active">Tipos de Establecimiento</a></li>
+@endsection
 @section('content')
 <div class="col-sm-12">
   </div>

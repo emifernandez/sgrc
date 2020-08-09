@@ -34,7 +34,6 @@ class EstablecimientoController extends Controller
             } else {
                 $establecimiento->estado = 'Inactivo';
             }
-
         });
         return view('establecimiento.index', compact('establecimientos', $establecimientos));
     }
@@ -69,6 +68,9 @@ class EstablecimientoController extends Controller
     public function store(StoreEstablecimientoRequest $request)
     {
         $establecimiento = new Establecimiento($request->all());
+        if ($establecimiento->establecimiento_encargado == 'null') {
+            $establecimiento->establecimiento_encargado = null;
+        }
         $establecimiento->estado = Establecimiento::ESTABLECIMIENTO_ACTIVO;
         $establecimiento->save();
         return redirect('/establecimiento')->with('success', 'Establecimiento grabado correctamente');

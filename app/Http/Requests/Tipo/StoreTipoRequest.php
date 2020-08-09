@@ -24,7 +24,7 @@ class StoreTipoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:tipos,nombre,' . $this->tipo . ',tipo,nivel,' . $this->nivel,
         ];
     }
 
@@ -38,6 +38,7 @@ class StoreTipoRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el tipo',
             'nombre.max' => 'El nombre del tipo no puede exceder 60 caracteres',
+            'nombre.unique' => 'El tipo ingresado ya existe',
         ];
     }
 }

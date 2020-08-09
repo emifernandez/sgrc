@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Redes')
+@section('menu-header')
+    <li class="breadcrumb-item"><a href="{{ route('red.index') }}">Redes</a></li>
+    <li class="breadcrumb-item active">Editar Red</a></li>
+@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -24,7 +28,7 @@
                                             type="text"
                                             name="nombre"
                                             id="nombre"
-                                            value="{{ $red->nombre }}"
+                                            value="{{ old('nombre',$red->nombre) }}"
                                             placeholder="Introduzca nombre del red">
                                         @foreach ($errors->get('nombre') as $error)
                                             <span class="text alert-danger">{{ $error }}</span>
@@ -33,6 +37,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <a href="{{ route('red.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

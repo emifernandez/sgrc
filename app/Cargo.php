@@ -4,22 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NivelAtencion extends Model
+class Cargo extends Model
 {
-    protected $table = 'niveles_atencion';
+    protected $table = 'cargos';
 
-    protected $primaryKey = 'nivel';
+    protected $primaryKey = 'cargo';
 
     protected $fillable = [
         'nombre'
     ];
 
     public $timestamps = false;
-
-    public function tipos()
-    {
-        return $this->hasMany(Tipo::class, 'nivel', 'nivel');
-    }
 
     public function setNombreAttribute($nombre) {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Tipo;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTipoRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class UpdateTipoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>['required',
+                        'max:60',
+                        Rule::unique('tipos', 'nombre')
+                            ->ignore($this->tipo, 'tipo')
+                            ->where(function ($query) {
+                                return $query->where('nivel', $this->nivel);
+                            })
+                    ],
         ];
     }
 
@@ -38,6 +46,7 @@ class UpdateTipoRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el tipo',
             'nombre.max' => 'El nombre del tipo no puede exceder 60 caracteres',
+            'nombre.unique' => 'El tipo ingresado ya existe',
         ];
     }
 }

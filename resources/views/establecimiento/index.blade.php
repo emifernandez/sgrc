@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Establecimientos')
+@section('menu-header')
+    <li class="breadcrumb-item active">Establecimientos</a></li>
+@endsection
 @section('content')
 <div class="col-sm-12">
   </div>
@@ -35,7 +38,7 @@
                         @else
                         <td> Sin Encargado</td>
                         @endif
-                        <td>{{ $establecimiento->telefono1 - $establecimiento->telefono2 }}</td>
+                        <td>{{ $establecimiento->telefono1}}</td>
                         <td>{{ $establecimiento->estado }}</td>
 
                         <td style="display: block;  margin: auto;">

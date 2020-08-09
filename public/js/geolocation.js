@@ -1,8 +1,16 @@
-
 var latitud = parseFloat(document.getElementById("latitud").value);
 var longitud =  parseFloat(document.getElementById("longitud").value);
 var map;
 var marker;
+const UBICACION_DEFAULT = {
+    latitud: -25.291708,
+    longitud: -57.626066,
+};
+
+if(isNaN(latitud) || isNaN(longitud) ) {
+    latitud = UBICACION_DEFAULT.latitud;
+    longitud = UBICACION_DEFAULT.longitud;
+}
 var ubicacion = {lat: latitud, lng: longitud};
 function initMap(position, status) {
   // getLocation();

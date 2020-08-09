@@ -24,8 +24,8 @@ class StoreEstablecimientoRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo' => 'required|max:3',
-            'nombre' => 'required|max:60',
+            'codigo' => 'required|max:3|unique:establecimientos,codigo',
+            'nombre' => 'required|max:60|unique:establecimientos,nombre',
             'tipo' => 'required',
             'red' => 'required',
             'ubicacion' => 'required|max:60',
@@ -45,8 +45,10 @@ class StoreEstablecimientoRequest extends FormRequest
         return [
             'codigo.required' => 'Debe introducir un codigo para el establecimiento',
             'codigo.max' => 'El codigo del establecimiento no puede exceder 3 caracteres',
+            'codigo.unique' => 'El codigo ingresado ya existe',
             'nombre.required' => 'Debe introducir un nombre para el establecimiento',
             'nombre.max' => 'El nombre del establecimiento no puede exceder 60 caracteres',
+            'nombre.unique' => 'El nombre ingresado ya existe',
             'tipo.required' => 'Debe introducir un tipo para el establecimiento',
             'red.required' => 'Debe introducir una red para el establecimiento',
             'ubicacion.required' => 'Debe introducir una ubicacion para el establecimiento',

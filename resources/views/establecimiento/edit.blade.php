@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Establecimientos')
+@section('menu-header')
+    <li class="breadcrumb-item"><a href="{{ route('establecimiento.index') }}">Establecimientos</a></li>
+    <li class="breadcrumb-item active">Editar Establecimiento</a></li>
+@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -25,7 +29,8 @@
                                                     type="text"
                                                     name="codigo"
                                                     id="codigo"
-                                                    value="{{ $establecimiento->codigo }}"
+                                                    readonly
+                                                    value="{{ old('codigo', $establecimiento->codigo) }}"
                                                     placeholder="Introduzca codigo del establecimiento">
                                                     @foreach ($errors->get('codigo') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -38,7 +43,7 @@
                                                 <select class="form-control" name="orden" id="orden">
                                                     @for ($i = 1; $i <= 10; $i++)
                                                     <option value="{{ $i }}"
-                                                        @if ($i == $establecimiento->orden)
+                                                        @if ($i == old('orden', $establecimiento->orden))
                                                             selected="selected"
                                                         @endif
                                                     >{{ $i}}</option>
@@ -54,11 +59,11 @@
                                                 <label>Estado</label>
                                                 <select class="form-control" name="estado" id="estado">
                                                         <option value="{{ $estados['Activo']}}"
-                                                        @if ($estados['Activo'] == $establecimiento->estado)
+                                                        @if ($estados['Activo'] == old('estado', $establecimiento->estado))
                                                             selected="selected"
                                                         @endif> Activo</option>
                                                         <option value="{{ $estados['Inactivo']}}"
-                                                        @if ($estados['Inactivo'] == $establecimiento->estado)
+                                                        @if ($estados['Inactivo'] == old('estado', $establecimiento->estado))
                                                             selected="selected"
                                                         @endif> Inactivo</option>
                                                 </select>
@@ -74,7 +79,7 @@
                                             type="text"
                                             name="nombre"
                                             id="nombre"
-                                            value="{{ $establecimiento->nombre }}"
+                                            value="{{ old('nombre', $establecimiento->nombre) }}"
                                             placeholder="Introduzca nombre del establecimiento">
                                             @foreach ($errors->get('nombre') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -86,7 +91,7 @@
                                             <option value="null">Sin Encargado</option>
                                             @foreach($establecimientos as $key => $item)
                                                 <option value="{{ $item->establecimiento }}"
-                                                    @if ($item->establecimiento == $establecimiento->establecimiento_encargado)
+                                                    @if ($item->establecimiento == old('establecimiento_encargado', $establecimiento->establecimiento_encargado))
                                                         selected="selected"
                                                     @endif>{{ $item->nombre }}</option>
                                             @endforeach
@@ -97,7 +102,7 @@
                                         <select class="form-control" name="tipo" id="tipo">
                                             @foreach($tipos as $key => $tipo)
                                                 <option value="{{ $tipo->tipo }}"
-                                                @if ($tipo->tipo == $establecimiento->tipo)
+                                                @if ($tipo->tipo == old('tipo', $establecimiento->tipo))
                                                     selected="selected"
                                                 @endif>{{ $tipo->nombre }}</option>
                                             @endforeach
@@ -111,7 +116,7 @@
                                         <select class="form-control" name="red" id="red">
                                             @foreach($redes as $key => $red)
                                                 <option value="{{ $red->red }}"
-                                                @if ($red->red == $establecimiento->red)
+                                                @if ($red->red == old('red', $establecimiento->red))
                                                     selected="selected"
                                                 @endif>{{ $red->nombre }}</option>
                                             @endforeach
@@ -128,7 +133,7 @@
                                                     type="text"
                                                     name="telefono1"
                                                     id="telefono1"
-                                                    value="{{ $establecimiento->telefono1 }}"
+                                                    value="{{ old('telefono1', $establecimiento->telefono1) }}"
                                                     placeholder="Introduzca telefono del establecimiento">
                                                     @foreach ($errors->get('telefono1') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -142,7 +147,7 @@
                                                     type="text"
                                                     name="telefono2"
                                                     id="telefono2"
-                                                    value="{{ $establecimiento->telefono2 }}"
+                                                    value="{{ old('telefono2', $establecimiento->telefono2) }}"
                                                     placeholder="Introduzca telefono secundario del establecimiento">
                                                     @foreach ($errors->get('telefono2') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -156,7 +161,7 @@
                                             type="email"
                                             name="email"
                                             id="email"
-                                            value="{{ $establecimiento->email }}"
+                                            value="{{ old('email', $establecimiento->email) }}"
                                             placeholder="Introduzca email del establecimiento">
                                             @foreach ($errors->get('email') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -167,7 +172,7 @@
                                         <select class="form-control" name="barrio" id="barrio">
                                             @foreach($barrios as $key => $barrio)
                                                 <option value="{{ $barrio->barrio }}"
-                                                @if ($barrio->barrio == $establecimiento->barrio)
+                                                @if ($barrio->barrio == old('barrio', $establecimiento->barrio))
                                                 selected="selected"
                                                 @endif>{{ $barrio->nombre }}</option>
                                             @endforeach
@@ -182,7 +187,7 @@
                                             type="text"
                                             name="ubicacion"
                                             id="ubicacion"
-                                            value="{{ $establecimiento->ubicacion }}"
+                                            value="{{ old('ubicacion', $establecimiento->ubicacion) }}"
                                             placeholder="Introduzca ubicacion del establecimiento">
                                             @foreach ($errors->get('ubicacion') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -194,7 +199,7 @@
                                                 <input readonly type="hidden"
                                                     id="latitud"
                                                     name="latitud"
-                                                    value="{{ $establecimiento->latitud }}"
+                                                    value="{{ old('latitud', $establecimiento->latitud) }}"
                                                     class="form-control"
                                                     placeholder="Latitud">
                                             </div>
@@ -202,7 +207,7 @@
                                                 <input readonly type="hidden"
                                                     id="longitud"
                                                     name="longitud"
-                                                    value="{{ $establecimiento->longitud }}"
+                                                    value="{{ old('longitud', $establecimiento->longitud) }}"
                                                     class="form-control"
                                                     placeholder="Longitud">
                                             </div>
@@ -214,6 +219,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <a href="{{ route('establecimiento.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

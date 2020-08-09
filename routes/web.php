@@ -40,3 +40,5 @@ Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
 Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
 
 Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
+
+Route::resource('cargo', 'Cargo\CargoController');

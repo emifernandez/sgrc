@@ -22,6 +22,6 @@ class EspecialidadMedica extends Model
     }
 
     public function getNombreAttribute($nombre) {
-        return ucwords($nombre);
+        return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
     }
 }

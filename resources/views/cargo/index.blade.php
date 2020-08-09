@@ -1,15 +1,14 @@
 @extends('layouts.app')
-@section('title', 'Regiones Sanitarias')
+@section('title', 'Cargos')
 @section('menu-header')
-    <li class="breadcrumb-item active">Regiones Sanitarias</a></li>
+    <li class="breadcrumb-item active">Cargos</a></li>
 @endsection
 @section('content')
 <div class="col-sm-12">
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('region.create')}}" class="btn btn-primary">Nueva Region</a>
-        <a  href="{{route('region.report')}}" class="btn btn-success">Imprimir</a>
+        <a  href="{{route('cargo.create')}}" class="btn btn-primary">Nuevo Cargo</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -17,20 +16,20 @@
                 <thead>
                     <tr>
                         <th>Codigo</th>
-                        <th>Region</th>
+                        <th>Cargos</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($regiones as $key => $region)
+                    @foreach($cargos as $key => $cargo)
                     <tr>
-                        <td>{{ $region->region }}</td>
-                        <td>{{ $region->nombre }}</td>
+                        <td>{{ $cargo->cargo }}</td>
+                        <td>{{ $cargo->nombre }}</td>
                         <td style="display: block;  margin: auto;">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$region->region}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$cargo->cargo}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('region.edit', $region->region) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('cargo.edit', $cargo->cargo) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -43,12 +42,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Region Sanitaria</h4>
+          <h4 class="modal-title">Eliminar Cargo</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('region.destroy', 'test')}}" method="post">
+        <form action="{{ route('cargo.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">

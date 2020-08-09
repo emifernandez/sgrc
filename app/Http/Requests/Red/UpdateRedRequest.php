@@ -24,7 +24,7 @@ class UpdateRedRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:redes,nombre,' . $this->red->red . ',red',
         ];
     }
 
@@ -38,6 +38,7 @@ class UpdateRedRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para la red',
             'nombre.max' => 'El nombre de red no puede exceder 60 caracteres',
+            'nombre.unique' => 'La Red ingresada ya existe',
         ];
     }
 }

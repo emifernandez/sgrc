@@ -24,7 +24,7 @@ class StoreDistritoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:distritos,nombre,' . $this->distrito . ',distrito,region,' . $this->region,
         ];
     }
 
@@ -38,6 +38,7 @@ class StoreDistritoRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para el distrito',
             'nombre.max' => 'El nombre del distrito no puede exceder 60 caracteres',
+            'nombre.unique' => 'El distrito ingresado ya existe',
         ];
     }
 }

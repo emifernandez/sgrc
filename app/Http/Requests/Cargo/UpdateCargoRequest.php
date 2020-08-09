@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Red;
+namespace App\Http\Requests\Cargo;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRedRequest extends FormRequest
+class UpdateCargoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreRedRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60|unique:redes,nombre',
+            'nombre'=>'required|max:60|unique:cargos,nombre,' . $this->cargo->cargo . ',cargo',
         ];
     }
 
@@ -36,9 +36,9 @@ class StoreRedRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombre.required' => 'Debe introducir un nombre para la red',
-            'nombre.max' => 'El nombre de red no puede exceder 60 caracteres',
-            'nombre.unique' => 'La Red ingresada ya existe',
+            'nombre.required' => 'Debe introducir un nombre para el cargo',
+            'nombre.max' => 'El nombre del cargo no puede exceder 60 caracteres',
+            'nombre.unique' => 'El cargo ingresado ya existe',
         ];
     }
 }

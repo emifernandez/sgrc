@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Niveles de Atencion')
+@section('title', 'Niveles de Atención')
+@section('menu-header')
+    <li class="breadcrumb-item"><a href="{{ route('nivel.index') }}">Niveles de Atención</a></li>
+    <li class="breadcrumb-item active">Editar Nivel de Atención</a></li>
+@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -11,7 +15,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Editar Nivel de Atencion</h3>
+                                <h3 class="card-title">Editar Nivel de Atención</h3>
                             </div>
                             <form role="form" id="form" method="POST" action="{{ route('nivel.update', $nivel->nivel) }}">
                                 @method('PATCH')
@@ -24,7 +28,7 @@
                                             type="text"
                                             name="nombre"
                                             id="nombre"
-                                            value="{{ $nivel->nombre }}"
+                                            value="{{ old('nombre',$nivel->nombre) }}"
                                             placeholder="Introduzca nombre del nivel de atencion">
                                         @foreach ($errors->get('nombre') as $error)
                                             <span class="text alert-danger">{{ $error }}</span>
@@ -33,6 +37,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <a href="{{ route('nivel.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

@@ -24,7 +24,7 @@ class UpdateRegionRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|max:60',
+            'nombre'=>'required|max:60|unique:regiones,nombre,' . $this->region->region . ',region',
         ];
     }
 
@@ -38,6 +38,7 @@ class UpdateRegionRequest extends FormRequest
         return [
             'nombre.required' => 'Debe introducir un nombre para la Region Sanitaria',
             'nombre.max' => 'El nombre de la Region Sanitaria no puede exceder 60 caracteres',
+            'nombre.unique' => 'La Región Sanitaria ingresada ya existe',
         ];
     }
 }

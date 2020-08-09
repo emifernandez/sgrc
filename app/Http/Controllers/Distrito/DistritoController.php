@@ -97,8 +97,14 @@ class DistritoController extends Controller
      */
     public function destroy(Request $request)
     {
-        $distrito = Distrito::findOrFail($request->id);
-        $distrito->delete();
-        return redirect()->route('distrito.index')->with('success', 'Distrito eliminado correctamente');
+        // try {
+            $distrito = Distrito::findOrFail($request->id);
+            $distrito->delete();
+            return redirect()->route('distrito.index')->with('success', 'Distrito eliminado correctamente');
+        //   } catch (\Illuminate\Database\QueryException $e) {
+        //       //dd($e);
+        //       return redirect()->route('distrito.index')->with('error', $e->getMessage());
+        //   }
+
     }
 }

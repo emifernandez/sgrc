@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('title', 'Establecimientos')
+@section('menu-header')
+    <li class="breadcrumb-item"><a href="{{ route('establecimiento.index') }}">Establecimientos</a></li>
+    <li class="breadcrumb-item active">Crear Establecimiento</a></li>
+@endsection
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
@@ -65,6 +69,7 @@
                                             type="text"
                                             name="nombre"
                                             id="nombre"
+                                            value="{{ old('nombre') }}"
                                             placeholder="Introduzca nombre del establecimiento">
                                             @foreach ($errors->get('nombre') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -75,7 +80,9 @@
                                         <select class="form-control" name="establecimiento_encargado" id="establecimiento_encargado">
                                             <option value="null">Sin Encargado</option>
                                             @foreach($establecimientos as $key => $establecimiento)
-                                                <option value="{{ $establecimiento->establecimiento }}">{{ $establecimiento->nombre }}</option>
+                                                <option value="{{ $establecimiento->establecimiento }}"
+                                                    @if($establecimiento->establecimiento == old('establecimiento_encargado')) selected @endif
+                                                    >{{ $establecimiento->nombre }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -83,7 +90,9 @@
                                         <label>Tipo</label>
                                         <select class="form-control" name="tipo" id="tipo">
                                             @foreach($tipos as $key => $tipo)
-                                                <option value="{{ $tipo->tipo }}">{{ $tipo->nombre }}</option>
+                                                <option value="{{ $tipo->tipo }}"
+                                                    @if($tipo->tipo == old('tipo')) selected @endif
+                                                    >{{ $tipo->nombre }}</option>
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('tipo') as $error)
@@ -94,7 +103,9 @@
                                         <label>Red</label>
                                         <select class="form-control" name="red" id="red">
                                             @foreach($redes as $key => $red)
-                                                <option value="{{ $red->red }}">{{ $red->nombre }}</option>
+                                                <option value="{{ $red->red }}"
+                                                    @if($red->red == old('red')) selected @endif
+                                                    >{{ $red->nombre }}</option>
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('red') as $error)
@@ -109,6 +120,7 @@
                                                     type="text"
                                                     name="telefono1"
                                                     id="telefono1"
+                                                    value="{{ old('telefono1') }}"
                                                     placeholder="Introduzca telefono del establecimiento">
                                                     @foreach ($errors->get('telefono1') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -122,6 +134,7 @@
                                                     type="text"
                                                     name="telefono2"
                                                     id="telefono2"
+                                                    value="{{ old('telefono2') }}"
                                                     placeholder="Introduzca telefono secundario del establecimiento">
                                                     @foreach ($errors->get('telefono2') as $error)
                                                         <span class="text alert-danger">{{ $error }}</span>
@@ -135,6 +148,7 @@
                                             type="email"
                                             name="email"
                                             id="email"
+                                            value="{{ old('email') }}"
                                             placeholder="Introduzca email del establecimiento">
                                             @foreach ($errors->get('email') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -144,7 +158,9 @@
                                         <label>Barrio</label>
                                         <select class="form-control" name="barrio" id="barrio">
                                             @foreach($barrios as $key => $barrio)
-                                                <option value="{{ $barrio->barrio }}">{{ $barrio->nombre }}</option>
+                                                <option value="{{ $barrio->barrio }}"
+                                                    @if($barrio->barrio == old('barrio')) selected @endif
+                                                    >{{ $barrio->nombre }}</option>
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('barrio') as $error)
@@ -157,6 +173,7 @@
                                             type="text"
                                             name="ubicacion"
                                             id="ubicacion"
+                                            value="{{ old('ubicacion') }}"
                                             placeholder="Introduzca direccion del establecimiento">
                                             @foreach ($errors->get('ubicacion') as $error)
                                                 <span class="text alert-danger">{{ $error }}</span>
@@ -165,10 +182,20 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input readonly type="hidden" id="latitud" name="latitud" class="form-control" placeholder="Latitud">
+                                                <input readonly type="hidden"
+                                                id="latitud"
+                                                name="latitud"
+                                                value="{{ old('latitud') }}"
+                                                class="form-control"
+                                                placeholder="Latitud">
                                             </div>
                                             <div class="col-sm-6">
-                                                <input readonly type="hidden" id="longitud" name="longitud" class="form-control" placeholder="Longitud">
+                                                <input readonly type="hidden"
+                                                id="longitud"
+                                                name="longitud"
+                                                value="{{ old('longitud') }}"
+                                                class="form-control"
+                                                placeholder="Longitud">
                                             </div>
                                             </div>
                                         <div id="map" style="width:100%;height:400px; margin-top: 2%">
@@ -178,6 +205,7 @@
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <a href="{{ route('establecimiento.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>
