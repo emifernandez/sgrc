@@ -151,6 +151,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <p>Cargos</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('profesion.index') }}" class="nav-link ">
+                    <i class="fas fa-clinic-medical nav-icon"></i>
+                    <p>Profesiones</p>
+                    </a>
+                </li>
                 </ul>
             </li>
             </ul>
