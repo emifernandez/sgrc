@@ -44,3 +44,5 @@ Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController
 Route::resource('cargo', 'Cargo\CargoController');
 
 Route::resource('profesion', 'Profesion\ProfesionController');
+
+Route::resource('funcionario', 'Funcionario\FuncionarioController');

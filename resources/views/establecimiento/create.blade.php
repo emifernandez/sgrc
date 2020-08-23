@@ -222,4 +222,8 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=getLocation"
 	async defer></script>
 @stop
-
+@section('scripts')
+    <script>
+        $('.datepicker').datepicker({dateFormat:"yy-mm-dd"});
+    </script>
+@endsection

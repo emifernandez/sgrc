@@ -28,6 +28,11 @@ class Barrio extends Model
         return $this->hasMany(Establecimiento::class, 'barrio', 'barrio');
     }
 
+    public function funcionarios()
+    {
+        return $this->hasMany(Funcionario::class, 'barrio', 'barrio');
+    }
+
     public function setNombreAttribute($nombre) {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
 

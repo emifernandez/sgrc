@@ -16,6 +16,11 @@ class Profesion extends Model
 
     public $timestamps = false;
 
+    public function funcionarios()
+    {
+        return $this->hasMany(Funcionario::class, 'profesion', 'profesion');
+    }
+
     public function setNombreAttribute($nombre) {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
 

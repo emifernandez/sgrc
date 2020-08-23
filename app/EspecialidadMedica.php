@@ -16,6 +16,11 @@ class EspecialidadMedica extends Model
 
     public $timestamps = false;
 
+    public function funcionarios()
+    {
+        return $this->hasMany(Funcionario::class, 'especialidad', 'especialidad');
+    }
+
     public function setNombreAttribute($nombre) {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
 
