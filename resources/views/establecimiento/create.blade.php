@@ -31,7 +31,7 @@
                                                     value="{{ old('codigo') }}"
                                                     placeholder="Introduzca codigo del establecimiento">
                                                     @foreach ($errors->get('codigo') as $error)
-                                                        <span class="text alert-danger">{{ $error }}</span>
+                                                        <span class="text text-danger">{{ $error }}</span>
                                                     @endforeach
                                             </div>
                                         </div>
@@ -46,7 +46,7 @@
                                                     @endfor
                                                 </select>
                                                 @foreach ($errors->get('orden') as $error)
-                                                    <span class="text alert-danger">{{ $error }}</span>
+                                                    <span class="text text-danger">{{ $error }}</span>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                                         <option value="{{ $estados['Inactivo']}}"> Inactivo</option>
                                                 </select>
                                                 @foreach ($errors->get('estado') as $error)
-                                                    <span class="text alert-danger">{{ $error }}</span>
+                                                    <span class="text text-danger">{{ $error }}</span>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@
                                             value="{{ old('nombre') }}"
                                             placeholder="Introduzca nombre del establecimiento">
                                             @foreach ($errors->get('nombre') as $error)
-                                                <span class="text alert-danger">{{ $error }}</span>
+                                                <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
@@ -96,7 +96,7 @@
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('tipo') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                     <div class="form-group">
@@ -109,7 +109,7 @@
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('red') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                     <div class="row">
@@ -123,7 +123,7 @@
                                                     value="{{ old('telefono1') }}"
                                                     placeholder="Introduzca telefono del establecimiento">
                                                     @foreach ($errors->get('telefono1') as $error)
-                                                        <span class="text alert-danger">{{ $error }}</span>
+                                                        <span class="text text-danger">{{ $error }}</span>
                                                     @endforeach
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
                                                     value="{{ old('telefono2') }}"
                                                     placeholder="Introduzca telefono secundario del establecimiento">
                                                     @foreach ($errors->get('telefono2') as $error)
-                                                        <span class="text alert-danger">{{ $error }}</span>
+                                                        <span class="text text-danger">{{ $error }}</span>
                                                     @endforeach
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@
                                             value="{{ old('email') }}"
                                             placeholder="Introduzca email del establecimiento">
                                             @foreach ($errors->get('email') as $error)
-                                                <span class="text alert-danger">{{ $error }}</span>
+                                                <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
@@ -164,7 +164,7 @@
                                             @endforeach
                                         </select>
                                         @foreach ($errors->get('barrio') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                     <div class="form-group">
@@ -176,7 +176,7 @@
                                             value="{{ old('ubicacion') }}"
                                             placeholder="Introduzca direccion del establecimiento">
                                             @foreach ($errors->get('ubicacion') as $error)
-                                                <span class="text alert-danger">{{ $error }}</span>
+                                                <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
@@ -222,8 +222,3 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=getLocation"
 	async defer></script>
 @stop
-@section('scripts')
-    <script>
-        $('.datepicker').datepicker({dateFormat:"yy-mm-dd"});
-    </script>
-@endsection

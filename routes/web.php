@@ -19,30 +19,22 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('barrio', 'Barrio\BarrioController');
+    Route::resource('cargo', 'Cargo\CargoController');
+    Route::resource('distrito', 'Distrito\DistritoController');
+    Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
+    Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
+    Route::resource('funcionario', 'Funcionario\FuncionarioController');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
+    Route::resource('perfil', 'Perfil\PerfilController');
+    Route::resource('profesion', 'Profesion\ProfesionController');
+    Route::resource('red', 'Red\RedController');
+    Route::resource('region', 'Region\RegionController');
+    Route::resource('tipo', 'Tipo\TipoController');
+    Route::resource('usuario', 'Usuario\UsuarioController');
 
-Route::resource('perfil', 'Perfil\PerfilController');
-
-Route::resource('region', 'Region\RegionController');
-Route::get('region-report', 'Region\RegionController@report')->name('region.report');
-
-Route::resource('distrito', 'Distrito\DistritoController');
-
-Route::resource('barrio', 'Barrio\BarrioController');
-
-Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
-
-Route::resource('tipo', 'Tipo\TipoController');
-
-Route::resource('red', 'Red\RedController');
-
-Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
-Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
-
-Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
-
-Route::resource('cargo', 'Cargo\CargoController');
-
-Route::resource('profesion', 'Profesion\ProfesionController');
-
-Route::resource('funcionario', 'Funcionario\FuncionarioController');
+    Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
+    Route::get('region-report', 'Region\RegionController@report')->name('region.report');
+});

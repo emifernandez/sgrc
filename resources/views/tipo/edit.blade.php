@@ -31,7 +31,7 @@
                                             value="{{ old('nombre',$tipo->nombre) }}"
                                             placeholder="Introduzca nombre del tipo">
                                         @foreach ($errors->get('nombre') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                     <div class="form-group">

@@ -14,7 +14,9 @@ try {
     require("admin-lte");
     require("admin-lte/plugins/datatables/jquery.dataTables");
     require("admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4");
-    require("admin-lte/plugins/inputmask/jquery.inputmask");
+    require("inputmask/dist/jquery.inputmask.js");
+    require("inputmask");
+
 } catch (e) {}
 
 /**

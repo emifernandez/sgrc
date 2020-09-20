@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 class BarrioController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +20,7 @@ class BarrioController extends Controller
     public function index()
     {
         $barrios = Barrio::all();
-        $barrios->each(function($barrio)
-        {
+        $barrios->each(function ($barrio) {
             $barrio->distrito = Distrito::find($barrio->distrito);
         });
         return view('barrio.index', compact('barrios', $barrios));
@@ -71,7 +71,7 @@ class BarrioController extends Controller
     public function edit(Barrio $barrio)
     {
         $distritos = Distrito::orderBy('nombre', 'ASC')->get();
-        return view('barrio.edit')->with('barrio',$barrio)->with('distritos',$distritos);
+        return view('barrio.edit')->with('barrio', $barrio)->with('distritos', $distritos);
     }
 
     /**
@@ -84,8 +84,8 @@ class BarrioController extends Controller
     public function update(UpdateBarrioRequest $request, Barrio $barrio)
     {
         $barrio->fill($request->all());
-    	$barrio->save();
-    	return redirect('/barrio')->with('success', 'Barrio actualizado correctamente');
+        $barrio->save();
+        return redirect('/barrio')->with('success', 'Barrio actualizado correctamente');
     }
 
     /**

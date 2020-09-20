@@ -56,6 +56,11 @@ class Funcionario extends Model
         return $this->belongsTo(EspecialidadMedica::class, 'especialidad', 'especialidad');
     }
 
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class, 'funcionario', 'funcionario');
+    }
+
     public function getEstados()
     {
         return $estados = [

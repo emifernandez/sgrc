@@ -50,7 +50,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-circle"></i>
                         <p>
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->usuario }}
                             <i class="right fas fa-angle-left"></i>
                         </p>
                         </a>
@@ -92,7 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('usuario.index') }}" class="nav-link">
                     <i class="fas fa-user nav-icon"></i>
                     <p>Usuarios</p>
                     </a>
@@ -242,6 +242,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     }
                 },
             });
+
+            $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
         });
     </script>
 </body>

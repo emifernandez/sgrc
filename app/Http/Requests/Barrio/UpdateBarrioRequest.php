@@ -24,15 +24,17 @@ class UpdateBarrioRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this->barrio);
         return [
-            'nombre'=>['required',
-                        'max:60',
-                        Rule::unique('barrios', 'nombre')
-                            ->ignore($this->barrio, 'barrio')
-                            ->where(function ($query) {
-                                return $query->where('distrito', $this->distrito);
-                            })
-                    ],
+            'nombre' => [
+                'required',
+                'max:60',
+                Rule::unique('barrios', 'nombre')
+                    ->ignore($this->barrio, 'barrio')
+                    ->where(function ($query) {
+                        return $query->where('distrito', $this->distrito);
+                    })
+            ],
         ];
     }
 

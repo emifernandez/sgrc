@@ -31,7 +31,7 @@
                                             value="{{ old('nombre', $perfil->nombre) }}"
                                             placeholder="Introduzca nombre del perfil">
                                         @foreach ($errors->get('nombre') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                 </div>

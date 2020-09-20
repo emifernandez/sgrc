@@ -31,7 +31,7 @@
                                             value="{{ old('nombre', $profesion->nombre)  }}"
                                             placeholder="Introduzca nombre de la profesion">
                                         @foreach ($errors->get('nombre') as $error)
-                                            <span class="text alert-danger">{{ $error }}</span>
+                                            <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
                                 </div>
