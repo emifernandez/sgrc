@@ -65,7 +65,7 @@
                                                     >{{ $perfil->nombre }}</option>
                                             @endforeach
                                         </select>
-                                        @foreach ($errors->get('barrio') as $error)
+                                        @foreach ($errors->get('perfil') as $error)
                                             <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>

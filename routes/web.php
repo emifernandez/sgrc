@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
     Route::resource('perfil', 'Perfil\PerfilController');
+    Route::resource('permiso', 'Permiso\PermisoController');
     Route::resource('profesion', 'Profesion\ProfesionController');
     Route::resource('red', 'Red\RedController');
     Route::resource('region', 'Region\RegionController');

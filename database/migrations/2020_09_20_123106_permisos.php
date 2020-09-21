@@ -14,8 +14,11 @@ class Permisos extends Migration
     public function up()
     {
         Schema::create('permisos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->smallIncrements('permiso');
+            $table->unsignedTinyInteger('perfil');
+            $table->dateTime('fecha_asignacion');
+
+            $table->foreign('perfil')->references('perfil')->on('perfiles');
         });
     }
 
