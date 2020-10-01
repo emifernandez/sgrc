@@ -24,7 +24,6 @@ class UpdateBarrioRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->barrio);
         return [
             'nombre' => [
                 'required',

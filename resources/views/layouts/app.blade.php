@@ -169,6 +169,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <p>Permisos</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('usuario-establecimiento.index') }}" class="nav-link ">
+                    <i class="fas fa-clinic-medical nav-icon"></i>
+                    <p>Asignacion de Establecimientos</p>
+                    </a>
+                </li>
                 </ul>
             </li>
             </ul>

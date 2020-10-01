@@ -33,14 +33,18 @@
                                             @endforeach
                                     </div>
                                     <div class="form-group">
-                                        <label>Region</label>
+                                        <label>Región</label>
                                         <select class="form-control" name="region" id="region">
+                                            <option value="">Seleccione una región</option>
                                             @foreach($regiones as $key => $region)
                                                 <option value="{{ $region->region }}"
                                                     {{ old('region') == $region->region ? 'selected' : '' }}
                                                 >{{ $region->nombre }}</option>
                                             @endforeach
                                         </select>
+                                        @foreach ($errors->get('region') as $error)
+                                            <span class="text text-danger">{{ $error }}</span>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="card-footer">

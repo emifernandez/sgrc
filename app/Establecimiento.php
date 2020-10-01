@@ -47,6 +47,11 @@ class Establecimiento extends Model
         return $this->belongsTo(Barrio::class, 'barrio', 'barrio');
     }
 
+    public function usuarios()
+    {
+        return $this->belongsToMany(Usuario::class, 'usuarios_establecimientos', 'establecimiento', 'usuario');
+    }
+
     public function getEstados()
     {
         return $estados = [
@@ -55,12 +60,13 @@ class Establecimiento extends Model
         ];
     }
 
-    public function setNombreAttribute($nombre) {
+    public function setNombreAttribute($nombre)
+    {
         $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
-
     }
 
-    public function getNombreAttribute($nombre) {
+    public function getNombreAttribute($nombre)
+    {
         return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
     }
 }

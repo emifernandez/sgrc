@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Distrito;
+namespace App\Http\Requests\Usuario;
+
+use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreDistritoRequest extends FormRequest
+class StoreUsuarioEstablecimientoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +26,11 @@ class StoreDistritoRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:60|unique:distritos,nombre,' . $this->distrito . ',distrito,region,' . $this->region,
-            'region' => 'required'
+            'usuario' => 'required',
+            'establecimiento' => 'required'
         ];
     }
+
 
     /**
      * Get the error messages for the defined validation rules.
@@ -37,10 +40,8 @@ class StoreDistritoRequest extends FormRequest
     public function messages()
     {
         return [
-            'nombre.required' => 'Debe introducir un nombre para el distrito',
-            'nombre.max' => 'El nombre del distrito no puede exceder 60 caracteres',
-            'nombre.unique' => 'El distrito ingresado ya existe',
-            'region.required' => 'Debe introducir una region para el distrito',
+            'usuario.required' => 'Debe seleccionar el usuario',
+            'establecimiento.required' => 'Debe seleccionar el establecimiento'
         ];
     }
 }

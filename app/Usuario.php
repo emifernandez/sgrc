@@ -44,6 +44,11 @@ class Usuario extends Authenticatable
         return $this->belongsTo(Funcionario::class, 'funcionario', 'funcionario');
     }
 
+    public function establecimientos()
+    {
+        return $this->belongsToMany(Establecimiento::class, 'usuarios_establecimientos', 'usuario', 'establecimiento');
+    }
+
     public function getEstados()
     {
         return $estados = [

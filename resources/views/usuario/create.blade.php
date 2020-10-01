@@ -81,6 +81,7 @@
                                     <div class="form-group">
                                         <label>Perfil</label>
                                         <select class="form-control" name="perfil" id="perfil">
+                                                <option value="">Seleccione un perfil</option>
                                             @foreach($perfiles as $key => $perfil)
                                                 <option value="{{ $perfil->perfil }}"
                                                     @if($perfil->perfil == old('perfil')) selected @endif
@@ -94,6 +95,7 @@
                                     <div class="form-group">
                                         <label>Funcionario</label>
                                         <select class="form-control" name="funcionario" id="funcionario">
+                                            <option value="">Seleccione un funcionario</option>
                                             @foreach($funcionarios as $key => $funcionario)
                                                 <option value="{{ $funcionario->funcionario }}"
                                                     @if($funcionario->funcionario == old('funcionario')) selected @endif

@@ -35,7 +35,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('region', 'Region\RegionController');
     Route::resource('tipo', 'Tipo\TipoController');
     Route::resource('usuario', 'Usuario\UsuarioController');
+    Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
 
     Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 });
+Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
