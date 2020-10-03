@@ -13,9 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', 'Auth\LoginController@showLoginForm');
+// Route::get('/', function () {
+//     return view('auth.login');
+
+//     LoginController@showLoginForm
+// });
 
 Auth::routes();
 
@@ -27,6 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
     Route::resource('funcionario', 'Funcionario\FuncionarioController');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index');
     Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
     Route::resource('perfil', 'Perfil\PerfilController');
     Route::resource('permiso', 'Permiso\PermisoController');
@@ -40,4 +44,3 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 });
-Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
