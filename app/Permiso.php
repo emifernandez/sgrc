@@ -27,6 +27,13 @@ class Permiso extends Model
         return $this->belongsTo(Perfil::class, 'perfil', 'perfil');
     }
 
+    public function accesos()
+    {
+        return $this->belongsToMany(Acceso::class, 'permisos_detalles', 'permiso', 'acceso')
+            ->withPivot('habilitado')
+            ->as('detalle');
+    }
+
     public function getFechaAsignacionAttribute($fecha_asignacion)
     {
         return new DateFormatter($fecha_asignacion);

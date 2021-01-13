@@ -31,15 +31,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('funcionario', 'Funcionario\FuncionarioController');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/', 'HomeController@index');
+    Route::resource('motivo', 'Motivo\MotivoController');
+    Route::resource('nacionalidad', 'Nacionalidad\NacionalidadController');
     Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
+    Route::resource('nivel-educativo', 'NivelEducativo\NivelEducativoController');
     Route::resource('perfil', 'Perfil\PerfilController');
     Route::resource('permiso', 'Permiso\PermisoController');
     Route::resource('profesion', 'Profesion\ProfesionController');
     Route::resource('red', 'Red\RedController');
     Route::resource('region', 'Region\RegionController');
+    Route::resource('seguro', 'Seguro\SeguroController');
     Route::resource('tipo', 'Tipo\TipoController');
     Route::resource('usuario', 'Usuario\UsuarioController');
     Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
+    Route::resource('permiso-detalle', 'Permiso\PermisoDetalleController');
 
     Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');

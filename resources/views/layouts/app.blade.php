@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -34,10 +30,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{{ route('home') }}" class="brand-link">
-            <img src="{!! asset('img/logo32x32.png') !!}" alt="AdminLTE Logo" class="brand-image"
+            <img src="{!! asset('img/logo32x32.png') !!}" alt="SGRC Logo" class="brand-image"
             style="opacity: .8">
-        {{--  <img src="./img/logo.png" alt="AdminLTE Logo" class="brand-image"
-            style="opacity: .8">  --}}
         <span class="brand-text font-weight-light">{{ env('APP_NAME') }}</span>
         </a>
 
@@ -77,104 +71,288 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item has-treeview">
-                <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-tools"></i>
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tasks"></i>
                 <p>
-                    Administracion
+                    Datos Básicos
                     <i class="right fas fa-angle-left"></i>
                 </p>
                 </a>
                 <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{ route('perfil.index') }}" class="nav-link ">
-                    <i class="fas fa-users nav-icon"></i>
-                    <p>Perfiles</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('usuario.index') }}" class="nav-link">
-                    <i class="fas fa-user nav-icon"></i>
-                    <p>Usuarios</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('region.index') }}" class="nav-link ">
-                    <i class="fas fa-city nav-icon"></i>
-                    <p>Regiones Sanitarias</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('distrito.index') }}" class="nav-link ">
-                    <i class="fas fa-city nav-icon"></i>
-                    <p>Distritos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('barrio.index') }}" class="nav-link ">
-                    <i class="fas fa-city nav-icon"></i>
-                    <p>Barrios</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('nivel.index') }}" class="nav-link ">
-                    <i class="fas fa-plus-square nav-icon"></i>
-                    <p>Niveles de Atencion</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('tipo.index') }}" class="nav-link ">
-                    <i class="fas fa-h-square nav-icon"></i>
-                    <p>Tipos de Establecimiento</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('red.index') }}" class="nav-link ">
-                    <i class="fas fa-sitemap nav-icon"></i>
-                    <p>Redes</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('establecimiento.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Establecimientos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('especialidad.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Especialidades Médicas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('cargo.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Cargos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('profesion.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Profesiones</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('funcionario.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Funcionarios</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('permiso.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Permisos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('usuario-establecimiento.index') }}" class="nav-link ">
-                    <i class="fas fa-clinic-medical nav-icon"></i>
-                    <p>Asignacion de Establecimientos</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('nacionalidad.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Nacionalidades</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cargo.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Cargos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profesion.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Profesiones</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('funcionario.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Funcionarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                        <p>Niveles de Atencion</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('tipo.index') }}" class="nav-link ">
+                        <i class="fas fa-h-square nav-icon"></i>
+                        <p>Tipos de Establecimiento</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('especialidad.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Especialidades Médicas</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-map-marked-alt"></i>
+                <p>
+                    Ubicaciones
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('region.index') }}" class="nav-link ">
+                        <i class="fas fa-city nav-icon"></i>
+                        <p>Regiones</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('distrito.index') }}" class="nav-link ">
+                        <i class="fas fa-city nav-icon"></i>
+                        <p>Distritos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('barrio.index') }}" class="nav-link ">
+                        <i class="fas fa-city nav-icon"></i>
+                        <p>Barrios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('establecimiento.index') }}" class="nav-link ">
+                        <i class="fas fa-clinic-medical nav-icon"></i>
+                        <p>Establecimientos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('red.index') }}" class="nav-link ">
+                        <i class="fas fa-sitemap nav-icon"></i>
+                        <p>Redes</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-user-cog"></i>
+                <p>
+                    Usuarios
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('usuario.index') }}" class="nav-link">
+                        <i class="fas fa-user nav-icon"></i>
+                        <p>Usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('usuario-establecimiento.index') }}" class="nav-link ">
+                        <i class="fas fa-user-tag nav-icon"></i>
+                        <p>Usuarios Establecimientos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('perfil.index') }}" class="nav-link ">
+                        <i class="fas fa-users nav-icon"></i>
+                        <p>Perfiles de Usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('permiso.index') }}" class="nav-link ">
+                        <i class="fas fa-user-shield nav-icon"></i>
+                        <p>Permisos de Usuarios</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-id-card"></i>
+                <p>
+                    Admisión
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-medkit nav-icon"></i>
+                        <p>Servicios Médicos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-clock nav-icon"></i>
+                        <p>Horarios de Atención</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel-educativo.index') }}" class="nav-link ">
+                        <i class="fas fa-graduation-cap nav-icon"></i>
+                        <p>Niveles Educativos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('seguro.index') }}" class="nav-link ">
+                        <i class="fas fa-calendar-plus nav-icon"></i>
+                        <p>Seguros</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-wheelchair nav-icon"></i>
+                        <p>Pacientes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-calendar-check nav-icon"></i>
+                        <p>Admisiones</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-folder-open"></i>
+                <p>
+                    Consultas
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('motivo.index') }}" class="nav-link ">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                        <p>Motivo de Consulta</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-plus-square nav-icon"></i>
+                        <p>Enfermedades</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-folder-plus nav-icon"></i>
+                        <p>Atenciones Médicas</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-people-arrows"></i>
+                <p>
+                    Derivaciones
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-arrow-circle-down nav-icon"></i>
+                        <p>Referencias</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-arrow-circle-up nav-icon"></i>
+                        <p>Contrareferencias</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Reportes
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <p>Informe de Establecimientos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <p>Informe de Profesionales</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <p>Informe de Derivaciones</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <p>Informe de Capacidad de Atención</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        {{-- falta --}}
+                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <i class="fas fa-file-alt nav-icon"></i>
+                        <p>Informe de Cantidades de Atención</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
             </ul>
