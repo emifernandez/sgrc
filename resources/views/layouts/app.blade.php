@@ -268,8 +268,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('enfermedad.index') }}" class="nav-link ">
                         <i class="fas fa-plus-square nav-icon"></i>
                         <p>Enfermedades</p>
                         </a>

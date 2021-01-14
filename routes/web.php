@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('barrio', 'Barrio\BarrioController');
     Route::resource('cargo', 'Cargo\CargoController');
     Route::resource('distrito', 'Distrito\DistritoController');
+    Route::resource('enfermedad', 'Enfermedad\EnfermedadController');
     Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
     Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
     Route::resource('funcionario', 'Funcionario\FuncionarioController');
