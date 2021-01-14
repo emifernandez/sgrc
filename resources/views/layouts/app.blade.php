@@ -209,8 +209,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('servicio.index') }}" class="nav-link ">
                         <i class="fas fa-medkit nav-icon"></i>
                         <p>Servicios Médicos</p>
                         </a>

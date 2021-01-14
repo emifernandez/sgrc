@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('red', 'Red\RedController');
     Route::resource('region', 'Region\RegionController');
     Route::resource('seguro', 'Seguro\SeguroController');
+    Route::resource('servicio', 'ServicioMedico\ServicioMedicoController');
     Route::resource('tipo', 'Tipo\TipoController');
     Route::resource('usuario', 'Usuario\UsuarioController');
     Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
