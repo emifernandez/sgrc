@@ -158,7 +158,7 @@
                                         <label>Barrio</label>
                                         <select class="form-control" name="barrio" id="barrio">
                                             @foreach($barrios as $key => $barrio)
-                                                <option value="{{ $barrio->barrio }}"
+                                                <option value="{{ $barrio }}"
                                                     @if($barrio->barrio == old('barrio')) selected @endif
                                                     >{{ $barrio->nombre }}</option>
                                             @endforeach
@@ -166,6 +166,20 @@
                                         @foreach ($errors->get('barrio') as $error)
                                             <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Distrito</label>
+                                        <select class="form-control" name="distrito" id="distrito" readonly>
+                                        <option value="{{ $barrios->first()->distrito->distrito }}">
+                                        {{ $barrios->first()->distrito->nombre }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Region Sanitaria</label>
+                                        <select class="form-control" name="region" id="region" readonly>
+                                        <option value="{{ $barrios->first()->distrito->region->region }}">
+                                        {{ $barrios->first()->distrito->region->nombre }}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="ubicacion">Direccion</label>
@@ -221,4 +235,23 @@
     <script src="{!! asset('js/geolocation.js') !!}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=getLocation"
 	async defer></script>
+    <script type="text/javascript">
+    $(function(){
+        
+        $("#barrio").change(function(){
+            var value = $(this).val();
+            if(value) {
+                let barrio = JSON.parse(value);
+                 distrito = document.getElementById('distrito');
+                 region = document.getElementById('region');
+                 distrito.remove(0);
+                 region.remove(0);
+                distrito.options[distrito.options.length] = new Option(barrio.distrito.nombre, barrio.distrito.distrito);
+                region.options[region.options.length] = new Option(barrio.distrito.region.nombre, barrio.distrito.region.distrito);
+
+            }
+        });
+
+    });
+</script>
 @stop

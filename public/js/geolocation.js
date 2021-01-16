@@ -8,11 +8,18 @@ var ubicacion = {
 };
 
 function initMap(position, status) {
-    // getLocation();
+    //getLocation();
     if (status) {
         ubicacion = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
+        };
+    }
+
+    if (latitud && longitud) {
+        ubicacion = {
+            lat: Number(latitud.value),
+            lng: Number(longitud.value)
         };
     }
 
@@ -39,8 +46,6 @@ function placeMarkerAndPanTo(latLng, map) {
     this.longitud.value = latLng.toJSON().lng;
     map.panTo(latLng);
 }
-
-var x = document.getElementById("demo");
 
 function updateLocation(position) {
     this.latitud.value = position.coords.latitude;

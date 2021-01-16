@@ -20,8 +20,7 @@ class DistritoController extends Controller
     public function index()
     {
         $distritos = Distrito::all();
-        $distritos->each(function($distrito)
-        {
+        $distritos->each(function ($distrito) {
             $distrito->region = Region::find($distrito->region);
         });
         return view('distrito.index', compact('distritos', $distritos));
@@ -72,7 +71,7 @@ class DistritoController extends Controller
     public function edit(Distrito $distrito)
     {
         $regiones = Region::orderBy('nombre', 'ASC')->get();
-        return view('distrito.edit')->with('distrito',$distrito)->with('regiones',$regiones);
+        return view('distrito.edit')->with('distrito', $distrito)->with('regiones', $regiones);
     }
 
     /**
@@ -85,8 +84,8 @@ class DistritoController extends Controller
     public function update(UpdateDistritoRequest $request, Distrito $distrito)
     {
         $distrito->fill($request->all());
-    	$distrito->save();
-    	return redirect('/distrito')->with('success', 'Distrito actualizado correctamente');
+        $distrito->save();
+        return redirect('/distrito')->with('success', 'Distrito actualizado correctamente');
     }
 
     /**
@@ -97,14 +96,8 @@ class DistritoController extends Controller
      */
     public function destroy(Request $request)
     {
-        // try {
-            $distrito = Distrito::findOrFail($request->id);
-            $distrito->delete();
-            return redirect()->route('distrito.index')->with('success', 'Distrito eliminado correctamente');
-        //   } catch (\Illuminate\Database\QueryException $e) {
-        //       //dd($e);
-        //       return redirect()->route('distrito.index')->with('error', $e->getMessage());
-        //   }
-
+        $distrito = Distrito::findOrFail($request->id);
+        $distrito->delete();
+        return redirect()->route('distrito.index')->with('success', 'Distrito eliminado correctamente');
     }
 }

@@ -171,8 +171,8 @@
                                         <label>Barrio</label>
                                         <select class="form-control" name="barrio" id="barrio">
                                             @foreach($barrios as $key => $barrio)
-                                                <option value="{{ $barrio->barrio }}"
-                                                @if ($barrio->barrio == old('barrio', $establecimiento->barrio))
+                                                <option value="{{ $barrio }}"
+                                                @if ($barrio->barrio == old('barrio', $establecimiento->barrio->barrio))
                                                 selected="selected"
                                                 @endif>{{ $barrio->nombre }}</option>
                                             @endforeach
@@ -180,6 +180,20 @@
                                         @foreach ($errors->get('barrio') as $error)
                                             <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Distrito</label>
+                                        <select class="form-control" name="distrito" id="distrito" readonly>
+                                        <option value="{{ $establecimiento->barrio->distrito->distrito }}">
+                                        {{ $establecimiento->barrio->distrito->nombre }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Region Sanitaria</label>
+                                        <select class="form-control" name="region" id="region" readonly>
+                                        <option value="{{ $establecimiento->barrio->distrito->region->region }}">
+                                        {{ $establecimiento->barrio->distrito->region->nombre }}</option>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="ubicacion">Ubicacion</label>
@@ -235,5 +249,24 @@
     <script src="{!! asset('js/geolocation.js') !!}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap"
 	async defer></script>
+    <script type="text/javascript">
+    $(function(){
+        
+        $("#barrio").change(function(){
+            var value = $(this).val();
+            if(value) {
+                let barrio = JSON.parse(value);
+                 distrito = document.getElementById('distrito');
+                 region = document.getElementById('region');
+                 distrito.remove(0);
+                 region.remove(0);
+                distrito.options[distrito.options.length] = new Option(barrio.distrito.nombre, barrio.distrito.distrito);
+                region.options[region.options.length] = new Option(barrio.distrito.region.nombre, barrio.distrito.region.distrito);
+
+            }
+        });
+
+    });
+    </script>
 @stop
 
