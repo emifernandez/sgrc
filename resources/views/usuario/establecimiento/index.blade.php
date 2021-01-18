@@ -33,7 +33,7 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Codigo</th>
+                        <th>Usuario</th>
                         <th>Establecimiento</th>
                         <th>Acciones</th>
                     </tr>
@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach($establecimientos as $key => $establecimiento)
                     <tr>
-                        <td>{{ $establecimiento->establecimiento }}</td>
+                        <td>{{ $usuario_selected }}</td>
                         <td>{{ $establecimiento->nombre }}</td>
 
                         <td style="display: block;  margin: auto;">
