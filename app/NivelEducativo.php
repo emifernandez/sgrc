@@ -16,10 +16,10 @@ class NivelEducativo extends Model
 
     public $timestamps = false;
 
-    // public function pacientes()
-    // {
-    //     return $this->hasMany(Distrito::class, 'region', 'region');
-    // }
+    public function pacientes()
+    {
+        return $this->hasMany(NivelEducativo::class, 'nivel_educativo', 'nivel_educativo');
+    }
 
     public function setNombreAttribute($nombre)
     {

@@ -222,22 +222,19 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
                         <a href="{{ route('nivel-educativo.index') }}" class="nav-link ">
                         <i class="fas fa-graduation-cap nav-icon"></i>
                         <p>Niveles Educativos</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
                         <a href="{{ route('seguro.index') }}" class="nav-link ">
                         <i class="fas fa-calendar-plus nav-icon"></i>
                         <p>Seguros</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('paciente.index') }}" class="nav-link ">
                         <i class="fas fa-wheelchair nav-icon"></i>
                         <p>Pacientes</p>
                         </a>
@@ -261,7 +258,6 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        {{-- falta --}}
                         <a href="{{ route('motivo.index') }}" class="nav-link ">
                         <i class="fas fa-plus-square nav-icon"></i>
                         <p>Motivo de Consulta</p>

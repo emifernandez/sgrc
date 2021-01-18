@@ -16,10 +16,10 @@ class Seguro extends Model
 
     public $timestamps = false;
 
-    // public function pacientes()
-    // {
-    //     return $this->hasMany(Distrito::class, 'region', 'region');
-    // }
+    public function pacientes()
+    {
+        return $this->hasMany(Paciente::class, 'seguro', 'seguro');
+    }
 
     public function setNombreAttribute($nombre)
     {

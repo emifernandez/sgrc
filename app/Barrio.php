@@ -33,12 +33,18 @@ class Barrio extends Model
         return $this->hasMany(Funcionario::class, 'barrio', 'barrio');
     }
 
-    public function setNombreAttribute($nombre) {
-        $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
-
+    public function pacientes()
+    {
+        return $this->hasMany(Paciente::class, 'barrio', 'barrio');
     }
 
-    public function getNombreAttribute($nombre) {
+    public function setNombreAttribute($nombre)
+    {
+        $this->attributes['nombre'] = mb_strtolower($nombre, "UTF-8");
+    }
+
+    public function getNombreAttribute($nombre)
+    {
         return mb_convert_case($nombre, MB_CASE_TITLE, "UTF-8");
     }
 }

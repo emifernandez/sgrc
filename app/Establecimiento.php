@@ -52,6 +52,11 @@ class Establecimiento extends Model
         return $this->belongsToMany(Usuario::class, 'usuarios_establecimientos', 'establecimiento', 'usuario');
     }
 
+    public function pacientes()
+    {
+        return $this->hasMany(Paciente::class, 'establecimiento', 'establecimiento');
+    }
+
     public function getEstados()
     {
         return $estados = [

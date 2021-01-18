@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('nacionalidad', 'Nacionalidad\NacionalidadController');
     Route::resource('nivel', 'NivelAtencion\NivelAtencionController');
     Route::resource('nivel-educativo', 'NivelEducativo\NivelEducativoController');
+    Route::resource('paciente', 'Paciente\PacienteController');
     Route::resource('perfil', 'Perfil\PerfilController');
     Route::resource('permiso', 'Permiso\PermisoController');
     Route::resource('profesion', 'Profesion\ProfesionController');
