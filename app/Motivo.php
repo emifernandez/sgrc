@@ -16,10 +16,12 @@ class Motivo extends Model
 
     public $timestamps = false;
 
-    // public function pacientes()
-    // {
-    //     return $this->hasMany(Distrito::class, 'region', 'region');
-    // }
+    public function consultas()
+    {
+        return $this->belongsToMany(RegistroConsulta::class, 'consultas_motivos', 'motivo', 'motivo')
+            ->withPivot('descripcion')
+            ->as('consultas_motivos');
+    }
 
     public function setDescripcionAttribute($descripcion)
     {

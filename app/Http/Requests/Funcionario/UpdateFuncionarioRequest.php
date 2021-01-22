@@ -23,7 +23,6 @@ class UpdateFuncionarioRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->funcionario);
         return [
             'nombres' => 'required|max:60',
             'apellidos' => 'required|max:60',

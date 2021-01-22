@@ -17,6 +17,13 @@ class Enfermedad extends Model
 
     public $timestamps = false;
 
+    public function consultas()
+    {
+        return $this->belongsToMany(RegistroConsulta::class, 'consultas_diagnosticos', 'enfermedad', 'enfermedad')
+            ->withPivot('observacion')
+            ->as('consultas_diagnosticos');
+    }
+
     public function setDescripcionAttribute($descripcion)
     {
         $this->attributes['descripcion'] = mb_strtolower($descripcion, "UTF-8");

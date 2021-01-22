@@ -1,5 +1,6 @@
 <?php
 
+use App\RegistroConsulta;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,8 +24,10 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::resource('admision', 'Admision\AdmisionController');
     Route::resource('barrio', 'Barrio\BarrioController');
     Route::resource('cargo', 'Cargo\CargoController');
+    Route::resource('contrareferencia', 'Derivacion\ContrareferenciaController');
     Route::resource('distrito', 'Distrito\DistritoController');
     Route::resource('enfermedad', 'Enfermedad\EnfermedadController');
     Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
@@ -41,14 +44,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('permiso', 'Permiso\PermisoController');
     Route::resource('profesion', 'Profesion\ProfesionController');
     Route::resource('red', 'Red\RedController');
+    Route::resource('referencia', 'Derivacion\ReferenciaController');
     Route::resource('region', 'Region\RegionController');
+    Route::resource('registro-consulta', 'RegistroConsulta\RegistroConsultaController');
+    Route::get('registro-consulta-pendientes', 'RegistroConsulta\RegistroConsultaController@pendientes')->name('consultas.pendientes');
     Route::resource('seguro', 'Seguro\SeguroController');
     Route::resource('servicio', 'ServicioMedico\ServicioMedicoController');
     Route::resource('tipo', 'Tipo\TipoController');
     Route::resource('usuario', 'Usuario\UsuarioController');
     Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
     Route::resource('permiso-detalle', 'Permiso\PermisoDetalleController');
-
     Route::get('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 });

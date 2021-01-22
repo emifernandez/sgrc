@@ -240,8 +240,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('admision.index') }}" class="nav-link ">
                         <i class="fas fa-calendar-check nav-icon"></i>
                         <p>Admisiones</p>
                         </a>
@@ -270,8 +269,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('registro-consulta.index') }}" class="nav-link ">
                         <i class="fas fa-folder-plus nav-icon"></i>
                         <p>Atenciones Médicas</p>
                         </a>
@@ -288,15 +286,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('referencia.index') }}" class="nav-link ">
                         <i class="fas fa-arrow-circle-down nav-icon"></i>
                         <p>Referencias</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('contrareferencia.index') }}" class="nav-link ">
                         <i class="fas fa-arrow-circle-up nav-icon"></i>
                         <p>Contrareferencias</p>
                         </a>
