@@ -36,7 +36,7 @@
                         <td>{{ $contrareferencia->profesional_derivado->nombres . ' ' . $contrareferencia->profesional_derivado->apellidos }}</td>
                         <td>{{ $prioridades[$contrareferencia->prioridad] }}</td>
                         <td style="display: block;  margin: auto;">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$referencia->derivacion}}">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$contrareferencia->derivacion}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
                             <a href="{{ route('contrareferencia.edit', $contrareferencia->derivacion) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>

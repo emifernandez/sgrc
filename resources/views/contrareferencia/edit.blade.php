@@ -3,7 +3,7 @@
 @section('title', 'Contrareferencias')
 @section('menu-header')
     <li class="breadcrumb-item"><a href="{{ route('contrareferencia.index') }}">Contrareferencias</a></li>
-    <li class="breadcrumb-item active">Crear Contrareferencia</a></li>
+    <li class="breadcrumb-item active">Editar Contrareferencia</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,12 +15,12 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Crear Contrareferencia</h3>
+                                <h3 class="card-title">Editar Contrareferencia</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('contrareferencia.store') }}">
+                            <form role="form" id="form" method="POST" action="{{ route('contrareferencia.update', $derivacion->derivacion) }}">
+                                @method('PATCH')
                                 @csrf
-                                <input type="hidden" name="consulta" id="consulta" value="{{ $referencia->consulta }}">
-                                <input type="hidden" name="contra_derivacion" id="contra_derivacion" value="{{ $referencia->derivacion }}">
+                                <input type="hidden" name="consulta" id="consulta" value="{{ $derivacion->consulta }}">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-3">
@@ -36,7 +36,7 @@
                                                     data-mask
                                                     name="fecha"
                                                     id="fecha"
-                                                    value="{{ old('fecha', $todayDate = date("d-m-Y")) }}">
+                                                    value="{{ old('fecha', $derivacion->fecha->forForm()) }}">
                                                 </div>
                                                     @foreach ($errors->get('fecha') as $error)
                                                         <span class="text text-danger">{{ $error }}</span>
@@ -49,7 +49,7 @@
                                                 <select class="form-control" name="prioridad" id="prioridad">
                                                     @foreach($prioridades as $key => $prioridad)
                                                         <option value="{{ $key }}"
-                                                            @if ($key == old('prioridad')) 
+                                                            @if ($key == old('prioridad', $derivacion->prioridad)) 
                                                                 selected 
                                                             @elseif ($key == 2)
                                                                 selected 
@@ -66,7 +66,11 @@
                                             <div class="form-group">
                                                 <label>Tipo</label>
                                                 <select class="form-control" name="tipo" id="tipo" readonly>
-                                                        <option value="{{ '2' }}">{{ $tipos[2] }}</option>
+                                                    @foreach($tipos as $key => $tipo)
+                                                        <option value="{{ $key }}"
+                                                            @if($key == old('tipo', $derivacion->tipo)) selected @endif
+                                                            >{{ $tipo }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @foreach ($errors->get('tipo') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>
@@ -77,7 +81,11 @@
                                             <div class="form-group">
                                                 <label>Estado</label>
                                                 <select class="form-control" name="estado" id="estado" readonly>
-                                                    <option value="{{ '2' }}">{{ $estados[2] }}</option>
+                                                    @foreach($estados as $key => $estado)
+                                                        <option value="{{ $key }}"
+                                                            @if($key == old('estado', $derivacion->estado)) selected @endif
+                                                            >{{ $estado }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @foreach ($errors->get('estado') as $error)
                                                     <span class="text text-danger">{{ $error }}</span>
@@ -92,7 +100,7 @@
                                                 <select class="form-control" name="paciente" id="paciente" readonly>
                                                     @foreach($pacientes as $key => $paciente)
                                                         <option value="{{ $paciente->paciente }}"
-                                                            @if($paciente->paciente == old('paciente')) selected @endif
+                                                            @if($paciente->paciente == old('paciente', $derivacion->paciente)) selected @endif
                                                             >{{ $paciente->nombres }}</option>
                                                     @endforeach
                                                 </select>
@@ -107,7 +115,7 @@
                                                 <select class="form-control" name="establecimiento" id="establecimiento" readonly>
                                                     @foreach($establecimiento_origen as $key => $establecimiento)
                                                         <option value="{{ $establecimiento->establecimiento }}"
-                                                            @if($establecimiento->establecimiento == old('establecimiento')) selected @endif
+                                                            @if($establecimiento->establecimiento == old('establecimiento', $derivacion->establecimiento)) selected @endif
                                                             >{{ $establecimiento->nombre }}</option>
                                                     @endforeach
                                                 </select>
@@ -122,7 +130,7 @@
                                                 <select class="form-control" name="profesional_derivante" id="profesional_derivante" readonly>
                                                     @foreach($profesional_derivante as $key => $profesional)
                                                         <option value="{{ $profesional->funcionario }}"
-                                                            @if($profesional->funcionario == old('profesional_derivante')) selected @endif
+                                                            @if($profesional->funcionario == old('profesional_derivante', $derivacion->profesional_derivante)) selected @endif
                                                             >{{ $profesional->nombres . ' ' . $profesional->apellidos}}</option>
                                                     @endforeach
                                                 </select>
@@ -137,7 +145,7 @@
                                         <select class="form-control" name="cie_derivacion" id="cie_derivacion">
                                             @foreach($enfermedades as $key => $enfermedad)
                                                 <option value="{{ $enfermedad->enfermedad }}"
-                                                    @if($enfermedad->enfermedad == old('cie_derivacion')) selected @endif
+                                                    @if($enfermedad->enfermedad == old('cie_derivacion', $derivacion->cie_derivacion)) selected @endif
                                                     >{{ $enfermedad->codigo }}</option>
                                             @endforeach
                                         </select>
@@ -150,7 +158,7 @@
                                         <select class="form-control" name="especialidad" id="especialidad">
                                             @foreach($especialidades as $key => $especialidad)
                                                 <option value="{{ $especialidad->especialidad }}"
-                                                    @if($especialidad->especialidad == old('especialidad')) selected @endif
+                                                    @if($especialidad->especialidad == old('especialidad', $derivacion->especialidad)) selected @endif
                                                     >{{ $especialidad->nombre }}</option>
                                             @endforeach
                                         </select>
@@ -163,7 +171,7 @@
                                         <select class="form-control" name="establecimiento_derivacion" id="establecimiento_derivacion">
                                             @foreach($establecimientos as $key => $establecimiento)
                                                 <option value="{{ $establecimiento->establecimiento }}"
-                                                    @if($establecimiento->establecimiento == old('establecimiento_derivacion')) selected @endif
+                                                    @if($establecimiento->establecimiento == old('establecimiento_derivacion', $derivacion->establecimiento_derivacion)) selected @endif
                                                     >{{ $establecimiento->nombre }}</option>
                                             @endforeach
                                         </select>
@@ -173,10 +181,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Profesional Derivado</label>
-                                        <select class="form-control" name="profesional_derivado" id="profesional_derivante" >
+                                        <select class="form-control" name="profesional_derivado" id="profesional_derivado" >
                                             @foreach($profesionales as $key => $profesional)
                                                 <option value="{{ $profesional->funcionario }}"
-                                                    @if($profesional->funcionario == old('profesional_derivado')) selected @endif
+                                                    @if($profesional->funcionario == old('profesional_derivado', $derivacion->profesional_derivado)) selected @endif
                                                     >{{ $profesional->nombres . ' ' . $profesional->apellidos}}</option>
                                             @endforeach
                                         </select>
@@ -190,7 +198,7 @@
                                             type="text"
                                             name="descripcion_caso"
                                             id="descripcion_caso"
-                                            value="{{ old('descripcion_caso') }}"
+                                            value="{{ old('descripcion_caso', $derivacion->descripcion_caso) }}"
                                             placeholder="Introduzca descripcion del caso para la referencia">
                                             @foreach ($errors->get('descripcion_caso') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
@@ -202,7 +210,7 @@
                                             type="text"
                                             name="impresion_diagnostica"
                                             id="impresion_diagnostica"
-                                            value="{{ old('impresion_diagnostica') }}"
+                                            value="{{ old('impresion_diagnostica', $derivacion->impresion_diagnostica) }}"
                                             placeholder="Introduzca impresión diagnóstica para la referencia">
                                             @foreach ($errors->get('impresion_diagnostica') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
@@ -214,7 +222,7 @@
                                             type="text"
                                             name="tratamiento_actual"
                                             id="tratamiento_actual"
-                                            value="{{ old('tratamiento_actual') }}"
+                                            value="{{ old('tratamiento_actual', $derivacion->tratamiento_actual) }}"
                                             placeholder="Introduzca tratamiento actual para la referencia">
                                             @foreach ($errors->get('tratamiento_actual') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
@@ -226,7 +234,7 @@
                                             type="text"
                                             name="recomendacion"
                                             id="recomendacion"
-                                            value="{{ old('recomendacion') }}"
+                                            value="{{ old('recomendacion', $derivacion->recomendacion) }}"
                                             placeholder="Introduzca recomendación para la referencia">
                                             @foreach ($errors->get('recomendacion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
@@ -238,7 +246,7 @@
                                             type="text"
                                             name="situacion_sociofamiliar"
                                             id="situacion_sociofamiliar"
-                                            value="{{ old('situacion_sociofamiliar') }}"
+                                            value="{{ old('situacion_sociofamiliar', $derivacion->situacion_sociofamiliar) }}"
                                             placeholder="Introduzca situacion sociofamiliar para la referencia">
                                             @foreach ($errors->get('situacion_sociofamiliar') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
@@ -246,7 +254,7 @@
                                     </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <a href="{{ route('referencia.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
+                                    <a href="{{ route('contrareferencia.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>
@@ -257,3 +265,4 @@
 	</div>
 </div>
 @endsection
+

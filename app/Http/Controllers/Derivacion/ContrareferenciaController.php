@@ -11,6 +11,8 @@ use App\Paciente;
 use App\RegistroConsulta;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ContrareferenciaController extends Controller
 {
@@ -53,7 +55,19 @@ class ContrareferenciaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $contrareferencia = new Derivacion($request->all());
+        $contrareferencia->usuario = Auth::user()->usuario;
+        $contrareferencia->contra_derivacion = null;
+        $referencia = Derivacion::findOrFail($request->contra_derivacion);
+        DB::transaction(function () use ($contrareferencia, $referencia) {
+            $contrareferencia->save();
+            $referencia->contra_derivacion = $contrareferencia->derivacion;
+            $referencia->estado = '2'; //finalizado
+            $referencia->update();
+        });
+
+        return redirect('/contrareferencia')->with('success', 'Contrareferencia grabada correctamente');
     }
 
     /**
@@ -64,30 +78,30 @@ class ContrareferenciaController extends Controller
      */
     public function show($referencia)
     {
-        // $referencia = Derivacion::find($referencia);
-        // $establecimiento_origen = Establecimiento::where('establecimiento', $referencia->establecimiento)->get();
-        // $establecimientos = Establecimiento::where('establecimiento', '!=', $referencia->establecimiento)->get();
-        // $pacientes = Paciente::where('paciente', $referencia->paciente)->get();
-        // $profesional_derivante = Funcionario::where('funcionario', $referencia->profesional)->get();
-        // $profesionales = Funcionario::where('funcionario', '!=', $consulta->profesional)->get();
-        // $especialidades = EspecialidadMedica::all();
-        // $enfermedades = Enfermedad::all();
-        // $tipos = Derivacion::TIPO_DERIVACION;
-        // $estados = Derivacion::DERIVACION_ESTADO;
-        // $prioridades = Derivacion::PRIORIDAD_DERIVACION;
+        $referencia = Derivacion::find($referencia);
+        $establecimiento_origen = Establecimiento::where('establecimiento', $referencia->establecimiento_derivacion)->get();
+        $establecimientos = Establecimiento::where('establecimiento', $referencia->establecimiento)->get();
+        $pacientes = Paciente::where('paciente', $referencia->paciente)->get();
+        $profesional_derivante = Funcionario::where('funcionario', $referencia->profesional_derivado)->get();
+        $profesionales = Funcionario::where('funcionario', $referencia->profesional_derivante)->get();
+        $especialidades = EspecialidadMedica::all();
+        $enfermedades = Enfermedad::all();
+        $tipos = Derivacion::TIPO_DERIVACION;
+        $estados = Derivacion::DERIVACION_ESTADO;
+        $prioridades = Derivacion::PRIORIDAD_DERIVACION;
 
-        // return view('referencia.create')
-        //     ->with('consulta', $consulta)
-        //     ->with('establecimientos', $establecimientos)
-        //     ->with('establecimiento_origen', $establecimiento_origen)
-        //     ->with('profesional_derivante', $profesional_derivante)
-        //     ->with('pacientes', $pacientes)
-        //     ->with('profesionales', $profesionales)
-        //     ->with('especialidades', $especialidades)
-        //     ->with('tipos', $tipos)
-        //     ->with('estados', $estados)
-        //     ->with('enfermedades', $enfermedades)
-        //     ->with('prioridades', $prioridades);
+        return view('contrareferencia.create')
+            ->with('referencia', $referencia)
+            ->with('establecimientos', $establecimientos)
+            ->with('establecimiento_origen', $establecimiento_origen)
+            ->with('profesional_derivante', $profesional_derivante)
+            ->with('pacientes', $pacientes)
+            ->with('profesionales', $profesionales)
+            ->with('especialidades', $especialidades)
+            ->with('tipos', $tipos)
+            ->with('estados', $estados)
+            ->with('enfermedades', $enfermedades)
+            ->with('prioridades', $prioridades);
     }
 
     /**
@@ -96,9 +110,32 @@ class ContrareferenciaController extends Controller
      * @param  \App\Derivacion  $derivacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Derivacion $derivacion)
+    public function edit($id)
     {
-        //
+        $derivacion = Derivacion::find($id);
+        $establecimiento_origen = Establecimiento::where('establecimiento', $derivacion->establecimiento)->get();
+        $establecimientos = Establecimiento::where('establecimiento', $derivacion->establecimiento_derivacion)->get();
+        $pacientes = Paciente::where('paciente', $derivacion->paciente)->get();
+        $profesional_derivante = Funcionario::where('funcionario', $derivacion->profesional_derivante)->get();
+        $profesionales = Funcionario::where('funcionario', $derivacion->profesional_derivado)->get();
+        $especialidades = EspecialidadMedica::all();
+        $enfermedades = Enfermedad::all();
+        $tipos = Derivacion::TIPO_DERIVACION;
+        $estados = Derivacion::DERIVACION_ESTADO;
+        $prioridades = Derivacion::PRIORIDAD_DERIVACION;
+
+        return view('contrareferencia.edit')
+            ->with('derivacion', $derivacion)
+            ->with('establecimientos', $establecimientos)
+            ->with('establecimiento_origen', $establecimiento_origen)
+            ->with('profesional_derivante', $profesional_derivante)
+            ->with('pacientes', $pacientes)
+            ->with('profesionales', $profesionales)
+            ->with('especialidades', $especialidades)
+            ->with('tipos', $tipos)
+            ->with('estados', $estados)
+            ->with('enfermedades', $enfermedades)
+            ->with('prioridades', $prioridades);
     }
 
     /**
@@ -108,9 +145,13 @@ class ContrareferenciaController extends Controller
      * @param  \App\Derivacion  $derivacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Derivacion $derivacion)
+    public function update(Request $request, $id)
     {
-        //
+        $derivacion = Derivacion::findOrFail($id);
+        $derivacion->fill($request->all());
+        $derivacion->usuario = Auth::user()->usuario;
+        $derivacion->update();
+        return redirect('/contrareferencia')->with('success', 'Contraeferencia actualizada correctamente');
     }
 
     /**
@@ -119,8 +160,10 @@ class ContrareferenciaController extends Controller
      * @param  \App\Derivacion  $derivacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Derivacion $derivacion)
+    public function destroy(Request $request)
     {
-        //
+        $contrareferencia = Derivacion::findOrFail($request->id);
+        $contrareferencia->delete();
+        return redirect()->route('contrareferencia.index')->with('success', 'Contrareferencia eliminada correctamente');
     }
 }
