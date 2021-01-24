@@ -11,7 +11,9 @@ use App\Http\Requests\Establecimiento\UpdateEstablecimientoRequest;
 use App\Red;
 use App\Region;
 use App\Tipo;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EstablecimientoController extends Controller
 {
@@ -166,9 +168,80 @@ class EstablecimientoController extends Controller
         return redirect()->route('establecimiento.index')->with('success', 'Establecimiento eliminado correctamente');
     }
 
-    public function report()
+    public function report(Request $request)
     {
-        $pdf = \PDF::loadView('establecimiento.reportes.establecimiento');
+        $where = '';
+        $c = 0;
+        if ($request->has('region') && $request->get('region') != 'null') {
+            $where = $where . ' regiones.region = ' . $request->get('region');
+            $c++;
+        }
+        if ($request->has('tipo') && $request->get('tipo') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' establecimientos.tipo = ' . $request->get('tipo');
+            $c++;
+        }
+        if ($request->has('estado') && $request->get('estado') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' establecimientos.estado = ' . $request->get('estado');
+        }
+        if ($where != '') {
+            $establecimientos = DB::table('establecimientos')
+                ->select(DB::raw('establecimientos.codigo
+                , UPPER(establecimientos.nombre) as nombre
+                , UPPER(barrios.nombre) as barrio
+                , UPPER(distritos.nombre) as distrito
+                , UPPER(regiones.nombre) as region
+                , UPPER(tipos.nombre) as tipo
+                , UPPER(niveles_atencion.nombre) as nivel
+                , establecimientos.estado as estado
+                , establecimientos.email as email
+                , establecimientos.telefono1 as telefono1
+                , establecimientos.telefono2 as telefono2
+                , establecimientos.establecimiento_encargado
+                , establecimientos.ubicacion'))
+                ->join('barrios', 'establecimientos.barrio', '=', 'barrios.barrio')
+                ->join('distritos', 'distritos.distrito', '=', 'barrios.distrito')
+                ->join('regiones', 'regiones.region', '=', 'distritos.region')
+                ->join('tipos', 'tipos.tipo', '=', 'establecimientos.tipo')
+                ->join('niveles_atencion', 'niveles_atencion.nivel', '=', 'tipos.nivel')
+                ->whereRaw($where)
+                ->get();
+        } else {
+            $establecimientos = DB::table('establecimientos')
+                ->select(DB::raw('establecimientos.codigo
+                , UPPER(establecimientos.nombre) as nombre
+                , UPPER(barrios.nombre) as barrio
+                , UPPER(distritos.nombre) as distrito
+                , UPPER(regiones.nombre) as region
+                , UPPER(tipos.nombre) as tipo
+                , UPPER(niveles_atencion.nombre) as nivel
+                , establecimientos.estado as estado
+                , establecimientos.email as email
+                , establecimientos.telefono1 as telefono1
+                , establecimientos.telefono2 as telefono2
+                , establecimientos.establecimiento_encargado
+                , establecimientos.ubicacion'))
+                ->join('barrios', 'establecimientos.barrio', '=', 'barrios.barrio')
+                ->join('distritos', 'distritos.distrito', '=', 'barrios.distrito')
+                ->join('regiones', 'regiones.region', '=', 'distritos.region')
+                ->join('tipos', 'tipos.tipo', '=', 'establecimientos.tipo')
+                ->join('niveles_atencion', 'niveles_atencion.nivel', '=', 'tipos.nivel')
+                ->get();
+        }
+        $establecimientos->each(function ($establecimiento) {
+            if (isset($establecimiento->establecimiento_encargado)) {
+                $establecimiento->establecimiento_encargado = Establecimiento::find($establecimiento->establecimiento_encargado);
+            }
+            if ($establecimiento->estado === Establecimiento::ESTABLECIMIENTO_ACTIVO) {
+                $establecimiento->estado = 'ACTIVO';
+            } else {
+                $establecimiento->estado = 'INACTIVO';
+            }
+        });
+        $pdf = \PDF::loadView('establecimiento.reportes.establecimiento', compact('establecimientos', $establecimientos));
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream('Establecimientos.pdf');
     }
 }

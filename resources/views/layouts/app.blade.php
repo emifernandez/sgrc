@@ -215,8 +215,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('horario.index') }}" class="nav-link ">
                         <i class="fas fa-clock nav-icon"></i>
                         <p>Horarios de Atención</p>
                         </a>
@@ -309,8 +308,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('report.establecimiento.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Establecimientos</p>
                         </a>
@@ -424,6 +422,7 @@
             });
 
             $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
+            $(".time").inputmask("H:s",{ "placeholder": "00:00" });
         });
     </script>
 </body>

@@ -17,7 +17,7 @@ try {
     require("inputmask/dist/jquery.inputmask.js");
     require("inputmask");
 
-} catch (e) {}
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -9,6 +9,11 @@ class Establecimiento extends Model
     const ESTABLECIMIENTO_ACTIVO = '1';
     const ESTABLECIMIENTO_INACTIVO = '2';
 
+    const ESTADOS = [
+        '1' => 'Activo',
+        '2' => 'Inactivo',
+    ];
+
     protected $table = 'establecimientos';
 
     protected $primaryKey = 'establecimiento';
