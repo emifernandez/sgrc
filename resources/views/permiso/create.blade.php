@@ -20,6 +20,29 @@
                             <form role="form" id="form" method="POST" action="{{ route('permiso.store') }}">
                                 @csrf
                                 <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="fecha_asignacion">Fecha</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control datemask"
+                                                    readonly
+                                                    data-inputmask-alias="datetime"
+                                                    data-inputmask-inputformat="dd-mm-yyyy H:M:S"
+                                                    data-mask
+                                                    name="fecha_asignacion"
+                                                    id="fecha_asignacion"
+                                                    value="{{ old('fecha_asignacion', $todayDate = date("d-m-Y H:i:s")) }}">
+                                                </div>
+                                                    @foreach ($errors->get('fecha_asignacion') as $error)
+                                                        <span class="text text-danger">{{ $error }}</span>
+                                                    @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label>Perfil</label>
                                         <select class="form-control" name="perfil" id="perfil">
@@ -34,6 +57,47 @@
                                             <span class="text text-danger">{{ $error }}</span>
                                         @endforeach
                                     </div>
+                                    <hr>
+                                    <div class="form-group text-center">
+                                        <h4>Accesos</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table width="100%" class="table table-striped table-bordered table-hover" id="tabla-acceso">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="display:none;">Acceso</td>
+                                                        <th>
+                                                            <div class="input-group ">
+                                                                <select class="form-control" name="acceso" id="acceso">
+                                                                    <option value=null>Seleccione un Acceso</option>
+                                                                    @foreach($accesos as $key => $acceso)
+                                                                        <option value="{{ $acceso }}"
+                                                                            @if($acceso->acceso == old('acceso')) selected @endif
+                                                                            >{{ $acceso->nombre }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @foreach ($errors->get('acceso') as $error)
+                                                                    <span class="text text-danger">{{ $error }}</span>
+                                                                @endforeach
+                                                            </div>
+                                                        </th>
+                                                        <th class="text-center" valign="center">
+                                                            <label class="form-check-label" for="habilitado">Habilitado</label>
+                                                        </th>
+                                                        <th style="horizontal-align: middle; display: block; margin: auto;">
+                                                            <a class="btn btn-info addAcceso" data-toggle="tooltip" title="Agregar Acceso">
+                                                                <i class="fas fa-plus"></i>
+                                                            </a>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <hr>
 
                                 </div>
                                 <div class="card-footer">
@@ -48,5 +112,36 @@
         </section>
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.tabla-simple').DataTable({
+            responsive: true,
+        });
+        $('.addAcceso').on('click', function() {
+            addAcceso();
+        })
+        $( "table" ).on( "click", ".eliminar", function() {
+            $(this).parent().parent().remove();
+        });
+
+        function addAcceso() {
+            var a = document.getElementById("acceso");
+            var h = document.getElementById("habilitado");
+            var acceso = JSON.parse(a.value);
+            var table = document.getElementById("tabla-acceso");
+            var row = table.insertRow(-1);
+
+            row.innerHTML = '<td style="display:none;"><input type="text" class="form-control" name="acceso[]" readonly value="' + acceso.acceso + '"></td>' 
+                + '<td><input type="text" class="form-control" name="nombre[]" readonly value="' + acceso.nombre + '"></td>' 
+                + '<td class="text-center" valign="center">'
+                    +' <input class="form-check-input" type="checkbox" name="habilitado[]" checked value="'+acceso.acceso+'">'
+                +'</td>'
+                + '<td><a class="btn btn-danger eliminar" data-toggle="tooltip" title="Eliminar Acceso"><i class="fas fa-trash-alt"></i></a></td>';
+            d.value = null;
+        }
+    });
+</script> 
 @endsection
 

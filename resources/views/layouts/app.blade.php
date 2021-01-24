@@ -422,6 +422,7 @@
             });
 
             $('.datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
+            $('.datetimemask').inputmask('dd-mm-yyyy H:i:s', { 'placeholder': 'dd-mm-yyyy 00:00:00' })
             $(".time").inputmask("H:s",{ "placeholder": "00:00" });
         });
     </script>

@@ -9,7 +9,6 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         <a  href="{{route('permiso.create')}}" class="btn btn-primary">Nuevo Permiso</a>
-        <a  href="{{route('permiso-detalle.create')}}" class="btn btn-success">Asignar Acceso</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
