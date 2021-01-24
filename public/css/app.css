@@ -10294,6 +10294,13 @@ body,
   min-height: calc(100vh - calc(3.5rem + 1px) - calc(3.5rem + 1px));
 }
 
+.wrapper .home {
+  background-image: url("/img/home.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+
 .layout-boxed .wrapper {
   box-shadow: 0 0 10 rgba(0, 0, 0, 0.3);
 }

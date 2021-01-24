@@ -168,7 +168,7 @@
                                             name="observacion"
                                             id="observacion"
                                             value="{{ old('observacion') }}"
-                                            placeholder="Introduzca observacion para la admisión"></textarea>
+                                            placeholder="Introduzca observacion para el horario de atención"></textarea>
                                             @foreach ($errors->get('observacion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach

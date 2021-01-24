@@ -194,60 +194,60 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="descripcion_caso">Descripción Caso</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="2"
                                             name="descripcion_caso"
                                             id="descripcion_caso"
                                             value="{{ old('descripcion_caso', $derivacion->descripcion_caso) }}"
-                                            placeholder="Introduzca descripcion del caso para la referencia">
+                                            placeholder="Introduzca descripcion del caso para la referencia">{{ old('descripcion_caso', $derivacion->descripcion_caso) }}</textarea>
                                             @foreach ($errors->get('descripcion_caso') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="impresion_diagnostica">Impresión Diagnóstica</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="2"
                                             name="impresion_diagnostica"
                                             id="impresion_diagnostica"
                                             value="{{ old('impresion_diagnostica', $derivacion->impresion_diagnostica) }}"
-                                            placeholder="Introduzca impresión diagnóstica para la referencia">
+                                            placeholder="Introduzca impresión diagnóstica para la referencia">{{ old('impresion_diagnostica', $derivacion->impresion_diagnostica) }}</textarea>
                                             @foreach ($errors->get('impresion_diagnostica') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="tratamiento_actual">Tratamiento Actual</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="2"
                                             name="tratamiento_actual"
                                             id="tratamiento_actual"
                                             value="{{ old('tratamiento_actual', $derivacion->tratamiento_actual) }}"
-                                            placeholder="Introduzca tratamiento actual para la referencia">
+                                            placeholder="Introduzca tratamiento actual para la referencia">{{ old('tratamiento_actual', $derivacion->tratamiento_actual) }}</textarea>
                                             @foreach ($errors->get('tratamiento_actual') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="recomendacion">Recomendación</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="2"
                                             name="recomendacion"
                                             id="recomendacion"
                                             value="{{ old('recomendacion', $derivacion->recomendacion) }}"
-                                            placeholder="Introduzca recomendación para la referencia">
+                                            placeholder="Introduzca recomendación para la referencia">{{ old('recomendacion', $derivacion->recomendacion) }}</textarea>
                                             @foreach ($errors->get('recomendacion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
                                     </div>
                                     <div class="form-group">
                                         <label for="situacion_sociofamiliar">Situación Socio familiar</label>
-                                        <input class="form-control"
-                                            type="text"
+                                        <textarea class="form-control"
+                                            rows="2"
                                             name="situacion_sociofamiliar"
                                             id="situacion_sociofamiliar"
                                             value="{{ old('situacion_sociofamiliar', $derivacion->situacion_sociofamiliar) }}"
-                                            placeholder="Introduzca situacion sociofamiliar para la referencia">
+                                            placeholder="Introduzca situacion sociofamiliar para la referencia">{{ old('situacion_sociofamiliar', $derivacion->situacion_sociofamiliar) }}</textarea>
                                             @foreach ($errors->get('situacion_sociofamiliar') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
