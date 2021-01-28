@@ -313,8 +313,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('report.profesional.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Profesionales</p>
                         </a>
@@ -327,15 +326,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('report.capacidad.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Capacidad de Atención</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('report.cantidad.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Cantidades de Atención</p>
                         </a>

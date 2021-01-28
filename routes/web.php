@@ -55,8 +55,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('usuario', 'Usuario\UsuarioController');
     Route::resource('usuario-establecimiento', 'Usuario\UsuarioEstablecimientoController');
     Route::resource('permiso-detalle', 'Permiso\PermisoDetalleController');
+
     Route::post('report', 'Establecimiento\EstablecimientoController@report')->name('establecimiento.report');
+    Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');
+    Route::post('report-capacidad-atencion', 'Reporte\ReporteController@reportCapacidadAtencion')->name('capacidad.report');
+    Route::post('report-cantidad-atencion', 'Reporte\ReporteController@reportCantidadAtencion')->name('cantidad.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 
     Route::get('report-establecimiento', 'Reporte\ReporteController@establecimiento')->name('report.establecimiento.index');
+    Route::get('report-profesional', 'Reporte\ReporteController@profesional')->name('report.profesional.index');
+    Route::get('report-capacidad', 'Reporte\ReporteController@capacidadAtencion')->name('report.capacidad.index');
+    Route::get('report-cantidad', 'Reporte\ReporteController@cantidadAtencion')->name('report.cantidad.index');
 });

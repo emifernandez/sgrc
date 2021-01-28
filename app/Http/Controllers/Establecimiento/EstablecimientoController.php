@@ -170,6 +170,7 @@ class EstablecimientoController extends Controller
 
     public function report(Request $request)
     {
+        $establecimiento_usuario = $request->session()->get('establecimiento');
         $where = '';
         $c = 0;
         if ($request->has('region') && $request->get('region') != 'null') {
@@ -239,9 +240,12 @@ class EstablecimientoController extends Controller
                 $establecimiento->estado = 'INACTIVO';
             }
         });
-        $pdf = \PDF::loadView('establecimiento.reportes.establecimiento', compact('establecimientos', $establecimientos));
-        $pdf->getDomPDF()->set_option("enable_php", true);
-        $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream('Establecimientos.pdf');
+        return view('establecimiento.reportes.establecimiento')
+            ->with('establecimientos', $establecimientos)
+            ->with('establecimiento_usuario', $establecimiento_usuario);
+        // $pdf = \PDF::loadView('establecimiento.reportes.establecimiento', compact('establecimientos', 'establecimiento_usuario'));
+        // $pdf->getDomPDF()->set_option("enable_php", true);
+        // $pdf->setPaper('A4', 'landscape');
+        // return $pdf->stream('Establecimientos.pdf');
     }
 }

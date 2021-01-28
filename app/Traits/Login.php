@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Barrio;
+use App\Distrito;
 use App\Establecimiento;
 use App\Usuario;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -55,6 +57,10 @@ trait Login
             $establecimientos = Usuario::findOrFail($request->usuario)->establecimientos;
             if ($establecimientos->contains($request->establecimiento)) {
                 if ($this->attemptLogin($request)) {
+                    $establecimiento = Establecimiento::find($request->establecimiento);
+                    $establecimiento->barrio = Barrio::find($establecimiento->barrio);
+                    $establecimiento->barrio->distrito = Distrito::find($establecimiento->barrio->distrito);
+                    session(['establecimiento' => $establecimiento]);
                     return $this->sendLoginResponse($request);
                 }
             }

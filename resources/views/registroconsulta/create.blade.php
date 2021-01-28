@@ -57,6 +57,21 @@
                                                 @endforeach
                                             </div>
                                         </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Estado</label>
+                                                <select class="form-control" name="estado" id="estado">
+                                                    @foreach($estados as $key => $estado)
+                                                        <option value="{{ $key }}"
+                                                            @if($key == old('estado')) selected @endif
+                                                            >{{ $estado }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @foreach ($errors->get('estado') as $error)
+                                                    <span class="text text-danger">{{ $error }}</span>
+                                                @endforeach
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-4">
@@ -105,6 +120,19 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="observacion">Observacion</label>
+                                        <textarea class="form-control"
+                                            rows="3"
+                                            name="observacion"
+                                            id="observacion"
+                                            value="{{ old('observacion') }}"
+                                            placeholder="Introduzca observacion para la consulta"></textarea>
+                                            @foreach ($errors->get('observacion') as $error)
+                                                <span class="text text-danger">{{ $error }}</span>
+                                            @endforeach
+                                    </div>
+
                                     {{-- MOTIVOS      --}}
                                     <hr>
                                     <div class="form-group text-center">

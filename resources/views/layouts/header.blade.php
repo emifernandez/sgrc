@@ -8,11 +8,14 @@
   <title>{{ env('APP_NAME') }}</title>
 
   <link rel="stylesheet" href="/css/app.css">
+  <script src="/js/app.js"></script>
+  <script type="text/javascript" src="{!! asset('js/jquery.print.js') !!}"></script>
+  <script type="text/javascript" src="{!! asset('js/Chart.min.js') !!}"></script>
 </head>
 
 <body>
 
-<div class="wrapper">
+<div class="wrapper print">
     <!-- Main content -->
     <div class="content">
         <main>
@@ -23,6 +26,8 @@
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<script src="/js/app.js"></script>
+
+@yield('scripts')
+
 </body>
 </html>

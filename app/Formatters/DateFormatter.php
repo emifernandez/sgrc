@@ -27,6 +27,11 @@ class DateFormatter
         return $this->date->format('d-m-Y');
     }
 
+    public function forString()
+    {
+        return $this->date->format('Y-m-d');
+    }
+
     public function forFormDateHour()
     {
         return $this->date->format('d-m-Y H:i:s');

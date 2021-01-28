@@ -14,9 +14,9 @@ use App\Orden;
 use App\Paciente;
 use App\RegistroConsulta;
 use App\ServicioMedico;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RegistroConsultaController extends Controller
 {
@@ -77,6 +77,9 @@ class RegistroConsultaController extends Controller
         $admisiones = Admision::whereNotIn('admision', $consultas)->orderBy('prioridad', 'DESC')->get();
         if ($admisiones->count() > 0) {
             $consulta = new RegistroConsulta();
+            $consulta->usuario = Auth::user()->usuario;
+            $consulta->estado = $request->estado;
+            $consulta->observacion = $request->observacion;
             $consulta->establecimiento = $request->establecimiento;
             $consulta->admision = $request->admision;
             $consulta->paciente = $request->paciente;
@@ -164,6 +167,7 @@ class RegistroConsultaController extends Controller
         $tipos_consultas = RegistroConsulta::TIPO_CONSULTA;
         $motivos = Motivo::all();
         $enfermedades = Enfermedad::all();
+        $estados = RegistroConsulta::ESTADOS_CONSULTA;
         return view('registroconsulta.create')
             ->with('establecimientos', $establecimientos)
             ->with('admision', $admision)
@@ -171,7 +175,8 @@ class RegistroConsultaController extends Controller
             ->with('profesionales', $profesionales)
             ->with('tipos_consultas', $tipos_consultas)
             ->with('motivos', $motivos)
-            ->with('enfermedades', $enfermedades);
+            ->with('enfermedades', $enfermedades)
+            ->with('estados', $estados);
     }
 
     /**

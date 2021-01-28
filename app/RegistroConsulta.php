@@ -13,6 +13,11 @@ class RegistroConsulta extends Model
         '3' => 'Extramural',
     ];
 
+    const ESTADOS_CONSULTA = [
+        '1' => 'Realizado',
+        '2' => 'Pendiente',
+    ];
+
     protected $table = 'registros_consultas';
 
     protected $primaryKey = 'consulta';
@@ -26,6 +31,9 @@ class RegistroConsulta extends Model
         'referencia_destino',
         'fecha',
         'tipo_consulta',
+        'estado',
+        'usuario',
+        'observacion',
     ];
 
     public $timestamps = false;

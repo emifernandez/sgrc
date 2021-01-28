@@ -11,6 +11,7 @@ use App\Http\Requests\Funcionario\StoreFuncionarioRequest;
 use App\Http\Requests\Funcionario\UpdateFuncionarioRequest;
 use App\Profesion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FuncionarioController extends Controller
 {
@@ -135,5 +136,104 @@ class FuncionarioController extends Controller
         $funcionario = Funcionario::findOrFail($request->id);
         $funcionario->delete();
         return redirect()->route('funcionario.index')->with('success', 'Funcionario eliminado correctamente');
+    }
+
+    public function report(Request $request)
+    {
+        $establecimiento_usuario = $request->session()->get('establecimiento');
+        $where = '';
+        $c = 0;
+        if ($request->has('establecimiento') && $request->get('establecimiento') != 'null') {
+            $where = $where . ' horarios_atenciones.establecimiento = ' . $request->get('establecimiento');
+            $c++;
+        }
+        if ($request->has('especialidad') && $request->get('especialidad') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' horarios_atenciones.especialidad = ' . $request->get('especialidad');
+            $c++;
+        }
+        if ($request->has('funcionario') && $request->get('funcionario') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' horarios_atenciones.funcionario = ' . $request->get('funcionario');
+            $c++;
+        }
+        if ($request->has('hora_desde') && $request->get('hora_desde') != null) {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' hora_desde >= \'' . $request->get('hora_desde') . '\'';
+            $c++;
+        }
+        if ($request->has('hora_hasta') && $request->get('hora_hasta') != null) {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' hora_hasta <= \'' . $request->get('hora_hasta') . '\'';
+            $c++;
+        }
+        if ($request->has('dia') && $request->get('dia') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' dia = ' . $request->get('dia');
+            $c++;
+        }
+        if ($where != '') {
+            $horarios = DB::table('horarios_atenciones')
+                ->select(DB::raw(
+                    'UPPER(establecimientos.nombre) AS establecimiento,
+                    UPPER(especialidades_medicas.nombre) AS especialidad,
+                    UPPER(funcionarios.nombres) AS nombre,
+                    UPPER(funcionarios.apellidos) AS apellido,
+                    hora_desde,
+	                hora_hasta,
+                    CASE dia
+                    WHEN 1 then "DOMINGO"
+                    WHEN 2 then "LUNES"
+                    WHEN 3 then "MARTES"
+                    WHEN 4 then "MIERCOLES"
+                    WHEN 5 then "JUEVES"
+                    WHEN 6 then "VIERNES"
+                    WHEN 7 then "SABADO"
+                    END AS dia'
+                ))
+                ->join('establecimientos', 'establecimientos.establecimiento', '=', 'horarios_atenciones.establecimiento')
+                ->join('especialidades_medicas', 'especialidades_medicas.especialidad', '=', 'horarios_atenciones.especialidad')
+                ->join('funcionarios', 'funcionarios.funcionario', '=', 'horarios_atenciones.funcionario')
+                ->whereRaw($where)
+                ->orderBy('establecimientos.nombre', 'ASC')
+                ->orderBy('dia', 'ASC')
+                ->orderBy('especialidades_medicas.nombre', 'ASC')
+                ->orderBy('funcionarios.nombres', 'ASC')
+                ->orderBy('funcionarios.apellidos', 'ASC')
+                ->get();
+        } else {
+            $horarios = DB::table('horarios_atenciones')
+                ->select(DB::raw('UPPER(establecimientos.nombre) AS establecimiento,
+                UPPER(especialidades_medicas.nombre) AS especialidad,
+                UPPER(funcionarios.nombres) AS nombre,
+                UPPER(funcionarios.apellidos) AS apellido,
+                hora_desde,
+                hora_hasta,
+                CASE dia
+                WHEN 1 then "DOMINGO"
+                WHEN 2 then "LUNES"
+                WHEN 3 then "MARTES"
+                WHEN 4 then "MIERCOLES"
+                WHEN 5 then "JUEVES"
+                WHEN 6 then "VIERNES"
+                WHEN 7 then "SABADO"
+                END AS dia'))
+                ->join('establecimientos', 'establecimientos.establecimiento', '=', 'horarios_atenciones.establecimiento')
+                ->join('especialidades_medicas', 'especialidades_medicas.especialidad', '=', 'horarios_atenciones.especialidad')
+                ->join('funcionarios', 'funcionarios.funcionario', '=', 'horarios_atenciones.funcionario')
+                ->orderBy('establecimientos.nombre', 'ASC')
+                ->orderBy('dia', 'ASC')
+                ->orderBy('especialidades_medicas.nombre', 'ASC')
+                ->orderBy('funcionarios.nombres', 'ASC')
+                ->orderBy('funcionarios.apellidos', 'ASC')
+                ->get();
+        }
+        return view('funcionario.reportes.funcionario')
+            ->with('horarios', $horarios)
+            ->with('establecimiento_usuario', $establecimiento_usuario);
+        // $pdf = \PDF::loadView('funcionario.reportes.funcionario', compact('horarios', $horarios));
+        // $pdf->getDomPDF()->set_option("enable_php", true);
+        // $pdf->setPaper('A4', 'landscape');
+        // return $pdf->stream('Profesionales.pdf');
     }
 }
