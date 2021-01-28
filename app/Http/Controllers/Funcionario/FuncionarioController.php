@@ -210,13 +210,13 @@ class FuncionarioController extends Controller
                 hora_desde,
                 hora_hasta,
                 CASE dia
-                WHEN 1 then "DOMINGO"
-                WHEN 2 then "LUNES"
-                WHEN 3 then "MARTES"
-                WHEN 4 then "MIERCOLES"
-                WHEN 5 then "JUEVES"
-                WHEN 6 then "VIERNES"
-                WHEN 7 then "SABADO"
+                WHEN 1 then "Domingo"
+                WHEN 2 then "Lunes"
+                WHEN 3 then "Martes"
+                WHEN 4 then "Miércoles"
+                WHEN 5 then "Jueves"
+                WHEN 6 then "Viernes"
+                WHEN 7 then "Sábado"
                 END AS dia'))
                 ->join('establecimientos', 'establecimientos.establecimiento', '=', 'horarios_atenciones.establecimiento')
                 ->join('especialidades_medicas', 'especialidades_medicas.especialidad', '=', 'horarios_atenciones.especialidad')

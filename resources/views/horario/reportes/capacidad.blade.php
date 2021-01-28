@@ -38,6 +38,7 @@
             <h5 style="margin-left: 5%">Establecimiento: {{mb_convert_case($e, MB_CASE_TITLE, "UTF-8")}}</h5>
         </div>
         @foreach($establecimiento->groupBy('especialidad') as $f => $funcionario)
+        
         <div style="margin-left: 10%">
             <h5>Especialidad: {{mb_convert_case($f, MB_CASE_TITLE, "UTF-8")}}</h5>
             <table class="table table-striped">

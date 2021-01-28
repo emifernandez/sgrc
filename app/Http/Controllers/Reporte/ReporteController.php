@@ -8,9 +8,13 @@ use App\Formatters\DateFormatter;
 use App\Funcionario;
 use App\HorarioAtencion;
 use App\Http\Controllers\Controller;
+use App\Paciente;
 use App\Red;
 use App\Region;
 use App\Tipo;
+use App\Derivacion;
+use App\Enfermedad;
+use App\Motivo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,6 +57,27 @@ class ReporteController extends Controller
             ->with('especialidades', $especialidades)
             ->with('funcionarios', $funcionarios)
             ->with('dias', $dias);
+    }
+
+    public function derivacion()
+    {
+        $redes = Red::all();
+        $establecimientos = Establecimiento::all();
+        $funcionarios = Funcionario::all();
+        $pacientes = Paciente::all();
+        $motivos = Motivo::all();
+        $enfermedades = Enfermedad::all();
+        $estados = Derivacion::DERIVACION_ESTADO;
+        $tipos = Derivacion::TIPO_DERIVACION;
+        return view('reports.derivacion')
+            ->with('redes', $redes)
+            ->with('establecimientos', $establecimientos)
+            ->with('funcionarios', $funcionarios)
+            ->with('pacientes', $pacientes)
+            ->with('motivos', $motivos)
+            ->with('enfermedades', $enfermedades)
+            ->with('estados', $estados)
+            ->with('tipos', $tipos);
     }
 
     public function cantidadAtencion()
@@ -251,6 +276,287 @@ class ReporteController extends Controller
         }
         return view('horario.reportes.cantidad')
             ->with('establecimientos', $establecimientos)
+            ->with('establecimiento_usuario', $establecimiento_usuario);
+    }
+
+
+    public function reportDerivacion(Request $request)
+    {
+        $establecimiento_usuario = $request->session()->get('establecimiento');
+        $where = '';
+        $c = 0;
+        if ($request->has('red') && $request->get('red') != 'null') {
+            $where = $where . ' r.red = ' . $request->get('red');
+            $c++;
+        }
+        if ($request->has('establecimiento_origen') && $request->get('establecimiento_origen') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' e.establecimiento = ' . $request->get('establecimiento_origen');
+            $c++;
+        }
+
+        if ($request->has('establecimiento_destino') && $request->get('establecimiento_destino') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' ed.establecimiento = ' . $request->get('establecimiento_destino');
+            $c++;
+        }
+        if ($request->has('especialidad') && $request->get('especialidad') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' horarios_atenciones.especialidad = ' . $request->get('especialidad');
+            $c++;
+        }
+        if ($request->has('funcionario_derivante') && $request->get('funcionario_derivante') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' fte.funcionario = ' . $request->get('funcionario_derivante');
+            $c++;
+        }
+        if ($request->has('funcionario_derivado') && $request->get('funcionario_derivado') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' fdo.funcionario = ' . $request->get('funcionario_derivado');
+            $c++;
+        }
+        if ($request->has('paciente') && $request->get('paciente') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' p.paciente = ' . $request->get('paciente');
+            $c++;
+        }
+        if ($request->has('motivo') && $request->get('motivo') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' cm.motivo = ' . $request->get('motivo');
+            $c++;
+        }
+        if ($request->has('enfermedad') && $request->get('enfermedad') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' d.cie_derivacion = ' . $request->get('enfermedad');
+            $c++;
+        }
+        if ($request->has('tipo') && $request->get('tipo') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' d.tipo = ' . $request->get('tipo');
+            $c++;
+        }
+        if ($request->has('estado') && $request->get('estado') != 'null') {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $where = $where . ' d.estado = ' . $request->get('estado');
+            $c++;
+        }
+        if ($request->has('fecha_desde') && $request->has('hora_desde') && $request->has('fecha_hasta') && $request->has('hora_hasta') && $request->get('fecha_desde') != null && $request->get('hora_desde') != null && $request->get('fecha_hasta') != null && $request->get('hora_hasta') != null) {
+            $c > 0 ? $where = $where . ' AND ' : '';
+            $fecha_desde = new DateFormatter($request->get('fecha_desde'));
+            $fecha_hasta = new DateFormatter($request->get('fecha_hasta'));
+            $where = $where . ' d.fecha BETWEEN \'' . $fecha_desde->forString() . ' ' . $request->get('hora_desde') . ':00' . '\' AND \'' . $fecha_hasta->forString() . ' ' . $request->get('hora_hasta') . ':00' . '\'';
+            $c++;
+        }
+        if ($where != '') {
+            $derivaciones = DB::select(DB::raw("SELECT
+            d.derivacion,
+            r.nombre,
+            e.nombre AS establecimiento_origen,
+            ed.nombre AS establecimiento_destino,
+            fdo.nombres AS funcionario_derivado_nombres,
+            fdo.apellidos AS funcionario_derivado_apellidos,
+            fdo.registro_profesional AS funcionario_derivado_regitro,
+            fte.nombres AS funcionario_derivante_nombres,
+            fte.apellidos AS funcionario_derivante_apellidos,
+            fte.registro_profesional AS funcionario_derivante_registro,
+            p.nombres AS paciente,
+            p.numero_documento AS documento_paciente,
+            d.consulta AS consulta,
+            d.fecha,
+            em.nombre AS especialidad,
+            m.descripcion AS motivo,
+            en.codigo AS diagnostico,
+            d.usuario,
+            CASE d.tipo
+            WHEN 1 THEN
+                'Referencia'
+            WHEN 2 THEN
+                'Contrareferencia'
+            END AS tipo,
+            d.descripcion_caso,
+            d.impresion_diagnostica,
+            d.recomendacion,
+            CASE d.prioridad
+            WHEN 1 THEN
+                'Baja'
+            WHEN 2 THEN
+                'Media'
+            WHEN 3 THEN
+                'Alta'
+            END AS prioridad
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE " . $where . "
+         ORDER BY d.tipo"));
+
+            $total = DB::select(DB::raw("SELECT
+            count(d.tipo) as total
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE " . $where));
+
+            $referencias = DB::select(DB::raw("SELECT
+            count(d.tipo) as referencias
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE " . $where . " AND d.tipo = 1 "));
+
+            $contrareferencias = DB::select(DB::raw("SELECT
+            count(d.tipo) as contrareferencias
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE " . $where . " AND d.tipo = 2 "));
+        } else {
+            $derivaciones = DB::select(DB::raw("SELECT
+            d.derivacion,
+            r.nombre,
+            e.nombre AS establecimiento_origen,
+            ed.nombre AS establecimiento_destino,
+            fdo.nombres AS funcionario_derivado_nombres,
+            fdo.apellidos AS funcionario_derivado_apellidos,
+            fdo.registro_profesional AS funcionario_derivado_regitro,
+            fte.nombres AS funcionario_derivante_nombres,
+            fte.apellidos AS funcionario_derivante_apellidos,
+            fte.registro_profesional AS funcionario_derivante_registro,
+            p.nombres AS paciente,
+            p.numero_documento AS documento_paciente,
+            d.consulta AS consulta,
+            d.fecha,
+            em.nombre AS especialidad,
+            m.descripcion AS motivo,
+            en.codigo AS diagnostico,
+            d.usuario,
+            CASE d.tipo
+            WHEN 1 THEN
+                'Referencia'
+            WHEN 2 THEN
+                'Contrareferencia'
+            END AS tipo,
+            d.descripcion_caso,
+            d.impresion_diagnostica,
+            d.recomendacion,
+            CASE d.prioridad
+            WHEN 1 THEN
+                'Baja'
+            WHEN 2 THEN
+                'Media'
+            WHEN 3 THEN
+                'Alta'
+            END AS prioridad
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion
+        ORDER BY d.tipo"));
+            $total = DB::select(DB::raw("SELECT
+            count(d.tipo) as total
+        FROM
+            derivaciones d
+            INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+            INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+            INNER JOIN redes r ON r.red = e.red
+            INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+            INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+            INNER JOIN pacientes p ON p.paciente = d.paciente
+            INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+            INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+            INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+            INNER JOIN motivos m ON m.motivo = cm.motivo
+            INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion"));
+
+            $referencias = DB::select(DB::raw("SELECT
+        count(d.tipo) as referencias
+        FROM
+        derivaciones d
+        INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+        INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+        INNER JOIN redes r ON r.red = e.red
+        INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+        INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+        INNER JOIN pacientes p ON p.paciente = d.paciente
+        INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+        INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+        INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+        INNER JOIN motivos m ON m.motivo = cm.motivo
+        INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE d.tipo = 1 "));
+
+            $contrareferencias = DB::select(DB::raw("SELECT
+        count(d.tipo) as contrareferencias
+        FROM
+        derivaciones d
+        INNER JOIN establecimientos e ON e.establecimiento = d.establecimiento
+        INNER JOIN establecimientos ed ON ed.establecimiento = d.establecimiento_derivacion
+        INNER JOIN redes r ON r.red = e.red
+        INNER JOIN funcionarios fdo ON fdo.funcionario = d.profesional_derivado
+        INNER JOIN funcionarios fte ON fte.funcionario = d.profesional_derivante
+        INNER JOIN pacientes p ON p.paciente = d.paciente
+        INNER JOIN registros_consultas rc ON rc.consulta = d.consulta
+        INNER JOIN consultas_motivos cm ON cm.consulta = rc.consulta
+        INNER JOIN especialidades_medicas em ON em.especialidad = d.especialidad
+        INNER JOIN motivos m ON m.motivo = cm.motivo
+        INNER JOIN enfermedades en ON en.enfermedad = d.cie_derivacion 
+        WHERE d.tipo = 2 "));
+        }
+        $collection = collect($derivaciones);
+        return view('contrareferencia.reportes.derivacion')
+            ->with('collection', $collection)
+            ->with('total', $total)
+            ->with('referencias', $referencias)
+            ->with('contrareferencias', $contrareferencias)
             ->with('establecimiento_usuario', $establecimiento_usuario);
     }
 }

@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-12">
           <h3 class="text-center">
-            Informe de Funcionarios
+            Informe de Horarios de Atención
           </h3>
         </div>
       </div>
@@ -37,16 +37,16 @@
                 <th>Especialidad</th>
                 <th>Profesional</th>
                 <th>Dia</th>
-                <th>Hora Desde</th>
-                <th>Hora Hasta</th>
+                <th>Desde</th>
+                <th>Hasta</th>
           </tr>
           </thead>
           <tbody>
                 @foreach($horarios as $key => $horario)
                 <tr>
-                    <td>{{ $horario->establecimiento }}</td>
-                    <td>{{ $horario->especialidad }}</td>
-                    <td>{{ $horario->nombre . ' ' . $horario->apellido }}</td>
+                    <td>{{ mb_convert_case($horario->establecimiento, MB_CASE_TITLE, "UTF-8") }}</td>
+                    <td>{{  mb_convert_case($horario->especialidad, MB_CASE_TITLE, "UTF-8") }}</td>
+                    <td>{{  mb_convert_case($horario->nombre . ' ' . $horario->apellido, MB_CASE_TITLE, "UTF-8") }}</td>
                     <td>{{ $horario->dia }}</td>
                     <td>{{ $horario->hora_desde }}</td>
                     <td>{{ $horario->hora_hasta }}</td>

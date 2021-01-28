@@ -50,20 +50,20 @@
             @foreach($establecimientos as $key => $establecimiento)
             <tr>
                 <td>{{ $establecimiento->codigo }}</td>
-                <td>{{ $establecimiento->nombre }}</td>
-                <td>{{ $establecimiento->region }}</td>
-                <td>{{ $establecimiento->distrito }}</td>
-                <td>{{ $establecimiento->barrio }}</td>
-                <td>{{ $establecimiento->tipo }}</td>
+                <td>{{ mb_convert_case($establecimiento->nombre, MB_CASE_TITLE, "UTF-8") }}</td>
+                <td>{{ mb_convert_case($establecimiento->region, MB_CASE_TITLE, "UTF-8") }}</td>
+                <td>{{ mb_convert_case($establecimiento->distrito, MB_CASE_TITLE, "UTF-8") }}</td>
+                <td>{{ mb_convert_case($establecimiento->tipo, MB_CASE_TITLE, "UTF-8") }}</td>
+                <td>{{ mb_convert_case($establecimiento->nivel, MB_CASE_TITLE, "UTF-8") }}</td>
                 @if(isset($establecimiento->establecimiento_encargado))
-                <td>{{ $establecimiento->establecimiento_encargado->nombre }}</td>
+                <td>{{ mb_convert_case($establecimiento->establecimiento_encargado->nombre, MB_CASE_TITLE, "UTF-8") }}</td>
                 @else
                 <td> Sin Encargado</td>
                 @endif
                 <td>{{ $establecimiento->email }}</td>
                 <td>{{ $establecimiento->telefono1 . ' - ' . $establecimiento->telefono2 }}</td>
                 <td>{{ $establecimiento->ubicacion }}</td>
-                <td>{{ $establecimiento->estado }}</td>
+                <td>{{ mb_convert_case($establecimiento->estado, MB_CASE_TITLE, "UTF-8") }}</td>
             </tr>
             @endforeach
           </tbody>

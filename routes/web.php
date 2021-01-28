@@ -60,10 +60,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');
     Route::post('report-capacidad-atencion', 'Reporte\ReporteController@reportCapacidadAtencion')->name('capacidad.report');
     Route::post('report-cantidad-atencion', 'Reporte\ReporteController@reportCantidadAtencion')->name('cantidad.report');
+    Route::post('report-derivaciones', 'Reporte\ReporteController@reportDerivacion')->name('derivacion.report');
     Route::get('region-report', 'Region\RegionController@report')->name('region.report');
 
     Route::get('report-establecimiento', 'Reporte\ReporteController@establecimiento')->name('report.establecimiento.index');
     Route::get('report-profesional', 'Reporte\ReporteController@profesional')->name('report.profesional.index');
     Route::get('report-capacidad', 'Reporte\ReporteController@capacidadAtencion')->name('report.capacidad.index');
     Route::get('report-cantidad', 'Reporte\ReporteController@cantidadAtencion')->name('report.cantidad.index');
+    Route::get('report-derivacion', 'Reporte\ReporteController@derivacion')->name('report.derivacion.index');
 });

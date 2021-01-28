@@ -315,12 +315,12 @@
                     <li class="nav-item">
                         <a href="{{ route('report.profesional.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Profesionales</p>
+                        <p>Informe de Horarios de Atención</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         {{-- falta --}}
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
+                        <a href="{{ route('report.derivacion.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Derivaciones</p>
                         </a>
@@ -332,7 +332,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        {{-- falta --}}
                         <a href="{{ route('report.cantidad.index') }}" class="nav-link ">
                         <i class="fas fa-file-alt nav-icon"></i>
                         <p>Informe de Cantidades de Atención</p>
