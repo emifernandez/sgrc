@@ -89,7 +89,12 @@
           <!-- /.col -->
           </div>
         </form>
-
+        <div class="social-auth-links text-center mb-3">
+          <p>- O -</p>
+          <a href="{{ route('report.horario') }}" class="btn btn-block btn-success">
+            <i class="fas fa-calendar-alt mr-2"></i> Consulte los Horarios de Atención
+          </a>
+        </div>
 
       </div>
       <!-- /.login-card-body -->

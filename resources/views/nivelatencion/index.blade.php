@@ -15,7 +15,7 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabla">
                 <thead>
                     <tr>
-                        <th>Codigo</th>
+                        <th>Código</th>
                         <th>Nivel</th>
                         <th>Acciones</th>
                     </tr>

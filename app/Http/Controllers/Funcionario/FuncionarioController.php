@@ -228,12 +228,13 @@ class FuncionarioController extends Controller
                 ->orderBy('funcionarios.apellidos', 'ASC')
                 ->get();
         }
-        return view('funcionario.reportes.funcionario')
-            ->with('horarios', $horarios)
-            ->with('establecimiento_usuario', $establecimiento_usuario);
-        // $pdf = \PDF::loadView('funcionario.reportes.funcionario', compact('horarios', $horarios));
-        // $pdf->getDomPDF()->set_option("enable_php", true);
-        // $pdf->setPaper('A4', 'landscape');
-        // return $pdf->stream('Profesionales.pdf');
+        if ($establecimiento_usuario != null) {
+            return view('funcionario.reportes.funcionario')
+                ->with('horarios', $horarios)
+                ->with('establecimiento_usuario', $establecimiento_usuario);
+        } else {
+            return view('horario.reportes.horario')
+                ->with('horarios', $horarios);
+        }
     }
 }

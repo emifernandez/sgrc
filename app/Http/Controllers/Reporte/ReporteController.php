@@ -44,6 +44,19 @@ class ReporteController extends Controller
             ->with('dias', $dias);
     }
 
+    public function horario()
+    {
+        $establecimientos = Establecimiento::all();
+        $especialidades = EspecialidadMedica::all();
+        $funcionarios = Funcionario::all();
+        $dias = HorarioAtencion::DIAS;
+        return view('reports.horario')
+            ->with('establecimientos', $establecimientos)
+            ->with('especialidades', $especialidades)
+            ->with('funcionarios', $funcionarios)
+            ->with('dias', $dias);
+    }
+
     public function capacidadAtencion()
     {
         $redes = Red::all();

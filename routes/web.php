@@ -69,3 +69,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('report-cantidad', 'Reporte\ReporteController@cantidadAtencion')->name('report.cantidad.index');
     Route::get('report-derivacion', 'Reporte\ReporteController@derivacion')->name('report.derivacion.index');
 });
+
+Route::get('report-horario', 'Reporte\ReporteController@horario')->name('report.horario');
+Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');

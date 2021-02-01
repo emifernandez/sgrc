@@ -105,7 +105,7 @@
                     <li class="nav-item">
                         <a href="{{ route('nivel.index') }}" class="nav-link ">
                         <i class="fas fa-plus-square nav-icon"></i>
-                        <p>Niveles de Atencion</p>
+                        <p>Niveles de Atención</p>
                         </a>
                     </li>
                     <li class="nav-item">
