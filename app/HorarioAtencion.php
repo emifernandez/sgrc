@@ -60,7 +60,7 @@ class HorarioAtencion extends Model
         return $this->belongsTo(Funcionario::class, 'funcionario', 'funcionario');
     }
 
-    public function getHoraDesdeAttribute()
+    public function getHoraDesdeAttribute($hora_desde)
     {
         return \Carbon\Carbon::createFromFormat('H:i:s', $this->attributes['hora_desde']);
     }

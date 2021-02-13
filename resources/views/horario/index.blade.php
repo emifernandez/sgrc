@@ -33,7 +33,7 @@
                         <td>{{ $horario->establecimiento->nombre }}</td>
                         <td>{{ $horario->especialidad->nombre }}</td>
                         <td>{{ $horario->funcionario->nombres . ' ' . $horario->funcionario->apellidos }}</td>
-                        <td>{{ $horario->dia }}</td>
+                        <td>{{ $dias[$horario->dia] }}</td>
                         <td>{{ $horario->hora_desde->format('H:i') }}</td>
                         <td>{{ $horario->hora_hasta->format('H:i') }}</td>
                         <td>{{ $horario->capacidad_atencion }}</td>
