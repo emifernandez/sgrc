@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Auditoria;
 use App\Barrio;
 use App\Distrito;
 use App\Establecimiento;
@@ -61,6 +62,8 @@ trait Login
                     $establecimiento->barrio = Barrio::find($establecimiento->barrio);
                     $establecimiento->barrio->distrito = Distrito::find($establecimiento->barrio->distrito);
                     session(['establecimiento' => $establecimiento]);
+                    session(['usuario' => $request->usuario]);
+                    $this->insertAuditoria($request->usuario, $establecimiento, 'I');
                     return $this->sendLoginResponse($request);
                 }
             }
@@ -69,9 +72,6 @@ trait Login
                 'autenticacion' => 'Credenciales incorrectas. Por favor vuelva a introducir los datos.',
             ]);
         }
-
-
-
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -197,11 +197,15 @@ trait Login
      */
     public function logout(Request $request)
     {
+        $usuario = $request->session()->get('usuario');
+        $establecimiento = $request->session()->get('establecimiento');
         $this->guard()->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        $this->insertAuditoria($usuario, $establecimiento, 'O');
 
         if ($response = $this->loggedOut($request)) {
             return $response;
@@ -231,5 +235,19 @@ trait Login
     protected function guard()
     {
         return Auth::guard();
+    }
+
+    /**
+     * Inserta datos en la auditoria
+     * @param $accion I=login, O=logout
+     */
+    private function insertAuditoria($usuario, $establecimiento, $accion)
+    {
+        $auditoria = new Auditoria();
+        $auditoria->fecha_registro = now();
+        $auditoria->tabla = 'auditorias';
+        $auditoria->accion = $accion;
+        $auditoria->descripcion = 'usuario: ' . $usuario . ' | establecimiento: ' . $establecimiento->establecimiento; //usuario|establecimiento
+        $auditoria->save();
     }
 }
