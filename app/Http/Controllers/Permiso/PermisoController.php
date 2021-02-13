@@ -113,13 +113,13 @@ class PermisoController extends Controller
         $habilitados = $request->input('habilitado', []);
         if ($accesos != 'null') {
             DB::transaction(function () use ($permiso, $accesos, $habilitados) {
-                $permiso->update();
                 if ($accesos != 'null') {
-                    $permiso->accesos()->delete();
+                    $permiso->accesos()->detach();
                     foreach ($accesos as $i => $acceso) {
                         $permiso->accesos()->attach($permiso->permiso, ['acceso' => $acceso, 'habilitado' => in_array($acceso, $habilitados)]);
                     }
                 }
+                $permiso->update();
             });
             return redirect('/permiso')->with('success', 'Permiso actualizado correctamente');
         } else {

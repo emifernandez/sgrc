@@ -68,7 +68,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('report-capacidad', 'Reporte\ReporteController@capacidadAtencion')->name('report.capacidad.index');
     Route::get('report-cantidad', 'Reporte\ReporteController@cantidadAtencion')->name('report.cantidad.index');
     Route::get('report-derivacion', 'Reporte\ReporteController@derivacion')->name('report.derivacion.index');
+    Route::get('/block', function () {
+        return view('layouts.block');
+    })->name('block');
 });
-
 Route::get('report-horario', 'Reporte\ReporteController@horario')->name('report.horario');
 Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');

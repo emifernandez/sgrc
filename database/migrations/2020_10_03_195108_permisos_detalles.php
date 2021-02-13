@@ -18,8 +18,8 @@ class PermisosDetalles extends Migration
             $table->unsignedSmallInteger('acceso');
             $table->char('habilitado', 1);
 
-            $table->foreign('permiso')->references('permiso')->on('permisos');
-            $table->foreign('acceso')->references('acceso')->on('accesos');
+            $table->foreign('permiso')->references('permiso')->on('permisos')->cascadeOnDelete();
+            $table->foreign('acceso')->references('acceso')->on('accesos')->cascadeOnDelete();
             $table->primary(array('permiso', 'acceso'));
         });
     }

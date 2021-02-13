@@ -287,9 +287,17 @@ class ReporteController extends Controller
                 ->orderBy('establecimientos.nombre', 'ASC')
                 ->get();
         }
+        $establecimiento = $establecimientos->pluck('establecimiento');
+        $atenciones = $establecimientos->pluck('atenciones');
+        $referencias = $establecimientos->pluck('referencias');
+        $contrareferencias = $establecimientos->pluck('contrareferencias');
         return view('horario.reportes.cantidad')
             ->with('establecimientos', $establecimientos)
-            ->with('establecimiento_usuario', $establecimiento_usuario);
+            ->with('establecimiento_usuario', $establecimiento_usuario)
+            ->with('establecimiento', $establecimiento)
+            ->with('atenciones', $atenciones)
+            ->with('referencias', json_encode($referencias, JSON_NUMERIC_CHECK))
+            ->with('contrareferencias', json_encode($contrareferencias, JSON_NUMERIC_CHECK));
     }
 
 

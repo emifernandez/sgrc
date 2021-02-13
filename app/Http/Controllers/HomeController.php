@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Acceso;
+use App\Permiso;
+use App\Usuario;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $usuario = Usuario::findOrFail(Auth::user()->usuario);
+        $permisos = Permiso::where('perfil', $usuario->perfil)->get();
+        if ($permisos->count() > 0) {
+            return view('home');
+        } else {
+            return redirect()->route('block');
+        }
     }
 }

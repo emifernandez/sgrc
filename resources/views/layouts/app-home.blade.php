@@ -1,3 +1,15 @@
+@php
+use App\Permiso;
+use App\Usuario;
+    $usuario = Usuario::findOrFail(Auth::user()->usuario);
+    $permisos = Permiso::where('perfil', $usuario->perfil)->get();
+    $accesos = collect([]);
+    if($permisos->count() > 0) {
+        foreach ($permisos[0]->accesos as $acceso) {
+            $accesos->push($acceso);
+        }
+    }  
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,276 +81,339 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tasks"></i>
-                <p>
-                    Datos Básicos
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('nacionalidad.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Nacionalidades</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('cargo.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Cargos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profesion.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Profesiones</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('funcionario.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Funcionarios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('nivel.index') }}" class="nav-link ">
-                        <i class="fas fa-plus-square nav-icon"></i>
-                        <p>Niveles de Atención</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('tipo.index') }}" class="nav-link ">
-                        <i class="fas fa-h-square nav-icon"></i>
-                        <p>Tipos de Establecimiento</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('especialidad.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Especialidades Médicas</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-map-marked-alt"></i>
-                <p>
-                    Ubicaciones
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('region.index') }}" class="nav-link ">
-                        <i class="fas fa-city nav-icon"></i>
-                        <p>Regiones</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('distrito.index') }}" class="nav-link ">
-                        <i class="fas fa-city nav-icon"></i>
-                        <p>Distritos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('barrio.index') }}" class="nav-link ">
-                        <i class="fas fa-city nav-icon"></i>
-                        <p>Barrios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('establecimiento.index') }}" class="nav-link ">
-                        <i class="fas fa-clinic-medical nav-icon"></i>
-                        <p>Establecimientos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('red.index') }}" class="nav-link ">
-                        <i class="fas fa-sitemap nav-icon"></i>
-                        <p>Redes</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-user-cog"></i>
-                <p>
-                    Usuarios
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('usuario.index') }}" class="nav-link">
-                        <i class="fas fa-user nav-icon"></i>
-                        <p>Usuarios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('usuario-establecimiento.index') }}" class="nav-link ">
-                        <i class="fas fa-user-tag nav-icon"></i>
-                        <p>Usuarios Establecimientos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('perfil.index') }}" class="nav-link ">
-                        <i class="fas fa-users nav-icon"></i>
-                        <p>Perfiles de Usuarios</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('permiso.index') }}" class="nav-link ">
-                        <i class="fas fa-user-shield nav-icon"></i>
-                        <p>Permisos de Usuarios</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-id-card"></i>
-                <p>
-                    Admisión
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('servicio.index') }}" class="nav-link ">
-                        <i class="fas fa-medkit nav-icon"></i>
-                        <p>Servicios Médicos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('horario.index') }}" class="nav-link ">
-                        <i class="fas fa-clock nav-icon"></i>
-                        <p>Horarios de Atención</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('nivel-educativo.index') }}" class="nav-link ">
-                        <i class="fas fa-graduation-cap nav-icon"></i>
-                        <p>Niveles Educativos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('seguro.index') }}" class="nav-link ">
-                        <i class="fas fa-calendar-plus nav-icon"></i>
-                        <p>Seguros</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('paciente.index') }}" class="nav-link ">
-                        <i class="fas fa-wheelchair nav-icon"></i>
-                        <p>Pacientes</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admision.index') }}" class="nav-link ">
-                        <i class="fas fa-calendar-check nav-icon"></i>
-                        <p>Admisiones</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-folder-open"></i>
-                <p>
-                    Consultas
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('motivo.index') }}" class="nav-link ">
-                        <i class="fas fa-plus-square nav-icon"></i>
-                        <p>Motivo de Consulta</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('enfermedad.index') }}" class="nav-link ">
-                        <i class="fas fa-plus-square nav-icon"></i>
-                        <p>Enfermedades</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('registro-consulta.index') }}" class="nav-link ">
-                        <i class="fas fa-folder-plus nav-icon"></i>
-                        <p>Atenciones Médicas</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-people-arrows"></i>
-                <p>
-                    Derivaciones
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('referencia.index') }}" class="nav-link ">
-                        <i class="fas fa-arrow-circle-down nav-icon"></i>
-                        <p>Referencias</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('contrareferencia.index') }}" class="nav-link ">
-                        <i class="fas fa-arrow-circle-up nav-icon"></i>
-                        <p>Contrareferencias</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                    Reportes
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a href="{{ route('report.establecimiento.index') }}" class="nav-link ">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Establecimientos</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('report.profesional.index') }}" class="nav-link ">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Horarios de Atención</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        {{-- falta --}}
-                        <a href="{{ route('report.derivacion.index') }}" class="nav-link ">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Derivaciones</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('report.capacidad.index') }}" class="nav-link ">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Capacidad de Atención</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('report.cantidad.index') }}" class="nav-link ">
-                        <i class="fas fa-file-alt nav-icon"></i>
-                        <p>Informe de Cantidades de Atención</p>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tasks"></i>
+                    <p>
+                        Datos Básicos
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Nacionalidades')->first() && $accesos->where('nombre', 'Nacionalidades')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Nacionalidades')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Nacionalidades')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Cargos')->first() && $accesos->where('nombre', 'Cargos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Cargos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Cargos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Profesiones')->first() && $accesos->where('nombre', 'Profesiones')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Profesiones')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Profesiones')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Funcionarios')->first() && $accesos->where('nombre', 'Funcionarios')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Funcionarios')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Funcionarios')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Niveles de Atención')->first() && $accesos->where('nombre', 'Niveles de Atención')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Niveles de Atención')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-plus-square nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Niveles de Atención')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Tipos de Establecimiento')->first() && $accesos->where('nombre', 'Tipos de Establecimiento')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Tipos de Establecimiento')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-h-square nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Tipos de Establecimiento')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Especialidades Médicas')->first() && $accesos->where('nombre', 'Especialidades Médicas')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Especialidades Médicas')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Especialidades Médicas')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-map-marked-alt"></i>
+                    <p>
+                        Ubicaciones
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Regiones')->first() && $accesos->where('nombre', 'Regiones')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Regiones')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-city nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Regiones')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Distritos')->first() && $accesos->where('nombre', 'Distritos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Distritos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-city nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Distritos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Barrios')->first() && $accesos->where('nombre', 'Barrios')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Barrios')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-city nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Barrios')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Establecimientos')->first() && $accesos->where('nombre', 'Establecimientos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Establecimientos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clinic-medical nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Establecimientos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Redes')->first() && $accesos->where('nombre', 'Redes')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Redes')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-sitemap nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Redes')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-cog"></i>
+                    <p>
+                        Usuarios
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Usuarios')->first() && $accesos->where('nombre', 'Usuarios')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Usuarios')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-user nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Usuarios')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Usuarios Establecimientos')->first() && $accesos->where('nombre', 'Usuarios Establecimientos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Usuarios Establecimientos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-user-tag nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Usuarios Establecimientos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Perfiles de Usuarios')->first() && $accesos->where('nombre', 'Perfiles de Usuarios')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Perfiles de Usuarios')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-users nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Perfiles de Usuarios')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Permisos de Usuarios')->first() && $accesos->where('nombre', 'Permisos de Usuarios')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Permisos de Usuarios')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-user-shield nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Permisos de Usuarios')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-id-card"></i>
+                    <p>
+                        Admisión
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Servicios Médicos')->first() && $accesos->where('nombre', 'Servicios Médicos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Servicios Médicos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-medkit nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Servicios Médicos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Horarios de Atención')->first() && $accesos->where('nombre', 'Horarios de Atención')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Horarios de Atención')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-clock nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Horarios de Atención')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Niveles Educativos')->first() && $accesos->where('nombre', 'Niveles Educativos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Niveles Educativos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-graduation-cap nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Niveles Educativos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Seguros')->first() && $accesos->where('nombre', 'Seguros')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Seguros')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-calendar-plus nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Seguros')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Pacientes')->first() && $accesos->where('nombre', 'Pacientes')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Pacientes')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-wheelchair nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Pacientes')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Admisiones')->first() && $accesos->where('nombre', 'Admisiones')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Admisiones')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-calendar-check nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Admisiones')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-folder-open"></i>
+                    <p>
+                        Consultas
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Motivo de Consulta')->first() && $accesos->where('nombre', 'Motivo de Consulta')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Motivo de Consulta')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-plus-square nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Motivo de Consulta')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Enfermedades')->first() && $accesos->where('nombre', 'Enfermedades')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Enfermedades')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-plus-square nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Enfermedades')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Atenciones Médicas')->first() && $accesos->where('nombre', 'Atenciones Médicas')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Atenciones Médicas')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-folder-plus nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Atenciones Médicas')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-people-arrows"></i>
+                    <p>
+                        Derivaciones
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Referencias')->first() && $accesos->where('nombre', 'Referencias')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Referencias')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-arrow-circle-down nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Referencias')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Contrareferencias')->first() && $accesos->where('nombre', 'Contrareferencias')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Contrareferencias')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-arrow-circle-up nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Contrareferencias')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-copy"></i>
+                    <p>
+                        Reportes
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($accesos->where('nombre', 'Informe de Establecimientos')->first() && $accesos->where('nombre', 'Informe de Establecimientos')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Informe de Establecimientos')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Informe de Establecimientos')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Informe de Horarios de Atención')->first() && $accesos->where('nombre', 'Informe de Horarios de Atención')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Informe de Horarios de Atención')->first()->url) }}" class="nav-link ">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Informe de Horarios de Atención')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Informe de Derivaciones')->first() && $accesos->where('nombre', 'Informe de Derivaciones')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Informe de Derivaciones')->first()->url) }}" class="nav-link ">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Informe de Derivaciones')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Informe de Capacidad de Atención')->first() && $accesos->where('nombre', 'Informe de Capacidad de Atención')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Informe de Capacidad de Atención')->first()->url) }}" class="nav-link ">
+                                    <i class="fas fa-file-alt nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Informe de Capacidad de Atención')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                        @if($accesos->where('nombre', 'Informe de Cantidades de Atención')->first() && $accesos->where('nombre', 'Informe de Cantidades de Atención')->first()->detalle->habilitado == '1')
+                            <li class="nav-item">
+                                <a href="{{ route($accesos->where('nombre', 'Informe de Cantidades de Atención')->first()->url) }}" class="nav-link ">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>{{ $accesos->where('nombre', 'Informe de Cantidades de Atención')->first()->nombre }}</p>
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
