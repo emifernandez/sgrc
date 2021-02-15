@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <a  href="{{route('usuario-establecimiento.create')}}" class="btn btn-primary">Asignar Establecimiento</a>
+            <a  href="{{route('usuario-establecimiento.create')}}" class="btn btn-primary" style="position: absolute;bottom: 17%;">Asignar Establecimiento</a>
         </div>
     </div>
     <div class="panel-body">

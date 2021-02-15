@@ -63,8 +63,19 @@ class UsuarioEstablecimientoController extends Controller
     public function store(StoreUsuarioEstablecimientoRequest $request)
     {
         $usuario = Usuario::find($request->usuario);
-        $usuario->establecimientos()->syncWithoutDetaching($request->establecimiento);
-        return redirect('/usuario-establecimiento')->with('success', 'Establecimiento asignado correctamente');
+        $duplicado = false;
+        foreach ($usuario->establecimientos as $establecimiento) {
+            if ($establecimiento->pivot->establecimiento == $request->establecimiento) {
+                $duplicado = true;
+                break;
+            }
+        }
+        if ($duplicado) {
+            return redirect()->back()->with('error', 'El establecimiento ingresado ya se encuentra asignado al usuario');
+        } else {
+            $usuario->establecimientos()->syncWithoutDetaching($request->establecimiento);
+            return redirect('/usuario-establecimiento')->with('success', 'Establecimiento asignado correctamente');
+        }
     }
 
     /**
