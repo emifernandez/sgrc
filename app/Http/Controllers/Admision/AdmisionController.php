@@ -15,6 +15,7 @@ use App\Paciente;
 use App\ServicioMedico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdmisionController extends Controller
 {
@@ -81,11 +82,21 @@ class AdmisionController extends Controller
     public function store(StoreAdmisionRequest $request)
     {
         $admision = new Admision($request->all());
+        $admision->profesional = null;
         $admision->fecha_registro = now();
         $admision->usuario = Auth::user()->usuario;
         if ($admision->derivacion == 'null') {
             $admision->derivacion = null;
         }
+        DB::transaction(function () use ($admision, $request) {
+            if (isset($request['profesional'])) {
+                $horario = HorarioAtencion::find($request['profesional']);
+                $admision->profesional = $horario->funcionario;
+                $admision->save();
+                $horario->uso_atencion = $horario->uso_atencion + 1;
+                $horario->save();
+            }
+        });
         $admision->save();
         return redirect('/admision')->with('success', 'Admision grabada correctamente');
     }

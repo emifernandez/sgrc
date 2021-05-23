@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Especialidad</label>
-                                        <select class="form-control" name="especialidad" id="especialidad">
+                                        <select class="form-control" name="especialidad" id="especialidad_admision">
                                             <option value="">Seleccione una Especialidad</option>
                                             @foreach($especialidades as $key => $especialidad)
                                                 <option value="{{ $especialidad->especialidad }}"

@@ -1,5 +1,7 @@
 <?php
 
+use App\Nacionalidad;
+use App\Region;
 use Illuminate\Database\Seeder;
 
 class RegionSeeder extends Seeder
@@ -11,6 +13,12 @@ class RegionSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Region::class, 30)->create();
+        $region = new Region();
+        $region->nombre = 'Sin Especificar';
+        $region->save();
+
+        $nacionalidad = new Nacionalidad();
+        $nacionalidad->nombre = 'Paraguaya';
+        $nacionalidad->save();
     }
 }

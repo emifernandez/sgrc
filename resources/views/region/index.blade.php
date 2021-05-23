@@ -9,7 +9,6 @@
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
         <a  href="{{route('region.create')}}" class="btn btn-primary">Nueva Region</a>
-        <a  href="{{route('region.report')}}" class="btn btn-success">Imprimir</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">

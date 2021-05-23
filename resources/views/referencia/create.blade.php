@@ -153,7 +153,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Especialidad</label>
-                                        <select class="form-control" name="especialidad" id="especialidad">
+                                        <select class="form-control" name="especialidad" id="especialidad_referencia">
                                             @foreach($especialidades as $key => $especialidad)
                                                 <option value="{{ $especialidad->especialidad }}"
                                                     @if($especialidad->especialidad == old('especialidad')) selected @endif
@@ -179,7 +179,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Profesional Derivado</label>
-                                        <select class="form-control" name="profesional_derivado" id="profesional_derivante" >
+                                        <select class="form-control" name="profesional_derivado" id="profesional" >
+                                            <option value="">Seleccione un Profesional</option>
                                             @foreach($profesionales as $key => $profesional)
                                                 <option value="{{ $profesional->funcionario }}"
                                                     @if($profesional->funcionario == old('profesional_derivado')) selected @endif
@@ -271,8 +272,8 @@
     </div>
 </div>
 @endsection
-
 @section('scripts')
+<script type="text/javascript" src="{!! asset('js/util.js') !!}"></script>
     <script>
         $('#modal-danger').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget)

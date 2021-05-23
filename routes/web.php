@@ -74,5 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 Route::get('admision/getProfesional/{establecimiento}/{especialidad}/{dia}', 'Admision\AdmisionController@getProfesional');
 Route::get('admision/{funcionario}/getProfesional/{establecimiento}/{especialidad}/{dia}', 'Admision\AdmisionController@getProfesional');
+Route::get('referencia/getProfesional/{establecimiento}/{especialidad}/{derivante}/{dia}', 'Derivacion\ReferenciaController@getProfesional');
+Route::get('referencia/{funcionario}/getProfesional/{establecimiento}/{especialidad}/{dia}', 'Admision\AdmisionController@getProfesional');
 Route::get('report-horario', 'Reporte\ReporteController@horario')->name('report.horario');
 Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');

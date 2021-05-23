@@ -1,5 +1,7 @@
 <?php
 
+use App\Distrito;
+use App\Region;
 use Illuminate\Database\Seeder;
 
 class DistritoSeeder extends Seeder
@@ -11,6 +13,9 @@ class DistritoSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Distrito::class, 50)->create();
+        $distrito = new Distrito();
+        $distrito->nombre = 'Sin Especificar';
+        $distrito->region = Region::all()->first()->region;
+        $distrito->save();
     }
 }

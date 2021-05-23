@@ -1,5 +1,7 @@
 <?php
 
+use App\Barrio;
+use App\Distrito;
 use Illuminate\Database\Seeder;
 
 class BarrioSeeder extends Seeder
@@ -11,6 +13,9 @@ class BarrioSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Barrio::class, 100)->create();
+        $barrio = new Barrio();
+        $barrio->nombre = 'Sin Especificar';
+        $barrio->distrito = Distrito::all()->first()->distrito;
+        $barrio->save();
     }
 }
