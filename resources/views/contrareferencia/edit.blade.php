@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Contrareferencias')
+@section('title', 'Contrarreferrencias')
 @section('menu-header')
-    <li class="breadcrumb-item"><a href="{{ route('contrareferencia.index') }}">Contrareferencias</a></li>
-    <li class="breadcrumb-item active">Editar Contrareferencia</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('contrarreferencia.index') }}">Contrarreferencias</a></li>
+    <li class="breadcrumb-item active">Editar Contrarreferrencia</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,9 +15,9 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Editar Contrareferencia</h3>
+                                <h3 class="card-title">Editar Contrarreferencia</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('contrareferencia.update', $derivacion->derivacion) }}">
+                            <form role="form" id="form" method="POST" action="{{ route('contrarreferencia.update', $derivacion->derivacion) }}">
                                 @method('PATCH')
                                 @csrf
                                 <input type="hidden" name="consulta" id="consulta" value="{{ $derivacion->consulta }}">
@@ -254,7 +254,7 @@
                                     </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Grabar</button>
-                                    <a href="{{ route('contrareferencia.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
+                                    <a href="{{ route('contrarreferencia.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
                         </div>

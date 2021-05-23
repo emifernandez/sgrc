@@ -67,7 +67,7 @@ class ContrareferenciaController extends Controller
             $referencia->update();
         });
 
-        return redirect('/contrareferencia')->with('success', 'Contrareferencia grabada correctamente');
+        return redirect('/contrarreferencia')->with('success', 'Contrareferencia grabada correctamente');
     }
 
     /**
@@ -76,9 +76,9 @@ class ContrareferenciaController extends Controller
      * @param  \App\Derivacion  $derivacion
      * @return \Illuminate\Http\Response
      */
-    public function show($referencia)
+    public function show($contrarreferencium)
     {
-        $referencia = Derivacion::find($referencia);
+        $referencia = Derivacion::find($contrarreferencium);
         $establecimiento_origen = Establecimiento::where('establecimiento', $referencia->establecimiento_derivacion)->get();
         $establecimientos = Establecimiento::where('establecimiento', $referencia->establecimiento)->get();
         $pacientes = Paciente::where('paciente', $referencia->paciente)->get();
@@ -151,7 +151,7 @@ class ContrareferenciaController extends Controller
         $derivacion->fill($request->all());
         $derivacion->usuario = Auth::user()->usuario;
         $derivacion->update();
-        return redirect('/contrareferencia')->with('success', 'Contraeferencia actualizada correctamente');
+        return redirect('/contrarreferencia')->with('success', 'Contraeferencia actualizada correctamente');
     }
 
     /**
@@ -164,6 +164,6 @@ class ContrareferenciaController extends Controller
     {
         $contrareferencia = Derivacion::findOrFail($request->id);
         $contrareferencia->delete();
-        return redirect()->route('contrareferencia.index')->with('success', 'Contrareferencia eliminada correctamente');
+        return redirect()->route('contrarreferencia.index')->with('success', 'Contrareferencia eliminada correctamente');
     }
 }

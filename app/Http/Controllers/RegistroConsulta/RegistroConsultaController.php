@@ -158,9 +158,9 @@ class RegistroConsultaController extends Controller
      * @param  \App\RegistroConsulta  $registroConsulta
      * @return \Illuminate\Http\Response
      */
-    public function edit($admision)
+    public function edit($registro_consultum)
     {
-        $admision = Admision::find($admision);
+        $admision = Admision::find($registro_consultum);
         $establecimientos = Establecimiento::where('establecimiento', $admision->establecimiento)->get();
         $pacientes = Paciente::where('paciente', $admision->paciente)->get();
         $profesionales = Funcionario::where('funcionario', $admision->profesional)->get();

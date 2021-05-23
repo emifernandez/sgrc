@@ -1,14 +1,14 @@
 @extends('layouts.app')
-@section('title', 'Contrareferencias')
+@section('title', 'Contrarreferencias')
 @section('menu-header')
-    <li class="breadcrumb-item active">Contrareferencias</a></li>
+    <li class="breadcrumb-item active">Contrarreferencias</a></li>
 @endsection
 @section('content')
 <div class="col-sm-12">
   </div>
 <div class="panel panel-default">
     <div style="margin: 10px;" class="panel-heading">
-        <a  href="{{route('referencia.index')}}" class="btn btn-primary">Nueva Contrareferencia</a>
+        <a  href="{{route('referencia.index')}}" class="btn btn-primary">Nueva Contrarreferencia</a>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -39,7 +39,7 @@
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$contrareferencia->derivacion}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('contrareferencia.edit', $contrareferencia->derivacion) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('contrarreferencia.edit', $contrareferencia->derivacion) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                     @endforeach
@@ -52,12 +52,12 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-danger">
-          <h4 class="modal-title">Eliminar Contrareferencia</h4>
+          <h4 class="modal-title">Eliminar Contrarreferencia</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="{{ route('contrareferencia.destroy', 'test')}}" method="post">
+        <form action="{{ route('contrarreferencia.destroy', 'test')}}" method="post">
             @csrf
             @method('DELETE')
             <div class="modal-body">

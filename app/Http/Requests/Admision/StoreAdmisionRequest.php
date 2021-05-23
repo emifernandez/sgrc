@@ -50,7 +50,7 @@ class StoreAdmisionRequest extends FormRequest
             'paciente.required' => 'Debe introducir un paciente para la admisión',
             'fecha_admision.required' => 'Debe introducir una fecha para la admisión',
             'especialidad.required' => 'Debe introducir una especialidad para la admisión',
-            'profecional.required' => 'Debe introducir un profesional para la admisión',
+            'profesional.required' => 'Debe introducir un profesional para la admisión',
             'servicio.required' => 'Debe introducir un servicio para la admisión',
             'usuario.required' => 'Debe introducir un usuario para la admisión',
             'usuario.max' => 'El usuario de admisión no puede exceder 20 caracteres',

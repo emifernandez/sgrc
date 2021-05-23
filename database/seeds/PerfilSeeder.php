@@ -1,5 +1,6 @@
 <?php
 
+use App\Perfil;
 use Illuminate\Database\Seeder;
 
 class PerfilSeeder extends Seeder
@@ -11,6 +12,8 @@ class PerfilSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Perfil::class, 20)->create();
+        $perfil = new Perfil();
+        $perfil->nombre = 'administrador';
+        $perfil->save();
     }
 }

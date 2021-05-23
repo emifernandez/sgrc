@@ -3,7 +3,7 @@
 @section('title', 'Admisiones')
 @section('menu-header')
     <li class="breadcrumb-item"><a href="{{ route('admision.index') }}">Admisiones</a></li>
-    <li class="breadcrumb-item active">Editar Admision</a></li>
+    <li class="breadcrumb-item active">Editar Admisión</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,7 +15,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Editar Admision</h3>
+                                <h3 class="card-title">Editar Admisión</h3>
                             </div>
                             <form role="form" id="form" method="POST" action="{{ route('admision.update', $admision->admision) }}">
                                 @method('PATCH')
@@ -24,7 +24,7 @@
                                 <div class="row">
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label for="fecha_admision">Fecha Admision</label>
+                                                <label for="fecha_admision">Fecha Admisión</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
@@ -125,6 +125,7 @@
                                     <div class="form-group">
                                         <label>Paciente</label>
                                         <select class="form-control" name="paciente" id="paciente">
+                                            <option value="">Seleccione un Paciente</option>
                                             @foreach($pacientes as $key => $paciente)
                                                 <option value="{{ $paciente->paciente }}"
                                                     @if($paciente->paciente == old('paciente', $admision->paciente)) selected @endif
@@ -138,6 +139,7 @@
                                     <div class="form-group">
                                         <label>Especialidad</label>
                                         <select class="form-control" name="especialidad" id="especialidad">
+                                            <option value="">Seleccione una Especialidad</option>
                                             @foreach($especialidades as $key => $especialidad)
                                                 <option value="{{ $especialidad->especialidad }}"
                                                     @if($especialidad->especialidad == old('especialidad', $admision->especialidad)) selected @endif
@@ -151,6 +153,7 @@
                                     <div class="form-group">
                                         <label>Profesional</label>
                                         <select class="form-control" name="profesional" id="profesional">
+                                            <option value="">Seleccione un Profesional</option>
                                             @foreach($profesionales as $key => $profesional)
                                                 <option value="{{ $profesional->funcionario }}"
                                                     @if($profesional->funcionario == old('profesional', $admision->profesional)) selected @endif
@@ -164,6 +167,7 @@
                                     <div class="form-group">
                                         <label>Servicio Medico</label>
                                         <select class="form-control" name="servicio" id="servicio">
+                                            <option value="">Seleccione un Servicio Médico</option>
                                             @foreach($servicios as $key => $servicio)
                                                 <option value="{{ $servicio->servicio }}"
                                                     @if($servicio->servicio == old('servicio', $admision->servicio)) selected @endif
@@ -175,13 +179,13 @@
                                         @endforeach
                                     </div>
                                     <div class="form-group">
-                                        <label for="observacion">Observacion</label>
+                                        <label for="observacion">Observación</label>
                                         <textarea class="form-control"
                                             rows="3"
                                             name="observacion"
                                             id="observacion"
                                             value="{{ old('observacion', $admision->observacion) }}"
-                                            placeholder="Introduzca observacion para la admisión">{{ old('observacion', $admision->observacion) }}</textarea>
+                                            placeholder="Introduzca observación para la admisión">{{ old('observacion', $admision->observacion) }}</textarea>
                                             @foreach ($errors->get('observacion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
@@ -201,4 +205,6 @@
 </div>
 @endsection
 @section('scripts')
+<script type="text/javascript" src="{!! asset('js/util.js') !!}"></script>
+@endsection
 

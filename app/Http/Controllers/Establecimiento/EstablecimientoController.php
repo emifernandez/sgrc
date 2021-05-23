@@ -243,9 +243,5 @@ class EstablecimientoController extends Controller
         return view('establecimiento.reportes.establecimiento')
             ->with('establecimientos', $establecimientos)
             ->with('establecimiento_usuario', $establecimiento_usuario);
-        // $pdf = \PDF::loadView('establecimiento.reportes.establecimiento', compact('establecimientos', 'establecimiento_usuario'));
-        // $pdf->getDomPDF()->set_option("enable_php", true);
-        // $pdf->setPaper('A4', 'landscape');
-        // return $pdf->stream('Establecimientos.pdf');
     }
 }

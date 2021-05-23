@@ -51,6 +51,11 @@ class Paciente extends Model
         '2' => 'No Trabaja',
     ];
 
+    const PACIENTE_ESTADO = [
+        '1' => 'Activo',
+        '2' => 'Inactivo',
+    ];
+
     protected $table = 'pacientes';
 
     protected $primaryKey = 'paciente';
@@ -85,6 +90,7 @@ class Paciente extends Model
         'ocupacion',
         'nombre_padre',
         'nombre_madre',
+        'estado',
     ];
 
     public $timestamps = false;

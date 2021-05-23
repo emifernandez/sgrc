@@ -8,7 +8,6 @@
 @section('content')
 <div class="row">
 	<div class="col-lg-12">
-
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -252,7 +251,8 @@
                                             @endforeach
                                     </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Grabar</button>
+                                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-loading" >
+                                        Grabar</button>
                                     <a href="{{ route('referencia.index') }}" class="btn btn-secondary btn-close">Cancelar</a>
                                 </div>
                             </form>
@@ -263,4 +263,22 @@
         </section>
 	</div>
 </div>
+<div class="modal fade" id="modal-loading" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered d-flex justify-content-center" role="document">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#modal-danger').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var data = button.data('data')
+            var modal = $(this)
+            modal.find('.modal-body #id').val(data)
+          })
+    </script>
 @endsection

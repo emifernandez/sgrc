@@ -39,7 +39,7 @@ class AccesoSeeder extends Seeder
             ['nombre' => 'Enfermedades', 'url' => 'enfermedad.index'],
             ['nombre' => 'Atenciones Médicas', 'url' => 'registro-consulta.index'],
             ['nombre' => 'Referencias', 'url' => 'referencia.index'],
-            ['nombre' => 'Contrareferencias', 'url' => 'contrareferencia.index'],
+            ['nombre' => 'Contrarreferencias', 'url' => 'contrarreferencia.index'],
             ['nombre' => 'Informe de Establecimientos', 'url' => 'report.establecimiento.index'],
             ['nombre' => 'Informe de Horarios de Atención', 'url' => 'report.profesional.index'],
             ['nombre' => 'Informe de Derivaciones', 'url' => 'report.derivacion.index'],

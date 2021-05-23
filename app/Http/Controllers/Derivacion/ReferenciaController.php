@@ -8,10 +8,12 @@ use App\EspecialidadMedica;
 use App\Establecimiento;
 use App\Funcionario;
 use App\Http\Controllers\Controller;
+use App\Mail\TestMail;
 use App\Paciente;
 use App\RegistroConsulta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ReferenciaController extends Controller
 {
@@ -57,6 +59,8 @@ class ReferenciaController extends Controller
         $referencia = new Derivacion($request->all());
         $referencia->usuario = Auth::user()->usuario;
         $referencia->save();
+        $this->enviarEmail($referencia);
+
         return redirect('/referencia')->with('success', 'Referencia grabada correctamente');
     }
 
@@ -66,9 +70,9 @@ class ReferenciaController extends Controller
      * @param  \App\Derivacion  $derivacion
      * @return \Illuminate\Http\Response
      */
-    public function show($consulta)
+    public function show($referencium)
     {
-        $consulta = RegistroConsulta::find($consulta);
+        $consulta = RegistroConsulta::find($referencium);
         $establecimiento_origen = Establecimiento::where('establecimiento', $consulta->establecimiento)->get();
         $establecimientos = Establecimiento::where('establecimiento', '!=', $consulta->establecimiento)->get();
         $pacientes = Paciente::where('paciente', $consulta->paciente)->get();
@@ -155,5 +159,22 @@ class ReferenciaController extends Controller
         $referencia = Derivacion::findOrFail($request->id);
         $referencia->delete();
         return redirect()->route('referencia.index')->with('success', 'Referencia eliminada correctamente');
+    }
+
+    private function enviarEmail($referencia)
+    {
+        $details = [
+            'subject' => 'Confirmación de Referencia',
+            'template' => 'referenciaMail',
+            'value' => $referencia->derivacion,
+        ];
+        $derivante = Funcionario::find($referencia->profesional_derivante);
+        $derivado = Funcionario::find($referencia->profesional_derivado);
+        if ($derivante->email) {
+            Mail::to($derivante->email)->send(new TestMail($details));
+        }
+        if ($derivado->email) {
+            Mail::to($derivado->email)->send(new TestMail($details));
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\EspecialidadMedica;
 use App\Establecimiento;
 use App\Derivacion;
 use App\Funcionario;
+use App\HorarioAtencion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admision\StoreAdmisionRequest;
 use App\Http\Requests\Admision\UpdateAdmisionRequest;
@@ -43,10 +44,11 @@ class AdmisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $establecimientos = Establecimiento::orderBy('nombre', 'ASC')->get();
-        $pacientes = Paciente::orderBy('nombres', 'ASC')->get();
+        $establecimiento = $request->session()->get('establecimiento');
+        $establecimientos = Establecimiento::where('establecimiento', $establecimiento->establecimiento)->orderBy('nombre', 'ASC')->get();
+        $pacientes = Paciente::where('estado', '1')->orderBy('nombres', 'ASC')->get();
         $especialidades = EspecialidadMedica::orderBy('nombre', 'ASC')->get();
         $profesionales = Funcionario::orderBy('nombres', 'ASC')->get();
         $servicios = ServicioMedico::orderBy('nombre', 'ASC')->get();
@@ -78,8 +80,8 @@ class AdmisionController extends Controller
      */
     public function store(StoreAdmisionRequest $request)
     {
-
         $admision = new Admision($request->all());
+        $admision->fecha_registro = now();
         $admision->usuario = Auth::user()->usuario;
         if ($admision->derivacion == 'null') {
             $admision->derivacion = null;
@@ -110,7 +112,18 @@ class AdmisionController extends Controller
         $establecimientos = Establecimiento::orderBy('nombre', 'ASC')->get();
         $pacientes = Paciente::orderBy('nombres', 'ASC')->get();
         $especialidades = EspecialidadMedica::orderBy('nombre', 'ASC')->get();
-        $profesionales = Funcionario::orderBy('nombres', 'ASC')->get();
+        $horarios = HorarioAtencion::orderby('hora_desde')
+            ->select('funcionario')
+            ->with('funcionario')
+            ->where('especialidad', $admision->especialidad)
+            ->where('dia', $admision->fecha_admision->getWeekDay())
+            ->where('establecimiento', $admision->establecimiento)
+            ->get()
+            ->pluck('funcionario');
+        $profesionales = Funcionario::whereIn('funcionario', $horarios)->orderBy('nombres', 'ASC')->get();
+
+        // $profesionales = Funcionario::orderBy('nombres', 'ASC')->get();
+
         $servicios = ServicioMedico::orderBy('nombre', 'ASC')->get();
         $estados = Admision::ADMISION_ESTADO;
         $prioridades = Admision::ADMISION_PRIORIDAD;
@@ -161,5 +174,18 @@ class AdmisionController extends Controller
         $admision = Admision::findOrFail($request->id);
         $admision->delete();
         return redirect()->route('admision.index')->with('success', 'Admision eliminada correctamente');
+    }
+
+
+    public function getProfesional($establecimiento = 0, $especialidad = 0, $dia = 0)
+    {
+        $data['data'] = HorarioAtencion::orderby('hora_desde')
+            ->select('funcionario', 'hora_desde', 'hora_hasta')
+            ->with('funcionario')
+            ->where('especialidad', $especialidad)
+            ->where('dia', $dia)
+            ->where('establecimiento', $establecimiento)
+            ->get();
+        return response()->json($data);
     }
 }

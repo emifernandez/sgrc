@@ -27,7 +27,7 @@
           </h3>
         </div>
       </div>
-    <input type="hidden" id="establecimiento_data" value="{{ $establecimiento }}">
+    <input type="hidden" id="establecimiento_data" value="{{ mb_convert_case($establecimiento, MB_CASE_TITLE, "UTF-8") }}">
     <input type="hidden" id="atenciones_data" value="{{ $atenciones }}">
     <input type="hidden" id="referencias_data" value="{{ $referencias }}">
     <input type="hidden" id="contrareferencias_data" value="{{ $contrareferencias }}">
@@ -44,14 +44,14 @@
             <th style="width: 0%">Establecimiento</th>
             <th style="width: 10%">Atenciones</th>
             <th style="width: 10%">Referencias</th>
-            <th style="width: 10%">Contrareferencias</th>
+            <th style="width: 10%">Contrarreferencias</th>
           </tr>
           </thead>
           <tbody>
             @foreach($red as $i => $establecimiento)
             <tr>
-                <td>{{ $establecimiento->red }}</td>
-                <td id="establecimiento">{{ $establecimiento->establecimiento }}</td>
+                <td>{{ mb_convert_case($establecimiento->red, MB_CASE_TITLE, "UTF-8") }}</td>
+                <td id="establecimiento">{{ mb_convert_case($establecimiento->establecimiento, MB_CASE_TITLE, "UTF-8") }}</td>
                 <td id="atenciones">{{ $establecimiento->atenciones }}</td>
                 <td id="referencias">{{ $establecimiento->referencias }}</td>
                 <td id="contrareferencias">{{ $establecimiento->contrareferencias }}</td>
@@ -104,7 +104,7 @@
               data: referencias
           },
           {
-            label: 'Contrareferencias',
+            label: 'Contrarreferencias',
               backgroundColor: "lemonchiffon",
               borderWidth: 1,
               data: contrareferencias
@@ -127,7 +127,7 @@
                   responsive: true,
                   title: {
                       display: true,
-                      text: 'Gráfico de Barras'
+                      text: 'Cantidad de Atención'
                   }
               }
           });

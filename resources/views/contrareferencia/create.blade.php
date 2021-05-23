@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Contrareferencias')
+@section('title', 'Contrarreferencias')
 @section('menu-header')
-    <li class="breadcrumb-item"><a href="{{ route('contrareferencia.index') }}">Contrareferencias</a></li>
-    <li class="breadcrumb-item active">Crear Contrareferencia</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('contrarreferencia.index') }}">Contrarreferencias</a></li>
+    <li class="breadcrumb-item active">Crear Contrarreferencia</a></li>
 @endsection
 @section('content')
 <div class="row">
@@ -15,9 +15,9 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Crear Contrareferencia</h3>
+                                <h3 class="card-title">Crear Contrarreferencia</h3>
                             </div>
-                            <form role="form" id="form" method="POST" action="{{ route('contrareferencia.store') }}">
+                            <form role="form" id="form" method="POST" action="{{ route('contrarreferencia.store') }}">
                                 @csrf
                                 <input type="hidden" name="consulta" id="consulta" value="{{ $referencia->consulta }}">
                                 <input type="hidden" name="contra_derivacion" id="contra_derivacion" value="{{ $referencia->derivacion }}">
@@ -191,7 +191,7 @@
                                             name="descripcion_caso"
                                             id="descripcion_caso"
                                             value="{{ old('descripcion_caso') }}"
-                                            placeholder="Introduzca descripcion del caso para la referencia"></textarea>
+                                            placeholder="Introduzca descripcion del caso para la contrarreferencia"></textarea>
                                             @foreach ($errors->get('descripcion_caso') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
@@ -203,7 +203,7 @@
                                             name="impresion_diagnostica"
                                             id="impresion_diagnostica"
                                             value="{{ old('impresion_diagnostica') }}"
-                                            placeholder="Introduzca impresión diagnóstica para la referencia"></textarea>
+                                            placeholder="Introduzca impresión diagnóstica para la contrarreferencia"></textarea>
                                             @foreach ($errors->get('impresion_diagnostica') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
@@ -215,7 +215,7 @@
                                             name="tratamiento_actual"
                                             id="tratamiento_actual"
                                             value="{{ old('tratamiento_actual') }}"
-                                            placeholder="Introduzca tratamiento actual para la referencia"></textarea>
+                                            placeholder="Introduzca tratamiento actual para la contrarreferencia"></textarea>
                                             @foreach ($errors->get('tratamiento_actual') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
@@ -227,7 +227,7 @@
                                             name="recomendacion"
                                             id="recomendacion"
                                             value="{{ old('recomendacion') }}"
-                                            placeholder="Introduzca recomendación para la referencia"></textarea>
+                                            placeholder="Introduzca recomendación para la contrarreferencia"></textarea>
                                             @foreach ($errors->get('recomendacion') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach
@@ -239,7 +239,7 @@
                                             name="situacion_sociofamiliar"
                                             id="situacion_sociofamiliar"
                                             value="{{ old('situacion_sociofamiliar') }}"
-                                            placeholder="Introduzca situacion sociofamiliar para la referencia"></textarea>
+                                            placeholder="Introduzca situacion sociofamiliar para la contrarreferencia"></textarea>
                                             @foreach ($errors->get('situacion_sociofamiliar') as $error)
                                                 <span class="text text-danger">{{ $error }}</span>
                                             @endforeach

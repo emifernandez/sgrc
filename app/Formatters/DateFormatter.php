@@ -42,6 +42,11 @@ class DateFormatter
         return $this->date->format('H:i');
     }
 
+    public function getWeekDay()
+    {
+        return $this->date->dayOfWeek + 1;
+    }
+
     /**
      * Format date for Profile
      */

@@ -9,6 +9,38 @@ $(document).ready(function () {
         $(this).parent().parent().remove();
     });
 
+    $("#especialidad").change(function () {
+        var especialidad = $(this).val();
+        var establecimiento = $("#establecimiento").val();
+        var from = $("#fecha_admision").val().split("-")
+        var dia = new Date(from[2], from[1] - 1, from[0]).getDay() + 1;
+        $('#profesional').find('option').not(':first').remove();
+        $.ajax({
+            url: 'getProfesional/' + establecimiento + '/' + especialidad + '/' + dia,
+            type: 'get',
+            dataType: 'json',
+            success: function (response) {
+                var len = 0;
+                if (response['data'] != null) {
+                    len = response['data'].length;
+                }
+                if (len > 0) {
+                    for (var i = 0; i < len; i++) {
+                        var hd = new Date(response['data'][i].hora_desde); var hh = new Date(response['data'][i].hora_hasta);
+                        var hora_desde = hd.getHours() + ':' + (hd.getMinutes() < 10 ? '0' + hd.getMinutes() : hd.getMinutes());
+                        var hora_hasta = hh.getHours() + ':' + (hh.getMinutes() < 10 ? '0' + hh.getMinutes() : hh.getMinutes());
+
+                        var profesional_id = response['data'][i].funcionario.funcionario;
+                        var descripcion = response['data'][i].funcionario.nombres + ' ' + response['data'][i].funcionario.apellidos + ' - ' + hora_desde + ' a ' + hora_hasta;
+
+                        var option = "<option value='" + profesional_id + "'> " + descripcion + "</option>";
+                        $('#profesional').append(option);
+                    }
+                }
+            }
+        })
+    });
+
     function addAcceso() {
         var duplicado = false;
         var a = document.getElementById("acceso");

@@ -74,7 +74,7 @@
                 <td>{{$referencias[0]->referencias}}</td>
               </tr>
               <tr>
-                <th>Contra Referencias:</th>
+                <th>Contrarreferencias:</th>
                 <td>{{$contrareferencias[0]->contrareferencias}}</td>
               </tr>
               <tr>

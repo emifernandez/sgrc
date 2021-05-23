@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('admision', 'Admision\AdmisionController');
     Route::resource('barrio', 'Barrio\BarrioController');
     Route::resource('cargo', 'Cargo\CargoController');
-    Route::resource('contrareferencia', 'Derivacion\ContrareferenciaController');
+    Route::resource('contrarreferencia', 'Derivacion\ContrareferenciaController');
     Route::resource('distrito', 'Distrito\DistritoController');
     Route::resource('enfermedad', 'Enfermedad\EnfermedadController');
     Route::resource('especialidad', 'EspecialidadMedica\EspecialidadMedicaController');
@@ -72,5 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
         return view('layouts.block');
     })->name('block');
 });
+Route::get('admision/getProfesional/{establecimiento}/{especialidad}/{dia}', 'Admision\AdmisionController@getProfesional');
+Route::get('admision/{funcionario}/getProfesional/{establecimiento}/{especialidad}/{dia}', 'Admision\AdmisionController@getProfesional');
 Route::get('report-horario', 'Reporte\ReporteController@horario')->name('report.horario');
 Route::post('report-funcionario', 'Funcionario\FuncionarioController@report')->name('profesional.report');

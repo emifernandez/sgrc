@@ -40,7 +40,7 @@
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
                             <a href="{{ route('referencia.edit', $referencia->derivacion) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="{{ route('contrareferencia.show', $referencia->derivacion) }}" class= "btn btn-info" style="margin-top: 5px;">Contrareferencia</a>
+                            <a href="{{ route('contrarreferencia.show', $referencia->derivacion) }}" class= "btn btn-info" style="margin-top: 5px;">Contrarreferencia</a>
                         </td>
                     </tr>
                     @endforeach

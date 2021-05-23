@@ -353,11 +353,11 @@ use App\Usuario;
                                 </a>
                             </li>
                         @endif
-                        @if($accesos->where('nombre', 'Contrareferencias')->first() && $accesos->where('nombre', 'Contrareferencias')->first()->detalle->habilitado == '1')
+                        @if($accesos->where('nombre', 'Contrarreferencias')->first() && $accesos->where('nombre', 'Contrarreferencias')->first()->detalle->habilitado == '1')
                             <li class="nav-item">
-                                <a href="{{ route($accesos->where('nombre', 'Contrareferencias')->first()->url) }}" class="nav-link ">
+                                <a href="{{ route($accesos->where('nombre', 'Contrarreferencias')->first()->url) }}" class="nav-link ">
                                 <i class="fas fa-arrow-circle-up nav-icon"></i>
-                                <p>{{ $accesos->where('nombre', 'Contrareferencias')->first()->nombre }}</p>
+                                <p>{{ $accesos->where('nombre', 'Contrarreferencias')->first()->nombre }}</p>
                                 </a>
                             </li>
                         @endif

@@ -238,7 +238,7 @@ class ReporteController extends Controller
             $c++;
         }
         if ($request->has('establecimiento') && $request->get('establecimiento') != 'null') {
-            $where = $where . ' horarios_atenciones.establecimiento = ' . $request->get('establecimiento');
+            $where = $where . ' establecimientos.establecimiento = ' . $request->get('establecimiento');
             $c++;
         }
 
@@ -392,7 +392,7 @@ class ReporteController extends Controller
             WHEN 1 THEN
                 'Referencia'
             WHEN 2 THEN
-                'Contrareferencia'
+                'Contrarreferencia'
             END AS tipo,
             d.descripcion_caso,
             d.impresion_diagnostica,
@@ -495,7 +495,7 @@ class ReporteController extends Controller
             WHEN 1 THEN
                 'Referencia'
             WHEN 2 THEN
-                'Contrareferencia'
+                'Contrarreferencia'
             END AS tipo,
             d.descripcion_caso,
             d.impresion_diagnostica,

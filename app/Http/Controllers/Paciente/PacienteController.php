@@ -56,6 +56,7 @@ class PacienteController extends Controller
         $etnias = Paciente::PACIENTE_ETNIA;
         $areas = Paciente::PACIENTE_AREA;
         $situaciones_laborales = Paciente::PACIENTE_SITUACION_LABORAL;
+        $estados = Paciente::PACIENTE_ESTADO;
         $fecha_ingreso = date('d-m-Y');
         return view('paciente.create')
             ->with('establecimientos', $establecimientos)
@@ -71,7 +72,8 @@ class PacienteController extends Controller
             ->with('etnias', $etnias)
             ->with('areas', $areas)
             ->with('situaciones_laborales', $situaciones_laborales)
-            ->with('fecha_ingreso', $fecha_ingreso);
+            ->with('fecha_ingreso', $fecha_ingreso)
+            ->with('estados', $estados);
     }
 
     /**
@@ -118,6 +120,7 @@ class PacienteController extends Controller
         $tipos_documentos = Paciente::PACIENTE_TIPO_DOCUMENTO;
         $etnias = Paciente::PACIENTE_ETNIA;
         $areas = Paciente::PACIENTE_AREA;
+        $estados = Paciente::PACIENTE_ESTADO;
         $situaciones_laborales = Paciente::PACIENTE_SITUACION_LABORAL;
         return view('paciente.edit')
             ->with('paciente', $paciente)
@@ -133,7 +136,8 @@ class PacienteController extends Controller
             ->with('tipos_documentos', $tipos_documentos)
             ->with('etnias', $etnias)
             ->with('areas', $areas)
-            ->with('situaciones_laborales', $situaciones_laborales);
+            ->with('situaciones_laborales', $situaciones_laborales)
+            ->with('estados', $estados);
     }
 
     /**
