@@ -39,7 +39,7 @@
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$contrareferencia->derivacion}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
-                            <a href="{{ route('contrarreferencia.edit', $contrareferencia->derivacion) }}" class= "btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="{{ route('contrarreferencia.edit', $contrareferencia->derivacion) }}" class= "btn btn-secondary" target="_blank"><i class="fas fa-print"></i></a>
                         </td>
                     </tr>
                     @endforeach

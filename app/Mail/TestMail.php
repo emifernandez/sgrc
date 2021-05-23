@@ -40,7 +40,7 @@ class TestMail extends Mailable
     {
         $template = $this->details['template'];
         $data = collect([]);
-        if ($this->details['template'] == 'referenciaMail') {
+        if ($this->details['template'] == 'referenciaMail' || $this->details['template'] == 'contrarreferenciaMail') {
             $data = Derivacion::find($this->details['value']);
             $data->establecimiento = Establecimiento::find($data->establecimiento);
             $data->establecimiento_derivacion = Establecimiento::find($data->establecimiento_derivacion);
