@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Usuario;
 
 use App\Funcionario;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Usuario\ChangePasswordRequest;
 use App\Http\Requests\Usuario\StoreUsuarioRequest;
 use App\Http\Requests\Usuario\UpdateUsuarioRequest;
 use Illuminate\Support\Facades\Hash;
@@ -133,5 +134,24 @@ class UsuarioController extends Controller
         $usuario = Usuario::findOrFail($request->id);
         $usuario->delete();
         return redirect()->route('usuario.index')->with('success', 'Usuario eliminado correctamente');
+    }
+
+    public function cambiar_password()
+    {
+        $usuario = auth()->user();
+        return view('usuario.password')->with('usuario', $usuario);
+    }
+
+    public function change_password(ChangePasswordRequest $request)
+    {
+        $clave_actual = $request->clave_actual;
+        $usuario = Usuario::where('usuario', $request->usuario)->get()->first();
+        if (Hash::check($clave_actual, $usuario->clave)) {
+            $usuario->clave = Hash::make($request->clave);
+            $usuario->save();
+        } else {
+            return redirect()->back()->with('error', 'La contraseña actual ingresada no es correcta');
+        }
+        return redirect()->route('home')->with('success', 'Contraseña actualizada correctamente');
     }
 }

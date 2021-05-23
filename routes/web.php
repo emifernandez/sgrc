@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('establecimiento', 'Establecimiento\EstablecimientoController');
     Route::resource('funcionario', 'Funcionario\FuncionarioController');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/password', 'Usuario\UsuarioController@cambiar_password')->name('usuario.password');
+    Route::post('/change-password', 'Usuario\UsuarioController@change_password')->name('usuario.change-password');
     Route::get('/', 'HomeController@index');
     Route::resource('horario', 'HorarioAtencion\HorarioAtencionController');
     Route::resource('motivo', 'Motivo\MotivoController');

@@ -67,7 +67,10 @@ use App\Usuario;
                                 <i class="fas fa-sign-out-alt"></i>
                                 <p>Cerrar Sesión</p>
                             </a>
-
+                            <a class="nav-link" href="{{ route('usuario.password') }}">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <p>Cambiar Contraseña</p>
+                            </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
