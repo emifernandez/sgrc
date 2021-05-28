@@ -16,10 +16,12 @@ use App\Http\Requests\Derivacion\StoreReferenciaRequest;
 use App\Mail\TestMail;
 use App\Paciente;
 use App\RegistroConsulta;
+use App\ServicioMedico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class ReferenciaController extends Controller
 {
@@ -67,12 +69,27 @@ class ReferenciaController extends Controller
         DB::transaction(function () use ($referencia, $request) {
             if (isset($request['profesional_derivado'])) {
                 $horario = HorarioAtencion::find($request['profesional_derivado']);
-                $referencia->fecha = now();
+                $referencia->fecha = Carbon::parse($request->fecha)->format('Y-m-d H:i:s');
                 $referencia->profesional_derivado = $horario->funcionario;
                 $referencia->usuario = Auth::user()->usuario;
                 $referencia->save();
+
                 $horario->uso_atencion = $horario->uso_atencion + 1;
                 $horario->save();
+
+                $admision = new Admision();
+                $admision->establecimiento = $referencia->establecimiento_derivacion;
+                $admision->derivacion = $referencia->derivacion;
+                $admision->paciente = $referencia->paciente;
+                $admision->fecha_admision = Carbon::parse($request->fecha)->format('Y-m-d H:i:s');
+                $admision->especialidad = $referencia->especialidad;
+                $admision->profesional = $referencia->profesional_derivado;
+                $admision->servicio = ServicioMedico::all()->first()->servicio;
+                $admision->fecha_registro = now();
+                $admision->estado = '1'; //pendiente
+                $admision->usuario = Auth::user()->usuario;
+                $admision->prioridad = $referencia->prioridad;
+                $admision->save();
             }
         });
         $this->enviarEmail($referencia);
@@ -178,11 +195,15 @@ class ReferenciaController extends Controller
         ];
         $derivante = Funcionario::find($referencia->profesional_derivante);
         $derivado = Funcionario::find($referencia->profesional_derivado);
+        $establecimiento_derivacion = Establecimiento::find($referencia->establecimiento_derivacion);
         if ($derivante->email) {
             Mail::to($derivante->email)->send(new TestMail($details));
         }
         if ($derivado->email) {
             Mail::to($derivado->email)->send(new TestMail($details));
+        }
+        if ($establecimiento_derivacion->email) {
+            Mail::to($establecimiento_derivacion->email)->send(new TestMail($details));
         }
     }
 
@@ -193,6 +214,10 @@ class ReferenciaController extends Controller
             ->select('horario', 'funcionario', 'hora_desde', 'hora_hasta')
             ->whereRaw($where)
             ->get();
+
+        foreach ($data['data'] as $profesional) {
+            $profesional->funcionario = Funcionario::find($profesional->funcionario);
+        }
         return response()->json($data);
     }
 }
