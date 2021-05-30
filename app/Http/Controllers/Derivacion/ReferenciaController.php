@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class ReferenciaController extends Controller
 {
@@ -32,7 +33,11 @@ class ReferenciaController extends Controller
      */
     public function index()
     {
-        $referencias = Derivacion::where('tipo', '1')->get();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $referencias = Derivacion::where('tipo', '1')
+            ->where('establecimiento', $establecimiento_usuario->establecimiento)
+            ->orWhere('establecimiento_derivacion', $establecimiento_usuario->establecimiento)
+            ->get();
         $prioridades = Derivacion::PRIORIDAD_DERIVACION;
         $referencias->each(function ($referencia) {
             $referencia->establecimiento = Establecimiento::find($referencia->establecimiento);
@@ -43,7 +48,8 @@ class ReferenciaController extends Controller
         });
         return view('referencia.index')
             ->with('referencias', $referencias)
-            ->with('prioridades', $prioridades);
+            ->with('prioridades', $prioridades)
+            ->with('establecimiento_usuario', $establecimiento_usuario);
     }
 
     /**

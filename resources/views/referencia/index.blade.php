@@ -36,11 +36,15 @@
                         <td>{{ $referencia->profesional_derivado->nombres . ' ' . $referencia->profesional_derivado->apellidos }}</td>
                         <td>{{ $prioridades[$referencia->prioridad] }}</td>
                         <td style="display: block;  margin: auto;">
+                            @if ($establecimiento_usuario->establecimiento == $referencia->establecimiento->establecimiento)
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger" data-data="{{$referencia->derivacion}}">
                                 <i class="fas fa-trash-alt" aria-hidden="true"></i>
                             </button>
                             <a href="{{ route('referencia.edit', $referencia->derivacion) }}" class= "btn btn-secondary" target="_blank"><i class="fas fa-print"></i></a>
+                            @endif
+                            @if ($establecimiento_usuario->establecimiento != $referencia->establecimiento->establecimiento)
                             <a href="{{ route('contrarreferencia.show', $referencia->derivacion) }}" class= "btn btn-info" style="margin-top: 5px;">Contrarreferencia</a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

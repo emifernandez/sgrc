@@ -16,6 +16,7 @@ use App\ServicioMedico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdmisionController extends Controller
 {
@@ -26,7 +27,8 @@ class AdmisionController extends Controller
      */
     public function index()
     {
-        $admisiones = Admision::all();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $admisiones = Admision::where('establecimiento', $establecimiento_usuario->establecimiento)->get();
         $prioridades = Admision::ADMISION_PRIORIDAD;
         $admisiones->each(function ($admision) {
             $admision->establecimiento = Establecimiento::find($admision->establecimiento);

@@ -6,12 +6,14 @@ use App\Barrio;
 use App\Cargo;
 use App\EspecialidadMedica;
 use App\Funcionario;
+use App\HorarioAtencion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Funcionario\StoreFuncionarioRequest;
 use App\Http\Requests\Funcionario\UpdateFuncionarioRequest;
 use App\Profesion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class FuncionarioController extends Controller
 {
@@ -22,7 +24,9 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = Funcionario::all();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $funcionarios_establecimiento = HorarioAtencion::where('establecimiento', $establecimiento_usuario->establecimiento)->pluck('funcionario')->toArray();
+        $funcionarios = Funcionario::whereIn('funcionario', $funcionarios_establecimiento)->get();
         $funcionarios->each(function ($funcionario) {
             $funcionario->barrio = Barrio::find($funcionario->barrio);
             $funcionario->profesion = Profesion::find($funcionario->profesion);

@@ -10,8 +10,10 @@ use App\Http\Requests\Usuario\UpdateUsuarioRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Perfil;
 use App\Usuario;
+use App\Establecimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UsuarioController extends Controller
@@ -23,7 +25,12 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $usuarios_establecimiento = Usuario::join('usuarios_establecimientos', 'usuarios.usuario', '=', 'usuarios_establecimientos.usuario')
+            ->where('usuarios_establecimientos.establecimiento', $establecimiento_usuario->establecimiento)
+            ->pluck('usuarios_establecimientos.usuario')
+            ->toArray();
+        $usuarios = Usuario::whereIn('usuario', $usuarios_establecimiento)->get();
         $usuarios->each(function ($usuario) {
             $usuario->funcionario = Funcionario::find($usuario->funcionario);
             $usuario->perfil = Perfil::find($usuario->perfil);

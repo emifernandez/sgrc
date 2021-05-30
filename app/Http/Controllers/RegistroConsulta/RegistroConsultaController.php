@@ -17,6 +17,7 @@ use App\ServicioMedico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RegistroConsultaController extends Controller
 {
@@ -27,7 +28,8 @@ class RegistroConsultaController extends Controller
      */
     public function index()
     {
-        $consultas = RegistroConsulta::all();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $consultas = RegistroConsulta::where('establecimiento', $establecimiento_usuario->establecimiento)->get();
         $consultas->each(function ($consulta) {
             $consulta->establecimiento = Establecimiento::find($consulta->establecimiento);
             $consulta->admision = Admision::find($consulta->admision);
@@ -40,8 +42,11 @@ class RegistroConsultaController extends Controller
 
     public function pendientes()
     {
+        $establecimiento_usuario = Session::get('establecimiento');
         $consultas = RegistroConsulta::all()->pluck('admision')->toArray();
-        $admisiones = Admision::whereNotIn('admision', $consultas)->orderBy('prioridad', 'DESC')->get();
+        $admisiones = Admision::whereNotIn('admision', $consultas)
+            ->where('establecimiento', $establecimiento_usuario->establecimiento)
+            ->orderBy('prioridad', 'DESC')->get();
         $prioridades = Admision::ADMISION_PRIORIDAD;
         $admisiones->each(function ($admision) {
             $admision->establecimiento = Establecimiento::find($admision->establecimiento);

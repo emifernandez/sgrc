@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class ContrareferenciaController extends Controller
 {
@@ -26,7 +27,10 @@ class ContrareferenciaController extends Controller
      */
     public function index()
     {
-        $contrareferencias = Derivacion::where('tipo', '2')->get();
+        $establecimiento_usuario = Session::get('establecimiento');
+        $contrareferencias = Derivacion::where('tipo', '2')
+            ->where('establecimiento', $establecimiento_usuario->establecimiento)
+            ->get();
         $prioridades = Derivacion::PRIORIDAD_DERIVACION;
         $contrareferencias->each(function ($contrareferencia) {
             $contrareferencia->establecimiento = Establecimiento::find($contrareferencia->establecimiento);
