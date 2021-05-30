@@ -30,10 +30,10 @@ $(document).ready(function () {
                         var hora_desde = hd.getHours() + ':' + (hd.getMinutes() < 10 ? '0' + hd.getMinutes() : hd.getMinutes());
                         var hora_hasta = hh.getHours() + ':' + (hh.getMinutes() < 10 ? '0' + hh.getMinutes() : hh.getMinutes());
 
-                        var profesional_id = response['data'][i].funcionario.funcionario;
+                        var horario_id = response['data'][i].horario;
                         var descripcion = response['data'][i].funcionario.nombres + ' ' + response['data'][i].funcionario.apellidos + ' - ' + hora_desde + ' a ' + hora_hasta;
 
-                        var option = "<option value='" + profesional_id + "'> " + descripcion + "</option>";
+                        var option = "<option value='" + horario_id + "'> " + descripcion + "</option>";
                         $('#profesional').append(option);
                     }
                 }

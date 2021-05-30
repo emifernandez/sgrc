@@ -193,7 +193,7 @@ class AdmisionController extends Controller
     public function getProfesional($establecimiento = 0, $especialidad = 0, $dia = 0)
     {
         $data['data'] = HorarioAtencion::orderby('hora_desde')
-            ->select('funcionario', 'hora_desde', 'hora_hasta')
+            ->select('horario', 'funcionario', 'hora_desde', 'hora_hasta')
             ->with('funcionario')
             ->where('especialidad', $especialidad)
             ->where('dia', $dia)
